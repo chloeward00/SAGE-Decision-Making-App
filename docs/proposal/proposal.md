@@ -99,8 +99,8 @@
 
 > ●  Python         
 > ●  Nodejs         
-> ●  Nosql database 
-> ●  Nextjs         
+> ●  Nosql database
+> ●  Nextjs       
 > ●  React          
 > ●  JavaScript   
 
