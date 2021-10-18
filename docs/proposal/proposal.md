@@ -10,9 +10,9 @@
 |                     |                   |
 |---------------------|-------------------|
 |Project Title:       | xxxxxx            |
-|Student 1 Name:      | xxxxxx            |
-|Student 1 ID:        | xxxxxx            |
-|Student 2 Name:      | xxxxxx            |
+|Student 1 Name:      | Chloe Ward        |
+|Student 1 ID:        | 18302716          |
+|Student 2 Name:      | Joanna Talvo      |
 |Student 2 ID:        | xxxxxx            |
 |Project Supervisor:  | xxxxxx            |
 
@@ -33,31 +33,157 @@
 
 ### Introduction
 
-> Describe the general area covered by the project.
+> Application that will behave as a decision maker. It will help groups
+> of people and to organise plans with no hassle. SAGE will provide
+> users choices they can pick from depending on the categories they
+> choose such as places to eat, activities to do, and movies to watch.
+> It will create a 'decision' based on the group of users\' choices.
+> Aside from this, SAGE will also take into account the weather and
+> user's availability. SAGE aims to ultimately shorten and simplify the
+> decision making process of groups.
 
 ### Outline
 
-> Outline the proposed project.
+> Users will need to register with a valid email address along with
+> other details such as First Name, Last Name, and Password prior to
+> signing up to the application. Users will have the ability to also
+> reset their password and delete their account. Users can have multiple
+> groups within the application. Users can be added to groups and input
+> the dates that they are available.
 
 ### Background
 
-> Where did the ideas come from?
+> In this progressive web application, a user will create a plan. All
+> members in a group will be asked for their availability dates using a
+> calendar provided by SAGE. It will provide the group members with the
+> dates that the majority is available. SAGE will have features which
+> will show activities near you, access to a wide range of movies or
+> places that you may want to eat at. It will have a swipe feature which
+> will allow a user to swipe right for 'yes' and swipe left for 'no'.
+> The most picked choice will be shown to all users in the group.
+>
+> We have a wide range of features that we wish to implement for this
+> web application but it all depends on how much time we have left after
+> implementing the core functionalities of the application.
 
 ### Achievements
 
-> What functions will the project provide? Who will the users be?
+> The application will provide users with the functionality of making
+> decisions fast with friends and family in an efficient manner. The
+> application will provide the end users with activities that are
+> dependent on the current day\'s weather, access to movies to choose
+> from, and restaurants available in the area. The scope of users for
+> the application can be anyone that
+>
+> has access to a mobile device or laptop, as it is a progressive web
+> application so we plan for it to work on different browsers and a wide
+> range of devices.
+
 
 ### Justification
 
-> Why/when/where/how will it be useful?
+> The web application will be useful for the end users as they will be
+> able to come to decisions with friends which will allow them to be
+> efficient and make a decision with friends who all mutually agree.
+>
+> The application will be useful when users can't come to an agreement
+> because based on our personal experience it is difficult to organise a
+> plan that everyone agrees on. This application will work as a way to
+> get rid of that barrier and provide a plan that all users agree on so
+> it will be highly useful in that aspect as the users will be able to
+> make plans and view what each user matched on.
+
 
 ### Programming language(s)
 
-> List the proposed language(s) to be used.
++---+------------------+
+| ● | > Python         |
++===+==================+
+| ● | > Nodejs         |
++---+------------------+
+| ● | > Nosql database |
++---+------------------+
+| ● | > Nextjs         |
++---+------------------+
+| ● | > React          |
++---+------------------+
+| ● | > JavaScript     |
++---+------------------+
 
 ### Programming tools / Tech stack
 
-> Describe the compiler, database, web server, etc., and any other software tools you plan to use.
++-------+-----------------------------+-----------------------------+
+| **●** | > **Firebase Realtime       |                             |
+|       | > database**                |                             |
++=======+=============================+=============================+
+| **●** | ○                           | ○ Nosql database that will  |
+|       |                             | let us sync data between    |
+|       |                             | users in real time          |
++-------+-----------------------------+-----------------------------+
+|       | > **Firebase                |                             |
+|       | > CloudFirestore**          |                             |
++-------+-----------------------------+-----------------------------+
+| **●** | ○                           | > Nosql database that will  |
+|       |                             | > let us store, sync and    |
+|       |                             | > query data for our        |
+|       |                             | > progressive               |
++-------+-----------------------------+-----------------------------+
+|       | > web application           |                             |
++-------+-----------------------------+-----------------------------+
+|       | > **Firebase Cloud          |                             |
+|       | > Storage**                 |                             |
++-------+-----------------------------+-----------------------------+
+| **●** | ○                           | > This allows users to      |
+|       |                             | > upload and share          |
+|       |                             | > user-generated content    |
+|       |                             | > within the                |
++-------+-----------------------------+-----------------------------+
+|       | > application.              |                             |
++-------+-----------------------------+-----------------------------+
+|       | > **Firebase                |                             |
+|       | > Authentication**          |                             |
++-------+-----------------------------+-----------------------------+
+| **●** | ○                           | > This provides methods for |
+|       |                             | > users to create an        |
+|       |                             | > account and to manage     |
+|       |                             | > their                     |
++-------+-----------------------------+-----------------------------+
+|       | > email address and         |                             |
+|       | > passwords. It also        |                             |
+|       | > manages user              |                             |
+|       | > authentication and        |                             |
++-------+-----------------------------+-----------------------------+
+|       | > verification.             |                             |
++-------+-----------------------------+-----------------------------+
+|       | > **CSS Frameworks**        |                             |
++-------+-----------------------------+-----------------------------+
+| ●     | ○                           | ○ Such as Bulma and         |
+|       |                             | Bootstrap                   |
++-------+-----------------------------+-----------------------------+
+|       | > **IMDb-API**              |                             |
++-------+-----------------------------+-----------------------------+
+| **●** | ○                           | ○ is a web service for      |
+|       |                             | receiving movie, serial and |
+|       |                             | cast information            |
++-------+-----------------------------+-----------------------------+
+|       | > **Weather API**           |                             |
++-------+-----------------------------+-----------------------------+
+| **●** | ○                           | ○ A weather app API to      |
+|       |                             | access weather information  |
+|       |                             | to determine activities     |
++-------+-----------------------------+-----------------------------+
+|       | > **Jest Testing**          |                             |
++-------+-----------------------------+-----------------------------+
+
++-------+-------------------+----------------------------------------+
+| **●** | ○                 | ○ Open source testing framework built  |
+|       |                   | on JavaScript for integration tests.   |
++=======+===================+========================================+
+|       | > **Material UI** |                                        |
++-------+-------------------+----------------------------------------+
+|       | ○                 | ○ Open source for designing React      |
+|       |                   | components                             |
++-------+-------------------+----------------------------------------+
 
 ### Hardware
 
@@ -65,15 +191,47 @@
 
 ### Learning Challenges
 
-> List the main new things (technologies, languages, tools, etc) that you will have to learn.
++---+-----------------------------------------------------------------+
+| ● | > One of the team members will be new to NextJs so Chloe will   |
+|   | > have to devote time to                                        |
++===+=================================================================+
+| ● | > learning that language.                                       |
++---+-----------------------------------------------------------------+
+|   | ● We will have to successfully tie both the front and back end  |
+|   | together.                                                       |
++---+-----------------------------------------------------------------+
+| ● | > We will have to create an algorithm for the web application   |
+|   | > that will allow us to                                         |
++---+-----------------------------------------------------------------+
+| ● | > successfully monitor matched decisions.                       |
++---+-----------------------------------------------------------------+
+|   | > Understanding the tools and languages to be used in order to  |
+|   | > apply them properly to                                        |
++---+-----------------------------------------------------------------+
+| ● | > the project.                                                  |
++---+-----------------------------------------------------------------+
+|   | ● Creating a progressive web application that is fully          |
+|   | functional on and mobile devices.                               |
++---+-----------------------------------------------------------------+
+| ● | ● Finding a suitable database to store the web applications     |
+|   | data.                                                           |
++---+-----------------------------------------------------------------+
+
 
 ### Breakdown of work
 
-> Clearly identify who will undertake which parts of the project.
+> Chloe will be in charge of the back-end development by deciding what
+> algorithms / data structures to use. Chloe will focus on the backend
+> development of the web application.
 >
-> It must be clear from the explanation of this breakdown of work both that each student is responsible for
-> separate, clearly-defined tasks, and that those responsibilities substantially cover all of the work required
-> for the project.
+> Joanna will be in charge of the front-end development by determining
+> the structure and design of the application, and balancing between
+> functional and aesthetic design.
+>
+> However, both will be working together concurrently on both aspects of
+> front-end and back-end. They will have to distinguish what needs to be
+> done for the application features to be created. Both will also decide
+> what tools will be implemented for our application to work.
 
 #### Student 1
 
@@ -86,10 +244,4 @@
 ## Example
 
 > Example: Here's how you can include images in markdown documents...
-
-<!-- Basically, just use HTML! -->
-
-<p align="center">
-  <img src="./res/cat.png" width="300px">
-</p>
 
