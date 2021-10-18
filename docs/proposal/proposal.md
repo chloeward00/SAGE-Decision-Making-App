@@ -7,14 +7,14 @@
 
 ## SECTION A
 
-|                     |                   |
-|---------------------|-------------------|
-|Project Title:       | xxxxxx            |
-|Student 1 Name:      | Chloe Ward        |
-|Student 1 ID:        | 18302716          |
-|Student 2 Name:      | Joanna Talvo      |
-|Student 2 ID:        | xxxxxx            |
-|Project Supervisor:  | xxxxxx            |
+|                     |                                 |
+|---------------------|---------------------------------|
+|Project Title:       | SAGE - Decision Making App      |
+|Student 1 Name:      | Chloe Ward                      |
+|Student 1 ID:        | 18302716                        |
+|Student 2 Name:      | Joanna Talvo                    |
+|Student 2 ID:        | 18342523                        |
+|Project Supervisor:  | Annalina Caputo                 |
 
 > Ensure that the Supervisor formally agrees to supervise your project; this is only recognised once the
 > Supervisor assigns herself/himself via the project Dashboard.
@@ -100,9 +100,9 @@
 > ●  Python         
 > ●  Nodejs         
 > ●  Nosql database
-> ●  Nextjs       
 > ●  React          
 > ●  JavaScript   
+> ●  Nextjs
 
 ### Programming tools / Tech stack
 
