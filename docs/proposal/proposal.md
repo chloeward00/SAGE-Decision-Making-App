@@ -96,19 +96,13 @@
 
 ### Programming language(s)
 
-+---+------------------+
-| ● | > Python         |
-+===+==================+
-| ● | > Nodejs         |
-+---+------------------+
-| ● | > Nosql database |
-+---+------------------+
-| ● | > Nextjs         |
-+---+------------------+
-| ● | > React          |
-+---+------------------+
-| ● | > JavaScript     |
-+---+------------------+
+
+> ●  Python         
+> ●  Nodejs         
+> ●  Nosql database 
+> ●  Nextjs         
+> ●  React          
+> ●  JavaScript   
 
 ### Programming tools / Tech stack
 
