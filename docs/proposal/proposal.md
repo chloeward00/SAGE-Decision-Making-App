@@ -83,12 +83,13 @@ make plans and view what each user matched on.
 ### Programming language(s)
 
 
-Python         
-Nodejs
-Nosql database
-React          
-JavaScript   
-Nextjs
+
+*  Python         
+*  Nodejs
+*  Nosql database
+*  React          
+*  JavaScript   
+*  Nextjs
 
 ### Programming tools / Tech stack
 
