@@ -141,4 +141,4 @@ functional and aesthetic design.
 ## Initial Flow of App
 
 <!------ > Example: Here's how you can include images in markdown documents... ----->
-(proposal/res/SAGE-FLOW-CHART-PROPOSAL-WHITEBG.png)
+!(proposal/res/SAGE-FLOW-CHART-PROPOSAL-WHITEBG.png)
