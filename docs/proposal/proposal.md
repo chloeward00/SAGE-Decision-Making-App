@@ -117,14 +117,7 @@ Finding a suitable database to store the web applications data.
 
 ### Breakdown of work
 
-Chloe will be in charge of the back-end development by deciding what
-algorithms / data structures to use. Chloe will focus on the backend
-development of the web application.
-Joanna will be in charge of the front-end development by determining
-the structure and design of the application, and balancing between
-functional and aesthetic design. 
-
-However, both will be working together concurrently on both aspects of
+Both will be working together concurrently on both aspects of
 front-end and back-end. They will have to distinguish what needs to be
 done for the application features to be created. Both will also decide
 what tools will be implemented for our application to work.
@@ -133,11 +126,20 @@ what tools will be implemented for our application to work.
 
 > *Student 1 should complete this section.*
 
+Chloe will be in charge of the back-end development by deciding what
+algorithms / data structures to use. Chloe will focus on the backend
+development of the web application.
+
 #### Student 2
 
 > *Student 2 should complete this section.*
 
-## Example
+Joanna will be in charge of the front-end development by determining
+the structure and design of the application, and balancing between
+functional and aesthetic design. 
+
+
+## Initial Flow of App
 
 > Example: Here's how you can include images in markdown documents...
 
