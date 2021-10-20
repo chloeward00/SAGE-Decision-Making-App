@@ -23,37 +23,46 @@
 
 ### Introduction
 
-Application that will behave as a decision maker. It will help groups
-of people and to organise plans with no hassle. SAGE will provide
-users choices they can pick from depending on the categories they
-choose such as places to eat, activities to do, and movies to watch.
-It will create a 'decision' based on the group of users\' choices.
-Aside from this, SAGE will also take into account the weather and
-user's availability. SAGE aims to ultimately shorten and simplify the
-decision making process of groups.
+Organising plans with a large number of people can take a lot of time and effort. 
+We need to consider every member’s preference and availability. SAGE is a 
+Progressive Web Application that will behave as a decision maker. It will help 
+groups of people and to organise plans with no hassle. SAGE will provide users 
+choices they can pick from depending on the categories they choose such as 
+places to eat, activities to do, and movies to watch. It will create a ‘decision’ 
+based on the group of users' choices. Aside from this, SAGE will also take into 
+account the weather and user’s availability. SAGE aims to ultimately shorten and 
+simplify the decision making process of groups.
+
 
 ### Outline
 
-Users will need to register with a valid email address along with
-other details such as First Name, Last Name, and Password prior to
-signing up to the application. Users will have the ability to also
-reset their password and delete their account. Users can have multiple
-groups within the application. Users can be added to groups and input
-the dates that they are available.
+Users will need to register with a valid email address along with other details 
+such as First Name, Last Name, and Password prior to signing up to the application. 
+Users will have the ability to also reset their password and delete their account. 
+Users can have multiple groups within the application. Users can be added to groups 
+and input the dates that they are available.
+
+In this progressive web application, a user will create a plan. All members in a 
+group will be asked for their availability dates using a calendar provided by SAGE. 
+It will provide the group members with the dates that the majority is available. 
+SAGE will have features which will show activities near you, access to a wide range 
+of movies or places that you may want to eat at. It will have a swipe feature which
+will allow a user to swipe right for ‘yes’ and swipe left for ‘no’. The most picked 
+choice will be shown to all users in the group. 
+
+We have a wide range of features that we wish to implement for this web application 
+but it all depends on how much time we have left after implementing the core 
+functionalities of the application.
+
 
 ### Background
 
-In this progressive web application, a user will create a plan. All
-members in a group will be asked for their availability dates using a
-calendar provided by SAGE. It will provide the group members with the
-dates that the majority is available. SAGE will have features which
-will show activities near you, access to a wide range of movies or
-places that you may want to eat at. It will have a swipe feature which
-will allow a user to swipe right for 'yes' and swipe left for 'no'.
-The most picked choice will be shown to all users in the group.
-We have a wide range of features that we wish to implement for this
-web application but it all depends on how much time we have left after
-implementing the core functionalities of the application.
+The idea for this web application stemmed from personal experience. Whenever 
+someone wants to make plans with friends and family, it usually takes time and 
+effort to organise it considering each person’s preference and availability. 
+Because of this, we want to make the process easier by making a web application 
+that will match the availability and similar preferences of users.
+
 
 ### Achievements
 
@@ -92,26 +101,24 @@ make plans and view what each user matched on.
 
 ### Programming tools / Tech stack
 
-* **Firebase Realtime database**
-* **Nosql database** that will let us sync data between users in real time
-* **Firebase Cloud Firestore** - Nosql database that will let us store, sync and query data for our progressive web application
-* **Firebase Cloud Storage** - This allows users to upload and share user-generated content within the application.
-* **Firebase Authentication** - This provides methods for users to create an account and to manage their email address and passwords. It also manages user authentication and verification.
+* **Firebase Realtime database** - sync data between users in real time.
+* **Firebase Cloud Firestore** - Nosql database that will let us store, sync and query data for our web application
+* **Firebase Cloud Storage** - this allows users to upload and share user-generated content within the application.
+* **Firebase Authentication** - this provides methods for users to create an account and to manage their email address and passwords. It also manages user authentication and verification.
 * CSS Frameworks such as **Bulma** and **Bootstrap**
-* **IMDb-API** - is a web service for receiving movie, serial and cast information
-* **Weather API** - A weather app API to access weather information to determine activities 
-* **Jest Testing** - Open source testing framework built on JavaScript for integration tests.
-* **Material UI** - Open source for designing React components
+* **IMDb-API** - a web service for receiving movie, serial and cast information
+* **Weather API** - a weather app API to access weather information to determine activities 
+* **Jest Testing** - open source testing framework built on JavaScript for integration tests.
+* **Material UI** - open source for designing React components
 
 
 ### Learning Challenges
 
-* One of the team members will be new to NextJs so Chloe will have to devote time to learning that language.                                      
-* One of the team members will be new to NextJs so Chloe will have to devote time to learning that language.
-* We will have to successfully tie both the front and back end together.
+* One of the team members will be new to NextJs so Chloe will have to devote time to learning framework.                                      
+* We will have to successfully tie both the front-end and back-end together.
 * We will have to create an algorithm for the web application that will allow us to successfully monitor matched decisions.
 * Understanding the tools and languages to be used in order to apply them properly to the project.
-* Creating a progressive web application that is fully functional on and mobile devices.
+* Creating a progressive web application that is fully functional on all platforms.
 * Finding a suitable database to store the web applications data.
 
 ### Breakdown of work
