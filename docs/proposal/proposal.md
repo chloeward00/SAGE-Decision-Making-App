@@ -10,7 +10,7 @@
 
 |                     |                                 |
 |---------------------|---------------------------------|
-|Project Title:       | SAGE - Decision Making App      |
+|Project Title:       | **SAGE** - Decision Making App  |
 |Student 1 Name:      | Chloe Ward                      |
 |Student 1 ID:        | 18302716                        |
 |Student 2 Name:      | Joanna Talvo                    |
@@ -97,7 +97,7 @@ make plans and view what each user matched on.
 * **Firebase Cloud Firestore** - Nosql database that will let us store, sync and query data for our progressive web application
 * **Firebase Cloud Storage** - This allows users to upload and share user-generated content within the application.
 * **Firebase Authentication** - This provides methods for users to create an account and to manage their email address and passwords. It also manages user authentication and verification.
-* CSS Frameworks Such as Bulma and Bootstrap
+* CSS Frameworks such as **Bulma** and **Bootstrap**
 * **IMDb-API** - is a web service for receiving movie, serial and cast information
 * **Weather API** - A weather app API to access weather information to determine activities 
 * **Jest Testing** - Open source testing framework built on JavaScript for integration tests.
