@@ -8,14 +8,14 @@
 
 ## SECTION A
 
-|                     |                                 |
-|---------------------|---------------------------------|
-|Project Title:       | **SAGE** - Decision Making App  |
-|Student 1 Name:      | Chloe Ward                      |
-|Student 1 ID:        | 18302716                        |
-|Student 2 Name:      | Joanna Talvo                    |
-|Student 2 ID:        | 18342523                        |
-|Project Supervisor:  | Annalina Caputo                 |
+|                     |                                     |
+|---------------------|-------------------------------------|
+|Project Title:       | **SAGE** - Decision Making Web App  |
+|Student 1 Name:      | Chloe Ward                          |
+|Student 1 ID:        | 18302716                            |
+|Student 2 Name:      | Joanna Talvo                        |
+|Student 2 ID:        | 18342523                            |
+|Project Supervisor:  | Annalina Caputo                     |
 
 
 ## SECTION B
