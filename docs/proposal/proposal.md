@@ -72,8 +72,8 @@ The application will be useful when users can’t come to an agreement because b
 * CSS Frameworks such as **Bulma** and **Bootstrap**
 * **IMDb-API** - a web service for receiving movie, serial and cast information
 * **Weather API** - a weather app API to access weather information to determine activities 
-* **Jest Testing** - open source testing framework built on JavaScript for integration tests.
-* **Material UI** - open source for designing React components
+* **JEST** - open source testing framework built on JavaScript for unit testing.
+* **Material UI** - open source library for designing React components.
 
 
 ### Learning Challenges
