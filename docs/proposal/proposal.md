@@ -57,7 +57,6 @@ The application will be useful when users can’t come to an agreement because b
 ### Programming language(s)
 
 *  Python         
-*  Nodejs
 *  Nosql database
 *  React          
 *  JavaScript   
