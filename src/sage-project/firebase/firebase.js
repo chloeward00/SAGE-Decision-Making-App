@@ -1,6 +1,7 @@
 import fire from 'firebase/app'
 import 'firebase/auth'
 
+
 const config = {
     apiKey: "AIzaSyCwaFXi8bFlFlupg4YSy5nmiZSIrhakcdI",
     authDomain: "sage-decision-making.firebaseapp.com",
@@ -57,6 +58,62 @@ class Firebase {
         } else {
             return false
         }
+    }
+
+    async updatePasswords(password2) {
+       
+        //const credential = this.auth.EmailAuthProvider.credential(user.email, password)
+       // user.reauthenticateWithCredential(credential)
+        //var user2 = this.auth.currentUser;
+
+        const user = this.auth.currentUser;
+       
+        
+        user.updatePassword(password2).then(() => {
+          // Update successful.
+        }).catch((error) => {
+          // An error ocurred
+          // ...
+        });
+
+       
+    }
+
+    async resetPassword(email){
+       
+            this.auth.sendPasswordResetEmail(email)
+              .then(function () {
+               // success
+            }).catch((error) => {
+            });
+    
+    }
+
+    async updateUsersEmail(password,newemail) {
+
+
+        const user = fire.auth().currentUser;
+        const credential = fire.auth.EmailAuthProvider.credential(user.email, password)
+
+
+        user.reauthenticateWithCredential(credential)
+    
+
+
+      
+        //const credential = fire.auth().EmailAuthProvider.credential(email, password)
+
+        //var credentials = fire.auth().EmailAuthProvider.credential(email, password);
+
+        //user.reauthenticate(credentials);
+
+        this.auth.currentUser.updateEmail(newemail).then(() => {
+        // Update successful
+        // ...
+        }).catch((error) => {
+        // An error occurred
+        // ...
+        });
     }
 
     getProfile() {
