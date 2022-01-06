@@ -60,24 +60,29 @@ class Firebase {
         }
     }
 
-    async updatePasswords(password2) {
+    async updatePasswords(password,password2) {
        
         //const credential = this.auth.EmailAuthProvider.credential(user.email, password)
        // user.reauthenticateWithCredential(credential)
         //var user2 = this.auth.currentUser;
 
         const user = this.auth.currentUser;
-       
-        
-        user.updatePassword(password2).then(() => {
-          // Update successful.
-        }).catch((error) => {
-          // An error ocurred
-          // ...
-        });
+    
+        const user2 = fire.auth().currentUser;
 
+        try {
+        const credential = fire.auth.EmailAuthProvider.credential(user.email, password)
+        user.reauthenticateWithCredential(credential)
+        
+        user.updatePassword(password2)
        
+        } catch (error) {
+            return false
+        }
+    
+
     }
+    
 
     async resetPassword(email){
        

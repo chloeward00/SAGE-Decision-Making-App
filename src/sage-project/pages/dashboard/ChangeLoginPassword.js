@@ -45,9 +45,21 @@ export default function profile() {
  
 
     async function doChange(values) {
-      message.loading({ key: "SignedUp", content: "Changing password" }); // sho
+      message.loading({ key: "Change login password", content: "Attempting to change password" }); // 
+      
+      if(fieldDict.password === ''){
+       console.log("No new password");
+       alert('please enter a password')
+
+   }  else if (fieldDict.password2 === ''){
+         console.log("No new password");
+         alert("Please enter your new password")
+       }else if (fieldDict.password === fieldDict.password2){
+       alert("Duplicate Passwords new password cannot be the same as old password.")
+       //message.loading({ key: "Duplicate Passwords", content: "New password is the same as old" }); // 
+  } else{
       try {
-        await firebase.updatePasswords(fieldDict.password2)
+        await firebase.updatePasswords(fieldDict.password)
         message.success({ key: "Change login password", content: "You have successfully changed your account password" }); // when signed up
         Router.push("/dashboard/profile");
       } catch (error) {
@@ -58,7 +70,7 @@ export default function profile() {
         });
       }
     }
-  
+    }
 
 
          
@@ -81,7 +93,7 @@ export default function profile() {
           name="signup"
           style={{ width: "100%", maxWidth: 350 }}
           initialValues={{ remember: true }}
-          onFinish={doChange} // When click the Signup Button
+          onFinish={doChange} // When click the button is pressed
         >
        
 

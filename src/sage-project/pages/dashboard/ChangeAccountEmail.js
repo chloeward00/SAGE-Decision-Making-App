@@ -46,8 +46,11 @@ export default function profile() {
  
 
     async function doChange(values) {
-      message.loading({ key: "Change email address", content: "Changing email address" }); // 
-      try {
+      message.loading({ key: "Change email address", content: "Attempting to change email address" }); // 
+      if (fieldDict.emailaddress === fieldDict.newemailaddress){
+            alert("Duplicate emails new email cannot be the same as old email.")
+        }else if(fieldDict.emailaddress !== fieldDict.newemailaddress) {
+          try {
         await firebase.updateUsersEmail(fieldDict.password,fieldDict.newemailaddress)
         message.success({ key: "Change email address", content: "You have successfully changed your accounts email address" }); // when signed up
         Router.push("/dashboard/profile");
@@ -58,6 +61,7 @@ export default function profile() {
           content: error.message || "An error occurred when trying to change your accounts email address. Please try again.",
         });
       }
+    }
     }
   
 
