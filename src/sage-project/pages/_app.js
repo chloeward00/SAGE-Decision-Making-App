@@ -4,6 +4,8 @@ import "antd/dist/antd.css";
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
 import { Spin } from "antd";
+import '../styles/Movies.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function MyApp({ Component, pageProps }) {
   const [firebaseInitialized, setFirebaseInitialized] = useState(false);

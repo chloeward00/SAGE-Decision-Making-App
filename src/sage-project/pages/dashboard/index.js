@@ -1,8 +1,16 @@
-import { Layout, Result } from "antd";
+import { Layout, Button} from "antd";
 import Header from "../../components/header";
+import Router from "next/router";
+import Link from 'next/link'
 
 
 export default function dashboard() {
+
+  // const handleClick = e => {
+  // //const handleClick() {
+  //   Router.push("/dashboard/Movies");
+  // }
+
   return (
        
       <Layout>
@@ -12,8 +20,18 @@ export default function dashboard() {
             <div className="container">
               <p>Logged in successfully</p>
               <p>Working on the Delete Account now to get to that just put Delete-Account in the url</p>
+        
+            <li>
+            <Link href="dashboard/Movies">
+            <a>Comedy</a>
+            </Link>
+            </li>
+              
+
             </div>
           </div>
+          
+          
         </Layout.Content>
       </Layout>
    
