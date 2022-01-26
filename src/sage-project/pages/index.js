@@ -1,18 +1,20 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import * as React from 'react';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Link from '../components/Link';
 
-export default function Home() {
+export default function Index() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>SAGE</title>
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to SAGE
-        </h1>
-      </main>
-    </div>
-  )
+    <Container maxWidth="sm">
+      <Box sx={{ my: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          WELCOME TO SAGE
+        </Typography>
+        <Link href="/about" color="secondary">
+          Go to the about page
+        </Link>
+      </Box>
+    </Container>
+  );
 }
