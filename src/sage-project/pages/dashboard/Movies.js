@@ -32,7 +32,6 @@ const Fantasy = 14;
 const History = 36;
 const Horror = 27;
 const Music = 10402;
-const Drama = 18;
 const TvMovie = 10770;
 const Thriller = 53;
 const War = 10752;

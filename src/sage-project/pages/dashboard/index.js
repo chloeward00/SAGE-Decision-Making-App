@@ -23,7 +23,7 @@ export default function dashboard() {
         
             <li>
             <Link href="dashboard/Movies">
-            <a>Comedy</a>
+            <a>Movie Section: Not styled</a>
             </Link>
             </li>
               
