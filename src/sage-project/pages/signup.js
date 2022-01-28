@@ -1,7 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import { Paper, TextField, Typography, Grid, Button, Divider} from '@mui/material';
 import Link from '../components/Link';
-// import AuthBanner from '../components/AuthBanner'
 
 const useStyles = makeStyles( theme => ({
     textField: {
@@ -44,7 +43,6 @@ const SignUp = () => {
 
     return ( 
         <>
-            {/* <AuthBanner/> */}
             <Grid>
                 <Paper elevation={20} className={classes.formStyle}>
                     <Grid>
