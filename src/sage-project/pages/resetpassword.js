@@ -1,6 +1,10 @@
 import { makeStyles } from '@mui/styles';
 import { Paper, TextField, Typography, Grid, Button} from '@mui/material';
 import Link from '../components/Link';
+import { message } from 'antd';
+import firebase from "./../firebase/firebase";
+import { useState } from 'react';
+import Router from "next/router";
 
 const useStyles = makeStyles( theme => ({
     textField: {
@@ -43,6 +47,28 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const ResetPassword = () => {
+
+    const profile = firebase.getProfile();
+
+    const [fieldDict, setInputs] = useState({
+        emailaddress: ''
+    })
+  
+    async function doChange(values) {
+        message.loading({ key: "Reset Password", content: "Changing password" });
+        alert("email" + fieldDict.emailaddress)
+        try {
+                await firebase.resetPassword(fieldDict.emailaddress)
+                message.success({ key: "Reset Password", content: "A reset email has been sent to the email address provided" }); // when signed up
+                Router.push("/login");
+                } catch (error) {
+                message.error({
+                    key: "Reset Password",
+                    content: error.message || "An error occurred when trying to reset your password. Please try again.",
+                });
+                }
+        }
+
     const classes = useStyles()
 
     return ( 

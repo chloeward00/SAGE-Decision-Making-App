@@ -1,6 +1,11 @@
 import { makeStyles } from '@mui/styles';
 import { Paper, TextField, Typography, Grid, Button, Divider} from '@mui/material';
 import Link from '../components/Link';
+import { message } from "antd";
+import firebase from "../firebase/firebase";
+import Router from "next/router";
+import { useEffect } from "react";
+
 
 const useStyles = makeStyles( theme => ({
     textField: {
@@ -39,6 +44,28 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const SignUp = () => {
+
+    useEffect(() => { 
+        if (firebase.isLoggedIN()) {
+          Router.push("/dashboard");
+        }
+      });
+    
+      async function doSignup(values) {
+        message.loading({ key: "SignedUp", content: "Signing up!" });
+        try {
+          await firebase.register(values);
+          message.success({ key: "SignedUp", content: "You have successfully created your account!" }); // when signed up
+          Router.push("/login");
+        } catch (error) {
+          // an error message which shows if account is not successfully created.
+          message.error({
+            key: "Create Account",
+            content: error.message || "An error occurred when trying to create your account. Please try again.",
+          });
+        }
+      }
+    
     const classes = useStyles()
 
     return ( 
