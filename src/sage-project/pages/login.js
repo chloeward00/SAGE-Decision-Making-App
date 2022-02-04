@@ -1,7 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import { Paper, TextField, Typography, Grid, Button, Divider} from '@mui/material';
 import Link from '../components/Link';
-import { message } from "antd";
 import firebase from "../firebase/firebase";
 import Router from "next/router";
 import { useEffect } from "react";
@@ -91,10 +90,13 @@ const Login = () => {
                             id="outlined-basic" 
                             label="Email" 
                             variant="outlined"
-                            // required
-                            fullWidth  
+                            fullWidth
                             className={classes.textField}
-                            {...register("email", {required: "Please enter a valid email address"})}
+                            {...register("email", {
+                                required: "Please enter your email address",
+                                pattern: {
+                                    value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                                    message: 'Invalid email address'}})}
                             error={!!errors?.email}
                             helperText={errors?.email ? errors.email.message : null}
                         />
@@ -103,10 +105,14 @@ const Login = () => {
                             label="Password" 
                             variant="outlined"
                             type="password"
-                            // required
                             fullWidth
                             className={classes.textField}
-                            {...register("password", {required: "Please enter your password"})}
+                            {...register("password", {
+                                required: "Please enter your password",
+                                minLength: {
+                                    value: 6,
+                                    message: "Password must be more than 6 characters."
+                                }})}
                             error={!!errors?.password}
                             helperText={errors?.password ? errors.password.message : null}
                         />

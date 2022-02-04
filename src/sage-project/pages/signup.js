@@ -1,11 +1,10 @@
 import { makeStyles } from '@mui/styles';
 import { Paper, TextField, Typography, Grid, Button, Divider} from '@mui/material';
 import Link from '../components/Link';
-import { message } from "antd";
 import firebase from "../firebase/firebase";
 import Router from "next/router";
 import { useEffect } from "react";
-
+import { useForm } from 'react-hook-form';
 
 const useStyles = makeStyles( theme => ({
     textField: {
@@ -51,20 +50,23 @@ const SignUp = () => {
         }
       });
     
-      async function doSignup(values) {
-        message.loading({ key: "SignedUp", content: "Signing up!" });
-        try {
-          await firebase.register(values);
-          message.success({ key: "SignedUp", content: "You have successfully created your account!" }); // when signed up
-          Router.push("/login");
-        } catch (error) {
-          // an error message which shows if account is not successfully created.
-          message.error({
-            key: "Create Account",
-            content: error.message || "An error occurred when trying to create your account. Please try again.",
-          });
-        }
-      }
+    //   async function doSignup(values) {
+    //     message.loading({ key: "SignedUp", content: "Signing up!" });
+    //     try {
+    //       await firebase.register(values);
+    //       message.success({ key: "SignedUp", content: "You have successfully created your account!" }); // when signed up
+    //       Router.push("/login");
+    //     } catch (error) {
+    //       // an error message which shows if account is not successfully created.
+    //       message.error({
+    //         key: "Create Account",
+    //         content: error.message || "An error occurred when trying to create your account. Please try again.",
+    //       });
+    //     }
+    //   }
+
+    const { register, handleSubmit, formState: { errors }, } = useForm();
+    const onSubmit = (data) => console.log(data);
     
     const classes = useStyles()
 
@@ -77,31 +79,47 @@ const SignUp = () => {
                             Sign up
                         </Typography>
                     </Grid>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <TextField
                             id="outlined-basic" 
                             label="Name" 
                             variant="outlined"
-                            required
                             fullWidth 
-                            className={classes.textField} 
+                            className={classes.textField}
+                            {...register("name", {
+                                required: "Please enter your name"})}
+                            error={!!errors?.name}
+                            helperText={errors?.name ? errors.name.message : null} 
                         />
                         <TextField
                             id="outlined-basic" 
                             label="Email" 
                             variant="outlined"
-                            type="password"
-                            required 
                             fullWidth
                             className={classes.textField}
+                            {...register("email", {
+                                required: "Please enter your email address",
+                                pattern: {
+                                    value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                                    message: 'Invalid email address'}})}
+                            error={!!errors?.email}
+                            helperText={errors?.email ? errors.email.message : null}
                         />
                         <TextField
                             id="outlined-basic" 
                             label="Password" 
                             variant="outlined"
                             type="password"
-                            required
                             fullWidth
                             className={classes.textField}
+                            {...register("password", {
+                                required: "Please enter a password",
+                                minLength: {
+                                    value: 6,
+                                    message: "Incorrect password."
+                                }})}
+                            error={!!errors?.password}
+                            helperText={errors?.password ? errors.password.message : null}
                         />
                         <Grid container item className={classes.button}>
                             <Button 
@@ -120,6 +138,7 @@ const SignUp = () => {
                                 Log in
                             </Link>
                         </Typography>
+                    </form>
                 </Paper>
             </Grid>
             </>
