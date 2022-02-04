@@ -11,6 +11,7 @@ import "antd/dist/antd.css";
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
 import { Spin } from "antd";
+import '../styles/globals.css'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
