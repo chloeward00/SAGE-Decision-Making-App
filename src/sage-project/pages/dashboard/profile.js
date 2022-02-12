@@ -5,7 +5,7 @@ import { DeleteOutlined, KeyOutlined, MailOutlined } from "@ant-design/icons";
 import firebase from "../../firebase/firebase";
 import Router from "next/router";
 
-export default function profile() {
+export default function Profile() {
   const profile = firebase.getProfile();
 
   return (

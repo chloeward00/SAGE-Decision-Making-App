@@ -127,7 +127,7 @@ const Login = () => {
                         </Grid>
                         <Divider variant="middle" className={classes.divider}/>
                         <Typography gutterBottom>
-                            Don't have an account yet?
+                            {"Don't have an account yet?"}
                             <Link href="/signup" underline="none" className={classes.signUpStyle}>
                                 Sign up
                             </Link>

@@ -9,7 +9,7 @@ import * as fireb from 'firebase'
 import Router from "next/router";
 
 
-export default function profile() {
+export default function ChangeAccountEmail() {
   const profile = firebase.getProfile();
 
   const [fieldDict, setInputs] = useState({

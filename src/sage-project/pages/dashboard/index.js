@@ -16,6 +16,5 @@ export default function dashboard() {
           </div>
         </Layout.Content>
       </Layout>
-   
   );
 }

@@ -25,6 +25,7 @@ export default function MyApp(props) {
     setFirebaseInitialized(true);
   }, []);
 
+
   return (
     <>
         {!firebaseInitialized ? (

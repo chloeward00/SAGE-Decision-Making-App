@@ -80,7 +80,7 @@ const ResetPassword = () => {
                             Forgot your password?
                         </Typography>
                         <Typography variant="caption" gutterBottom className={classes.caption}>
-                        Please enter your email address below and we'll send you a link to reset your password.
+                            {"Please enter your email address below and we'll send you a link to reset your password."}
                         </Typography>
                     </Grid>
                         <TextField
