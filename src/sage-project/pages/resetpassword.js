@@ -5,6 +5,14 @@ import { message } from 'antd';
 import firebase from "./../firebase/firebase";
 import { useState } from 'react';
 import Router from "next/router";
+import LeftGrid from '../components/Authentication/LeftGrid';
+
+
+const caption = "No worries! We will help you reset and create a new password!";
+const logIn = "Log in";
+const forgotPass = "Forgot your password?";
+const helpText = "Please enter your email address below and we'll send you a link to reset your password.";
+const resetLink = "send reset link";
 
 const useStyles = makeStyles( theme => ({
     textField: {
@@ -19,13 +27,16 @@ const useStyles = makeStyles( theme => ({
     },
     formStyle: {
         padding: '30px 30px',
-        margin: '20vh auto',
-        width: 500,
+        // margin: '20vh auto',
+        width: 500,     
+        [theme.breakpoints.down('sm')]: {
+            width: 300,
+        }
     },
     buttonStyle: {
-        backgroundColor: '#357C93',
+        backgroundColor: '#5082B3',
         '&:hover': {
-            backgroundColor: '#357C93',
+            backgroundColor: '#6392C0',
         },
         borderRadius: 20,
         width: '50%',
@@ -36,13 +47,24 @@ const useStyles = makeStyles( theme => ({
     },
     login: {
         fontWeight: 600,
-        color: '#357C93'
+        color: '#5082B3'
     },
     signUpStyle: {
         margin: 'auto 5px'
     },
     caption: {
         color: '#808080'
+    },
+    leftGrid: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    rightGrid: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 }))
 
@@ -72,17 +94,21 @@ const ResetPassword = () => {
     const classes = useStyles()
 
     return ( 
-        <>
-            <Grid>
-                <Paper elevation={20} className={classes.formStyle}>
-                    <Grid>
-                        <Typography variant="h4" gutterBottom className={classes.login}>
-                            Forgot your password?
-                        </Typography>
-                        <Typography variant="caption" gutterBottom className={classes.caption}>
-                        Please enter your email address below and we'll send you a link to reset your password.
-                        </Typography>
-                    </Grid>
+        <div>
+            <Grid container style={{ backgroundColor: '#A9B5DD', minHeight: "100vh" }}>
+                <Grid item xs={12} sm={12} md={6} className={classes.leftGrid}>
+                    <LeftGrid caption={caption}/>
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} className={classes.rightGrid}>
+                    <Paper elevation={10} className={classes.formStyle}>
+                        <Grid>
+                            <Typography variant="h4" gutterBottom className={classes.login}>
+                                {forgotPass}
+                            </Typography>
+                            <Typography variant="caption" gutterBottom className={classes.caption}>
+                                {helpText}
+                            </Typography>
+                        </Grid>
                         <TextField
                             id="outlined-basic" 
                             label="Email" 
@@ -98,18 +124,19 @@ const ResetPassword = () => {
                                 className={classes.buttonStyle}
                                 size="large"
                             >
-                                Send reset link 
+                                {resetLink} 
                             </Button>
                         </Grid> 
                         <Typography gutterBottom>
                             <Link href="/login" underline="none" className={classes.logInStyle}>
-                                Log in
+                                {logIn}
                             </Link>
                         </Typography>
-                </Paper>
+                    </Paper>
+                </Grid>
             </Grid>
-        </>
+        </div>
      );
 }
- 
+
 export default ResetPassword;
