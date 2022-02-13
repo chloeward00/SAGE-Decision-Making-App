@@ -6,6 +6,7 @@ import firebase from "./../firebase/firebase";
 import { useState } from 'react';
 import Router from "next/router";
 import LeftGrid from '../components/Authentication/LeftGrid';
+import { useForm } from 'react-hook-form';
 
 
 const caption = "No worries! We will help you reset and create a new password!";
@@ -77,19 +78,22 @@ const ResetPassword = () => {
     })
   
     async function doChange(values) {
-        message.loading({ key: "Reset Password", content: "Changing password" });
-        alert("email" + fieldDict.emailaddress)
+        // message.loading({ key: "Reset Password", content: "Changing password" });
+        alert("a link has been sent to your email")
         try {
                 await firebase.resetPassword(fieldDict.emailaddress)
-                message.success({ key: "Reset Password", content: "A reset email has been sent to the email address provided" }); // when signed up
+                // message.success({ key: "Reset Password", content: "A reset email has been sent to the email address provided" }); // when signed up
                 Router.push("/login");
-                } catch (error) {
-                message.error({
-                    key: "Reset Password",
-                    content: error.message || "An error occurred when trying to reset your password. Please try again.",
-                });
-                }
-        }
+            } 
+            catch (error) {
+                // message.error({
+                //     key: "Reset Password",
+                //     content: error.message || "An error occurred when trying to reset your password. Please try again.",
+                // });
+            }
+    }
+    
+    const { register, handleSubmit, formState: { errors }, } = useForm();
 
     const classes = useStyles()
 
@@ -109,29 +113,35 @@ const ResetPassword = () => {
                                 {helpText}
                             </Typography>
                         </Grid>
-                        <TextField
-                            id="outlined-basic" 
-                            label="Email" 
-                            variant="outlined"
-                            required
-                            fullWidth 
-                            className={classes.textField} 
-                        />
-                        <Grid container item className={classes.button}>
-                            <Button
-                                type='submit' 
-                                variant='contained' 
-                                className={classes.buttonStyle}
-                                size="large"
-                            >
-                                {resetLink} 
-                            </Button>
-                        </Grid> 
-                        <Typography gutterBottom>
-                            <Link href="/login" underline="none" className={classes.logInStyle}>
-                                {logIn}
-                            </Link>
-                        </Typography>
+                        <form onSubmit={handleSubmit(doChange)}>
+                            <TextField
+                                id="email"
+                                label="Email" 
+                                variant="outlined"
+                                fullWidth 
+                                className={classes.textField}
+                                {...register("email", {
+                                    required: "Please enter your email"})}
+                                error={!!errors?.email}
+                                helperText={errors?.email ? errors.email.message : null}
+                                
+                            />
+                            <Grid container item className={classes.button}>
+                                <Button
+                                    type='submit' 
+                                    variant='contained' 
+                                    className={classes.buttonStyle}
+                                    size="large"
+                                >
+                                    {resetLink} 
+                                </Button>
+                            </Grid> 
+                            <Typography gutterBottom>
+                                <Link href="/login" underline="none" className={classes.logInStyle}>
+                                    {logIn}
+                                </Link>
+                            </Typography>
+                        </form>
                     </Paper>
                 </Grid>
             </Grid>

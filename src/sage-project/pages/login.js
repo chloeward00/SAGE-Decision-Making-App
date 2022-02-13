@@ -74,27 +74,27 @@ const Login = () => {
         if (firebase.isLoggedIN()) {
             Router.push("/dashboard");
         }
-        }, []);
+    }, []);
 
-        // Login
-        async function doLogin(values) {
+    // Login
+    async function doLogin(values) {
         console.log(values); // Expected output {email: "me@thetuhin.com", password: "123456789"}
-        message.loading({ key: "login", content: "Logging in.." }); // Showing logging in message
+        // message.loading({ key: "login", content: "Logging in.." }); // Showing logging in message
         try {
             await firebase.login(values);
-            message.success({ key: "login", content: "Logged in 🎉" }); // if success
+            // message.success({ key: "login", content: "Logged in 🎉" }); // if success
             Router.push("/dashboard");
         } catch (error) {
             // if error arises
-            message.error({
-            key: "login",
-            content: error.message || "Ooops! Something went wrong!",
-            });
+            // message.error({
+            // key: "login",
+            // content: error.message || "Ooops! Something went wrong!",
+            // });
+            console.log(error);
         }
     }
     
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const onSubmit = (data) => console.log(data);
 
     const classes = useStyles()
 
@@ -111,9 +111,9 @@ const Login = () => {
                                 {login}
                             </Typography>
                         </Grid>
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form onSubmit={handleSubmit(doLogin)}>
                             <TextField
-                                id="outlined-basic" 
+                                id="email" 
                                 label="Email" 
                                 variant="outlined"
                                 fullWidth
@@ -127,8 +127,8 @@ const Login = () => {
                                 helperText={errors?.email ? errors.email.message : null}
                             />
                             <TextField
-                                id="outlined-basic" 
-                                label="Password" 
+                                id="password" 
+                                label="Password"
                                 variant="outlined"
                                 type="password"
                                 fullWidth

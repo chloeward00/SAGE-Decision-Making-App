@@ -70,29 +70,29 @@ const SignUp = () => {
         if (firebase.isLoggedIN()) {
           Router.push("/dashboard");
         }
-      });
+    });
     
-      async function doSignup(values) {
-        message.loading({ key: "SignedUp", content: "Signing up!" });
+    async function doSignup(values) {
+        // message.loading({ key: "SignedUp", content: "Signing up!" });
         try {
-          await firebase.register(values);
-          message.success({ key: "SignedUp", content: "You have successfully created your account!" }); // when signed up
-          Router.push("/login");
+            await firebase.register(values);
+            // message.success({ key: "SignedUp", content: "You have successfully created your account!" }); // when signed up
+            Router.push("/login");
         } catch (error) {
-          // an error message which shows if account is not successfully created.
-          message.error({
-            key: "Create Account",
-            content: error.message || "An error occurred when trying to create your account. Please try again.",
-          });
+            // an error message which shows if account is not successfully created.
+            // message.error({
+            // key: "Create Account",
+            // content: error.message || "An error occurred when trying to create your account. Please try again.",
+            // });
+            console.log(error);
         }
-      }
+    }
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const onSubmit = (data) => console.log(data);
     
     const classes = useStyles()
 
-    return ( 
+    return (
         <div>
             <Grid container style={{ backgroundColor: '#A9B5DD', minHeight: "100vh" }}>
                 <Grid item xs={12} sm={12} md={6} className={classes.leftGrid}>
@@ -105,12 +105,12 @@ const SignUp = () => {
                                 {signUp}
                             </Typography>
                         </Grid>
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form onSubmit={handleSubmit(doSignup)}>
                             <TextField
-                                id="outlined-basic" 
-                                label="Name" 
+                                id="name" 
+                                label="Name"
                                 variant="outlined"
-                                fullWidth 
+                                fullWidth
                                 className={classes.textField}
                                 {...register("name", {
                                     required: "Please enter your name"})}
@@ -118,7 +118,7 @@ const SignUp = () => {
                                 helperText={errors?.name ? errors.name.message : null} 
                             />
                             <TextField
-                                id="outlined-basic" 
+                                id="email" 
                                 label="Email" 
                                 variant="outlined"
                                 fullWidth
@@ -132,7 +132,7 @@ const SignUp = () => {
                                 helperText={errors?.email ? errors.email.message : null}
                             />
                             <TextField
-                                id="outlined-basic" 
+                                id="password" 
                                 label="Password" 
                                 variant="outlined"
                                 type="password"
