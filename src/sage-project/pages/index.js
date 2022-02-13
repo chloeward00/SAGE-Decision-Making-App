@@ -1,22 +1,20 @@
-import * as React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Link from '../components/Link';
+import Head from "next/head";
+import Header from "../components/LandingPage/Header"
+import Footer from "../components/LandingPage/Footer";
+import FeatureCard from "../components/LandingPage/Features";
 
-const Index = () => {
-  return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          WELCOME TO SAGE
-        </Typography>
-        <Link href="/login" color="secondary">
-          GET STARTED
-        </Link>
-      </Box>
-    </Container>
-  );
+const Home = () => {
+    return (  
+        <div>
+            <Head>
+                <title>SAGE</title>
+                <meta name="description" content="sage decision making app"></meta>
+            </Head>
+            <Header/>
+            <FeatureCard/>
+            <Footer/>
+        </div>
+    ); 
 }
 
-export default Index;
+export default Home;

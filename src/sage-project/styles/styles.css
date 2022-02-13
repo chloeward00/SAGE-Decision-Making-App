@@ -19,9 +19,9 @@
   .header{
     background-color: #f4511e;
     color: white;
-    width: 100vw;
+    width: 100%;
     text-align: center;
-    height: 50vh;
+    height: 170px;
     padding: 30px ;
   }
   
@@ -40,7 +40,6 @@
     flex-direction: row wrap;
     align-items: center;
     justify-content: center;
-    height: 50vh;
     
   }
   

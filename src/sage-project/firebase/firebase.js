@@ -79,19 +79,13 @@ class Firebase {
         } catch (error) {
             return false
         }
-    
-
     }
-    
-
     async resetPassword(email){
-       
             this.auth.sendPasswordResetEmail(email)
               .then(function () {
                // success
             }).catch((error) => {
             });
-    
     }
 
     async updateUsersEmail(password,newemail) {
