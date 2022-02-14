@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import { Paper, TextField, Typography, Grid, Button} from '@mui/material';
-import Link from '../components/Link';
+import Link from '../components/Link/Link';
 import { message } from 'antd';
 import firebase from "./../firebase/firebase";
 import { useState } from 'react';

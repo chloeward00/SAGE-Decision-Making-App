@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 import { Paper, TextField, Typography, Grid, Button, Divider, Container} from '@mui/material';
-import Link from '../components/Link';
+import Link from '../components/Link/Link';
 import firebase from "../firebase/firebase";
 import Router from "next/router";
 import { useEffect } from "react";
