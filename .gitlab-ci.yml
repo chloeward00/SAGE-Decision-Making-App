@@ -4,11 +4,11 @@
 stages:
     - testFrontend
 
-
 testFrontend:
     stage: testFrontend
     before_script:
         - echo "installing modules and dependencies..."
+        - cd src/sage-project
         - npm install
     script:
         - echo "running lint tests"
