@@ -1,0 +1,20 @@
+
+# this pipeline is temporary
+# add scripts on unit testing + backend testing
+
+stages:
+    - testFrontend
+
+
+testFrontend:
+    stage: testFrontend
+    before_script:
+        - echo "installing modules and dependencies..."
+        - npm install
+    script:
+        - echo "running lint tests"
+        - npm run lint
+    only:
+        refs:
+            - merge_requests
+            
