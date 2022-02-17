@@ -2,7 +2,6 @@ import { Layout, Result } from "antd";
 
 export default function dashboard() {
   return (
-       
       <Layout>
         <Layout.Content style={{ padding: "0 50px", marginTop: 64 }}>
           <div className="site-layout-background mainlayout">
