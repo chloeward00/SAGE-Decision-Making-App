@@ -9,7 +9,7 @@ testFrontend:
     before_script:
         - echo "installing modules and dependencies..."
         - cd src/sage-project
-        - npm install
+        - npm ci
     script:
         - echo "running lint tests"
         - npm run lint
