@@ -3,7 +3,7 @@ import Header from "../components/LandingPage/Header"
 import Footer from "../components/LandingPage/Footer";
 import FeatureCard from "../components/LandingPage/Features";
 
-const Home = () => {
+const LandingPage = () => {
     return (  
         <div>
             <Head>
@@ -17,4 +17,4 @@ const Home = () => {
     ); 
 }
 
-export default Home;
+export default LandingPage;

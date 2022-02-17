@@ -27,21 +27,21 @@ export default function CardComponent(props) {
 
     return (
         <Card className={classes.card}>
-                <CardMedia
-                    component="img"
-                    height="140"
-                    image={imageURL}
-                    alt={alt}
-                    className={classes.media}
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" align="center" className={classes.title}>
-                        {title}
-                    </Typography>
-                    <Typography variant="body2" color="#fff" align="center">
-                        {caption}
-                    </Typography>
-                </CardContent>
+            <CardMedia
+                component="img"
+                height="140"
+                image={imageURL}
+                alt={alt}
+                className={classes.media}
+            />
+            <CardContent>
+                <Typography gutterBottom variant="h5" component="div" align="center" className={classes.title}>
+                    {title}
+                </Typography>
+                <Typography variant="body2" color="#fff" align="center">
+                    {caption}
+                </Typography>
+            </CardContent>
         </Card>
   );
 }

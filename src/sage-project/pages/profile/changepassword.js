@@ -1,5 +1,5 @@
 import { Layout,Card,Form, Input, Button, Checkbox,message } from 'antd';
-import Header from "../../components/header";
+import Home from "../../components/Dashboard/Home";
 import Head from "next/head";
 import { DeleteOutlined, KeyOutlined } from "@ant-design/icons";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -33,7 +33,7 @@ export default function ChangeLogInPassword() {
         try {
             await firebase.updatePasswords(fieldDict.password)
             message.success({ key: "Change login password", content: "You have successfully changed your account password" }); // when signed up
-            Router.push("/dashboard/profile");
+            Router.push("/home/profile");
         } catch (error) {
             // an error message which shows if account is not successfully created.
             message.error({

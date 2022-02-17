@@ -15,16 +15,16 @@ import { Spin } from "antd";
 const clientSideEmotionCache = createEmotionCache();
 
 export default function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-  const [firebaseInitialized, setFirebaseInitialized] = useState(false);
+    const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+    const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
-  useEffect(async () => {
+    useEffect(async () => {
     await firebase.isInitialized();
     setFirebaseInitialized(true);
-  }, []);
+    }, []);
 
 
-  return (
+    return (
     <>
         {!firebaseInitialized ? (
             <div className="fullscreenflexmiddle">
@@ -43,7 +43,7 @@ export default function MyApp(props) {
             </CacheProvider>
         )}
     </>
-  );
+    );
 }
 
 MyApp.propTypes = {
