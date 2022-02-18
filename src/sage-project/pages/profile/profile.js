@@ -1,5 +1,5 @@
 import { Layout, Card, message } from "antd";
-import Header from "../../components/header";
+import Home from "../../components/Dashboard/Home";
 import Head from "next/head";
 import { DeleteOutlined, KeyOutlined, MailOutlined } from "@ant-design/icons";
 import firebase from "../../firebase/firebase";
@@ -14,7 +14,7 @@ export default function Profile() {
         <title>Profile | Firenext</title>
       </Head>
       <Layout>
-        <Header activeKey={"2"} />
+        <Home activeKey={"2"} />
         <Layout.Content style={{ padding: "0 50px", marginTop: 64 }}>
           <div className="site-layout-background mainlayout">
             <div className="container">

@@ -1,5 +1,5 @@
 import { Layout,Card,Form, Input, Button, Checkbox,message } from 'antd';
-import Header from "../../components/header";
+import Home from "../../components/Dashboard/Home";
 import Head from "next/head";
 import { DeleteOutlined, KeyOutlined } from "@ant-design/icons";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -25,7 +25,7 @@ export default function ChangeAccountEmail() {
           try {
         await firebase.updateUsersEmail(fieldDict.password,fieldDict.newemailaddress)
         message.success({ key: "Change email address", content: "You have successfully changed your accounts email address" }); // when signed up
-        Router.push("/dashboard/profile");
+        Router.push("/home/profile");
       } catch (error) {
         // an error message which shows if email address isn't successfully updated
         message.error({
@@ -76,7 +76,6 @@ export default function ChangeAccountEmail() {
               type="password"
               onInput={e => {setInputs(prevFieldDict=> ({...prevFieldDict, password: e.target.value}))}}
               placeholder="Password"
-            
             />
           </Form.Item>
 
@@ -86,7 +85,6 @@ export default function ChangeAccountEmail() {
             </Button>
           </Form.Item>
         </Form>
-      
       </main>
     </>
   );

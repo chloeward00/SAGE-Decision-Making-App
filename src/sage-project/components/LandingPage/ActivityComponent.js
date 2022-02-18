@@ -10,7 +10,7 @@ const alt = 'rock climbing';
 
 const ActivityComponent = () => {
 
-    return (  
+    return (
         <CardComponent imageURL={url} title={title} caption={caption} alt={alt}/>
     );
 }

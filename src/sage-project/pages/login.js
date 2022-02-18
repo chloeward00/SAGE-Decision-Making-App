@@ -72,7 +72,7 @@ const Login = () => {
 
     useEffect(() => {
         if (firebase.isLoggedIN()) {
-            Router.push("/dashboard");
+            Router.push("/home");
         }
     }, []);
 
@@ -83,7 +83,7 @@ const Login = () => {
         try {
             await firebase.login(values);
             // message.success({ key: "login", content: "Logged in 🎉" }); // if success
-            Router.push("/dashboard");
+            Router.push("/home");
         } catch (error) {
             // if error arises
             // message.error({
