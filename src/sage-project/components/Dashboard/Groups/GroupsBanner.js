@@ -1,7 +1,8 @@
 import { Typography, Grid, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import GroupsIcon from '@mui/icons-material/Groups';
-import ResponsiveDialog from './GroupsDialog';
+import CustomizedDialogs from './MembersDialog';
+import CreateGroupDialog from './GroupsDialog';
 
 const useStyles = makeStyles((theme) => ({
     page: {
@@ -27,7 +28,7 @@ const GroupsBanner = ({ groupName, buttonTitle }) => {
                     <Typography variant="h5" className={classes.groupLine}>
                         {groupName}
                     </Typography>
-                    <ResponsiveDialog buttonTitle={buttonTitle}/>
+                    {buttonTitle == "Create a new group" ? <CreateGroupDialog buttonTitle={buttonTitle}/> : <CustomizedDialogs buttonTitle={buttonTitle}/>}
                 </Grid>
             </Container>
         </div>

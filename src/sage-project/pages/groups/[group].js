@@ -6,7 +6,7 @@ import CustomizedDialogs from "../../components/Dashboard/Groups/MembersDialog";
 
 
 const name = "Big Brains";
-const buttonTitle = "Invite a member";
+const buttonTitle = "See members";
 
 const Group = () => {
 
@@ -14,7 +14,6 @@ const Group = () => {
         <div>
             <Layout>
                 <GroupsBanner groupName={name} buttonTitle={buttonTitle}/>
-                <CustomizedDialogs/>
                 <IndividualGroup/>
             </Layout>
         </div>
