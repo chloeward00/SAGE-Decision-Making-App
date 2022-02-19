@@ -15,3 +15,4 @@ const HomeDashboard = () => {
 export default HomeDashboard;
 
 // wrap layout component
+// list of all the events of the user from all groups they joined

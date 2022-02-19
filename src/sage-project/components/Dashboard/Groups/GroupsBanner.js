@@ -1,7 +1,7 @@
-import { Typography, Grid, Button, Divider, Container, Box, Paper } from '@mui/material';
+import { Typography, Grid, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import GroupsIcon from '@mui/icons-material/Groups';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ResponsiveDialog from './GroupsDialog';
 
 const useStyles = makeStyles((theme) => ({
     page: {
@@ -15,25 +15,23 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const GroupsBanner = () => {
+const GroupsBanner = ({ groupName, buttonTitle }) => {
     
     const classes = useStyles();
 
-    return (  
+    return (
         <div>
             <Container className={classes.page}>
                 <Grid container direction="row" alignItems="center">
                     <GroupsIcon fontSize="large" className={classes.groupTitle}/>
                     <Typography variant="h5" className={classes.groupLine}>
-                        {"Groups"}
+                        {groupName}
                     </Typography>
-                    <Button variant="contained" startIcon={<AddCircleIcon />}>
-                        {"Create a group"}
-                    </Button>
+                    <ResponsiveDialog buttonTitle={buttonTitle}/>
                 </Grid>
             </Container>
         </div>
     );
 }
- 
+
 export default GroupsBanner;

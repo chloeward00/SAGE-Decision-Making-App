@@ -77,6 +77,7 @@ function ResponsiveDrawer(props) {
             onClick: () => router.push('/home/calendar')
         },
         {
+            // make sure this is active too for every individual group = pathname -> /groups/[group]
             text: "Groups",
             icon: <GroupsIcon/>,
             path: '/groups',
