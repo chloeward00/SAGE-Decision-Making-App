@@ -19,8 +19,8 @@ export default function MyApp(props) {
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
     useEffect(async () => {
-    await firebase.isInitialized();
-    setFirebaseInitialized(true);
+        await firebase.isInitialized();
+        setFirebaseInitialized(true);
     }, []);
 
 

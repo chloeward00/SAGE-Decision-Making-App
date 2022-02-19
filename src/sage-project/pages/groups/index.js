@@ -1,12 +1,20 @@
-import ResponsiveDrawer from "../../components/Dashboard/Drawer/SideDrawer";
+import Groups from "../../components/Dashboard/Groups/Groups";
+import GroupsBanner from "../../components/Dashboard/Groups/GroupsBanner";
+import Layout from "../../components/Layout/Layout";
 
-const Groups = () => {
-    return (  
-        <>
-            <ResponsiveDrawer/>  
-            <h1>CALENDAR PAGE</h1>
-        </>    
+
+const GroupsPage = () => {
+
+    return (
+        <div>
+            <Layout>
+                <GroupsBanner/>
+                <Groups/>
+            </Layout>
+        </div>
     );
 }
- 
-export default Groups;
+
+export default GroupsPage;
+
+// wrap layout component

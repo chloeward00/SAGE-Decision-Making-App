@@ -44,3 +44,5 @@ export default function Home(props) {
         </Layout.Header>
     );
 }
+
+// CHLOE'S INITIAL HOME DASHBOARD - TAKE THE LOGOUT FUNCTIONALITY FROM HERE
