@@ -9,7 +9,7 @@ export default function App() {
     <div className="App">
     
       <Card />
-
+    <Footer/>
     </div>
   );
 }

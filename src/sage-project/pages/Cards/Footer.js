@@ -1,6 +1,6 @@
 import React from "react";
 import Router from "next/router";
-import Link from 'next/link'
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 export default function Footer() {
@@ -8,14 +8,16 @@ export default function Footer() {
 
   return (
     <div className="footer">
-              
-    <li>
-            <Link href="/Cards/Fav">
-            <a>Tinder: Movies</a>
-            </Link>
-            </li>
-     
-    
+
+        <FavoriteIcon
+        className="fav"
+        onClick={() => {
+          Router.push("/Cards/Fav");
+        }}
+      >
+        <FavoriteIcon fontSize="large" />
+      </FavoriteIcon>
+
     </div>
   );
 }
