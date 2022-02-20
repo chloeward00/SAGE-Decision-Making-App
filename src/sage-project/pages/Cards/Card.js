@@ -22,10 +22,7 @@ export const Card = () => {
 
   }, []);
 
-
-
   const db = peop
-  const dblen = db.length
   const [currentIndex, setCurrentIndex] = useState()
 
   useEffect(() => { setCurrentIndex(people.length -1) }, [people])
@@ -35,7 +32,7 @@ export const Card = () => {
 
   const childRefs = useMemo(
     () =>
-      Array(dblen)
+      Array(db.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -48,7 +45,7 @@ export const Card = () => {
     currentIndexRef.current = val
   }
 
-  const canGoBack = currentIndex < dblen - 1
+  const canGoBack = currentIndex < db.length - 1
   const canSwipe = currentIndex >= 0
 
   // set last direction and decrease current index
@@ -78,13 +75,13 @@ export const Card = () => {
     // during latest swipes. Only the last outOfFrame event should be considered valid
   }
 
-  //alert(currentIndex + " " + dblen)
+ 
 
 
   // functioanlity for buttons
   //alert("Swiping!")
   const swipe = async (dir) => {
-    if (canSwipe && currentIndex < dblen ) {
+    if (canSwipe && currentIndex < db.length) {
       await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
     }
   }
@@ -97,9 +94,7 @@ export const Card = () => {
     await childRefs[newIndex].current.restoreCard()
   }
 
-  return (
-
-    
+  return (    
     
     <div>
    
@@ -126,7 +121,8 @@ export const Card = () => {
 
             
             <h6
-               style={{                 color: "white",
+               style={{                 
+                 color: "white",
                  position: "absolute",
                  bottom: "0",
                  backgroundSize: "2px",
