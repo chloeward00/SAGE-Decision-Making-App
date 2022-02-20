@@ -18,9 +18,6 @@ export default function Fav() {
     setFs([...favi]);
   };
 
-
- 
-
   const getData = async () => {
   let currentUserUID = fire.auth().currentUser.uid
 
@@ -66,7 +63,7 @@ export default function Fav() {
     .get()
 
     if (!doc.exists){
-        console.log('no profile saved in the database. edit profile now')
+        console.log('no profile saved in the database. Edit profile now')
     } else {
         let dataObj = doc.data();
         setFs(dataObj.favi)

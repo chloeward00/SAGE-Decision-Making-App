@@ -7,10 +7,9 @@ import { Card } from "./Card";
 export default function App() {
   return (
     <div className="App">
-      <Header />
+    
       <Card />
 
-      <Footer />
     </div>
   );
 }
