@@ -1,5 +1,6 @@
 import fire from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/firestore';
 
 
 const config = {
@@ -147,6 +148,26 @@ class Firebase {
             return false
         }
     }
+
+    // for user favourties during the tinder swipe
+    async addfavs(favs) {
+        try {
+          
+          const currentUser = this.auth().currentUser;
+          
+      
+          const db = firebase.firestore();
+          db.collection("userFavs")
+            .doc(currentUser.uid)
+            .set({
+              favs: favs
+            });
+        } catch (err) {
+            return false
+        }
+      }
+      
+      
 }
 
 export default new Firebase()

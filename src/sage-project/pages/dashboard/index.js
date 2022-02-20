@@ -3,7 +3,6 @@ import Header from "../../components/header";
 import Router from "next/router";
 import Link from 'next/link'
 
-
 export default function dashboard() {
 
   // const handleClick = e => {
@@ -24,6 +23,18 @@ export default function dashboard() {
             <li>
             <Link href="dashboard/Movies">
             <a>Movie Section: Not styled</a>
+            </Link>
+            </li>
+
+            <li>
+            <Link href="dashboard/Home">
+            <a>Tinder: Movies</a>
+            </Link>
+            </li>
+
+            <li>
+            <Link href="dashboard/Yelp">
+            <a>Yelp: Not styled</a>
             </Link>
             </li>
               

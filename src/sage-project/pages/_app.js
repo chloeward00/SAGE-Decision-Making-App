@@ -1,10 +1,11 @@
 import "../styles/style.scss";
 import "antd/dist/antd.css";
 
+import "../styles/styles.css";
+import '../styles/globals.css'
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
 import { Spin } from "antd";
-import '../styles/Movies.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function MyApp({ Component, pageProps }) {

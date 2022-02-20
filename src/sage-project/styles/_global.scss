@@ -22,3 +22,334 @@ a {
   justify-content: center;
   flex-direction: column;
 }
+
+* {
+  max-width: 100%;
+  max-height: 100%;
+}
+*::-webkit-scrollbar {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: none;
+}
+
+.App {
+  font-family: poppins, "Franklin Gothic Medium", "Arial Narrow", Arial,
+    sans-serif;
+}
+.footer {
+  position: absolute;
+  bottom: 6px;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+.App::-webkit-scrollbar {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: none;
+}
+
+.header {
+  position: absolute;
+  top: 0px;
+  justify-content: space-around;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+.body_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+}
+.swipe {
+  position: absolute;
+  z-index: -1;
+}
+.card {
+  position: relative;
+  background-color: #fff;
+  height: 100vh;
+  width: 350px;
+  max-width: 100vh;
+  padding: 30px;
+
+  background-size: cover;
+  background-position: center;
+  border-radius: 30px;
+  box-shadow: 1px 1px 2px 5px rgba(228, 207, 207, 0.3);
+}
+
+.card > span {
+  position: absolute;
+  font-size: 25px;
+  color: rgb(192, 46, 192);
+  background-color: rgb(236, 197, 197);
+  border-radius: 99px;
+  bottom: 0px;
+  left: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.footer .fav {
+  background: rgb(252, 247, 247);
+  box-shadow: 20px 20px 30px #bebebe, -20px -20px 60px #ffffff;
+  color: rgb(240, 68, 96);
+}
+.footer .flash {
+  background: rgb(252, 247, 247);
+  box-shadow: 20px 20px 30px #bebebe, -20px -20px 60px #ffffff;
+  color: blueviolet;
+}
+.header .header_left {
+  background: rgb(252, 247, 247);
+  box-shadow: 2px 0px 10px #bebebe, -20px -20px 60px #ffffff;
+}
+.header .header_right {
+  background: rgb(252, 247, 247);
+  box-shadow: 2px 0px 10px #bebebe, -10px -10px 20px #ffffff;
+}
+
+.favoribg {
+  background-color: rgb(10, 7, 8);
+  color: white;
+  box-shadow: 2px 0px 10px #bebebe, -10px -10px 20px #ffffff;
+  border-radius: 99px;
+  width: 60%;
+  display: flex;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.favoribg {
+  font-size: 25px;
+  font-weight: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media only screen and (min-width: 480px) {
+  .body_container {
+    margin-top: 15vh;
+    margin-bottom: 5vh;
+  }
+  .card {
+    padding: 1px;
+    max-width: 115vw;
+    height: 60vh;
+    background-size: cover;
+    background-position: center center;
+  }
+  .footer {
+    bottom: 35px;
+  }
+  .repaly.MuiIconButton-sizeSmall {
+    size: small;
+  }
+  .favorbg {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+  .favoribg > span {
+    font-size: 27px;
+  }
+  .card > span {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .body_container {
+    margin-top: 13vh;
+    margin-bottom: 5vh;
+  }
+  .card {
+    padding: 3px;
+    max-width: 85vw;
+    min-width: 65vw;
+    height: 61vh;
+    background-size: cover;
+    background-position: center center;
+  }
+  .footer {
+    bottom: 6vh;
+  }
+
+  .card {
+    position: relative;
+    background-color: #fff;
+    width: 600px;
+    padding: 20px;
+    max-width: 65 vw;
+    height: 50vh;
+    box-shadow: 0px 18px 53px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .tinderCards_cardContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5vh;
+  }
+  
+  .swipe {
+    position: absolute;
+  }
+  
+  .swipe {
+    position: absolute;
+  }
+  
+  .cardContainer {
+    width: 90vw;
+    max-width: 260px;
+    height: 300px;
+  }
+  
+  .card {
+    position: relative;
+    background-color: #fff;
+    width: 80vw;
+    max-width: 260px;
+    height: 300px;
+    box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .cardContent {
+    width: 100%;
+    height: 100%;
+  }
+  #root {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+    /* background: linear-gradient(#fff, #999); */
+    background: linear-gradient(#e66465, #9198e5);
+  }
+  
+  #root>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .app>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .row {
+    flex-direction: row !important;
+  }
+  
+  .row>* {
+    margin: 5px;
+  }
+  
+  h1 {
+    font-family: 'Damion', cursive;
+    color: #fff;
+    text-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+  }
+  
+  h2 {
+    color: #fff;
+  }
+  
+  .swipe {
+    position: absolute;
+  }
+  
+  .cardContainer {
+    width: 90vw;
+    max-width: 260px;
+    height: 300px;
+  }
+  
+  .card {
+    position: relative;
+    background-color: #fff;
+    width: 80vw;
+    max-width: 260px;
+    height: 300px;
+    box-shadow: 0px 0px 60px 0px rgba(0,0,0,0.30);
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .cardContent {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swipe:last-of-type {
+  
+  }
+  
+  .card h3 {
+    position: absolute;
+    bottom: 0;
+    margin: 10px;
+    color: #fff;
+  }
+  
+  .infoText {
+    width: 100%;
+    height: 28px;
+    justify-content: center;
+    display: flex;
+    color: #fff;
+    animation-name: popup;
+    animation-duration: 800ms;
+  }
+  
+  .buttons {
+    margin: 20px;
+    display: flex;
+  }
+  
+  .buttons button {
+    flex-shrink: 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    background-color: #9198e5;
+    transition: 200ms;
+    margin: 0 10px;
+    font-weight: bolder;
+    width: 160px;
+    box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.10);
+  }
+  
+  .buttons button:hover {
+    transform: scale(1.05);
+  }
+  
+  @keyframes popup {
+    0%   { transform: scale(1,1) }
+    10%  { transform: scale(1.1,1.1) }
+    30%  { transform: scale(.9,.9) }
+    50%  { transform: scale(1,1) }
+    57%  { transform: scale(1,1) }
+    64%  { transform: scale(1,1) }
+    100% { transform: scale(1,1) }
+  }
+  
+  
+}
+
