@@ -142,6 +142,32 @@
     .small-div {
       width: 80%;
     }
+    .favoribg {
+      background-color: rgb(10, 7, 8);
+      color: white;
+      box-shadow: 2px 0px 10px #bebebe, -10px -10px 20px #ffffff;
+      border-radius: 99px;
+      width: 60%;
+      display: flex;
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+    .favoribg {
+      font-size: 25px;
+      font-weight: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .favorbg {
+      margin-left: 20%;
+      margin-right: 20%;
+    }
+    .favoribg > span {
+      font-size: 27px;
+    }
+    
   }
   
   
