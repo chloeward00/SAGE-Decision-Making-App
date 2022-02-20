@@ -110,7 +110,7 @@ export const Card = () => {
         {db.map((k, index) => (
           
           <TinderCard
-            //ref={childRefs[index]}
+            ref={childRefs[index]}
             className={styles.swipe}
             key={k.id}
             
