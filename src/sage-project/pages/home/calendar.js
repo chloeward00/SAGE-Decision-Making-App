@@ -61,15 +61,16 @@ const Calendar = () => {
         let currentUserUID = fire.auth().currentUser.uid
         const db = fire.firestore();
         
-        let doc = await fire
-        .firestore()
-        .collection('userCalendar')
-        .doc(currentUserUID)
-        .get()
+        // let doc = await fire
+        // .firestore()
+        // .collection('userCal')
+        // .doc(currentUserUID)
+        // .collection("activities")
+        // .get()
 
-        if (!doc.exists){
-            console.log('no Calendar data. Make sure to add events to calendar!')
-        } else {
+        // if (!doc.exists){
+        //     console.log('no Calendar data. Make sure to add events to calendar!')
+        // } else {
     //         // let dataObj = doc.data();
     //         // setData(dataObj.allEvents)
     //         const array = []
@@ -80,17 +81,23 @@ const Calendar = () => {
     //         console.log(doc.get('title') + "looooooool")
     // });
 
-  
-            let dataObj = doc.data();
-            setData(dataObj.date)
+              const qSnap = await fire
+               .firestore()
+               .collection('userCal')
+               .doc(currentUserUID)
+               .collection("activities")
+               .get()
+            
+            const data = []
+            data = (qSnap.docs.map(d => ({ id: d.id, title: d.data().event.title, start: d.data().event.start, allDay: d.data().event.allDay,...d.data() })));
+            
+            //setData(data)
+            console.log(data);
+            setData([...data])
 
-  }
+  
 }
 
-  console.log(date + "loooooooooool");
-
-
-  console.log(date + "lol");
 
            useEffect(() => {
              let mounted = false
