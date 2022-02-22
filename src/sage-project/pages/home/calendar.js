@@ -40,6 +40,7 @@ const Calendar = () => {
                       .doc(currentUserUID)
                       .get()
                     
+                      // might change to the below code, not sure
                       //  db.collection("userCalendar")
                       //  .doc(currentUserUID)
                       //  .update({
@@ -58,28 +59,8 @@ const Calendar = () => {
   }
 
       const getUserInfo = async () => {
-        let currentUserUID = fire.auth().currentUser.uid
-        const db = fire.firestore();
-        
-        // let doc = await fire
-        // .firestore()
-        // .collection('userCal')
-        // .doc(currentUserUID)
-        // .collection("activities")
-        // .get()
-
-        // if (!doc.exists){
-        //     console.log('no Calendar data. Make sure to add events to calendar!')
-        // } else {
-    //         // let dataObj = doc.data();
-    //         // setData(dataObj.allEvents)
-    //         const array = []
-    //         db.collection("userCalendar").doc(currentUserUID)
-    //         .onSnapshot((doc) => {
-
-    //         //console.log("Current data: ", doc.data());
-    //         console.log(doc.get('title') + "looooooool")
-    // });
+          let currentUserUID = fire.auth().currentUser.uid
+      
 
               const qSnap = await fire
                .firestore()
@@ -89,7 +70,7 @@ const Calendar = () => {
                .get()
             
             const data = []
-            data = (qSnap.docs.map(d => ({ id: d.id, title: d.data().event.title, start: d.data().event.start, allDay: d.data().event.allDay,...d.data() })));
+            data = (qSnap.docs.map(d => ({ id: d.id, title: d.data().event.title, start: d.data().event.start.toDate(), allDay: d.data().event.allDay,...d.data() })));
             
             //setData(data)
             console.log(data);
