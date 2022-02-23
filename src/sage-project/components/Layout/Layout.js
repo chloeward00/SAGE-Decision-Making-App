@@ -38,8 +38,9 @@ const Layout = ({ children }) => {
                 color="inherit"
             >
                 <Toolbar>
+                    {/* Change the name of the user here */}
                     <Typography className={classes.welcomeSign}>
-                        Welcome back, Solana!
+                        {"Welcome back, Solana!"}
                     </Typography>
                     <Avatar className={classes.avatar}>{name.charAt(0)}</Avatar>
                 </Toolbar>
