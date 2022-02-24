@@ -40,7 +40,7 @@ const Calendar = () => {
                       .doc(currentUserUID)
                       .get()
                     
-                      // might change to the below code, not sure
+                      // might change to the below code, not
                       //  db.collection("userCalendar")
                       //  .doc(currentUserUID)
                       //  .update({
@@ -51,13 +51,11 @@ const Calendar = () => {
                       //  }
                       // )
 
-                      db.collection("userCal/"+currentUserUID+"/activities").add({event})
-          
+                      db.collection("userCal/"+currentUserUID+"/activities").add({event}) // add event object to activites doc
+                                         
       }
      
-  
   }
-
       const getUserInfo = async () => {
           let currentUserUID = fire.auth().currentUser.uid
       
@@ -75,6 +73,8 @@ const Calendar = () => {
             //setData(data)
             console.log(data);
             setData([...data])
+           
+            
 
   
 }
@@ -86,9 +86,10 @@ const Calendar = () => {
              if(!mounted){
               getUserInfo()
              }
-            
+             
              return () => {
                  mounted = true
+                 
              }
         
          }, [])
