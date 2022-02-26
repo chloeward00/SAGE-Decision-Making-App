@@ -13,6 +13,7 @@ const config = {
 }
 
 class Firebase {
+
     constructor() {
         if (!fire.apps.length) {
             fire.initializeApp(config);
@@ -80,6 +81,7 @@ class Firebase {
             return false
         }
     }
+
     async resetPassword(email){
             this.auth.sendPasswordResetEmail(email)
               .then(function () {
@@ -129,6 +131,7 @@ class Firebase {
             }
         }
     }
+
     async sendVerification() {
         try {
             if (this.auth.currentUser) {

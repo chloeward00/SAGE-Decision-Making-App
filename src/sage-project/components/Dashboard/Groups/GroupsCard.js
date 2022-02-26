@@ -9,7 +9,7 @@ import CardHeader from '@mui/material/CardHeader';
 
 export default function GroupsCard({ groups }) {
 
-    const { groupName, groupDescription, numberOfPlans } = groups;
+    const { groupName, groupDescription } = groups;
 
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
@@ -18,9 +18,14 @@ export default function GroupsCard({ groups }) {
                 subheader={groupDescription}
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    {"Number of Plans: " + numberOfPlans}
-                </Typography>
+            {/* <Typography variant="body2" color="text.secondary">
+                        {"Members: "}
+            </Typography>
+                {members.map(member => (
+                    <Typography variant="body2" color="text.secondary">
+                        {member}
+                    </Typography>
+                ))} */}
             </CardContent>
             <CardActions>
                 {/* ADD STYLING BUTTON HERE */}
