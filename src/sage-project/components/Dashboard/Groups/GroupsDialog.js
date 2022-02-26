@@ -8,8 +8,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { TextField, Typography} from '@mui/material';
+import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useState } from 'react';
+import { groupsCollection } from '../../../firebase/collections';
+import { v4 as uuidv4 } from 'uuid';
+import 'firebase/firestore';
+
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -20,14 +25,11 @@ const useStyles = makeStyles((theme) => ({
 const CreateGroupDialog = ({ buttonTitle }) => {
     
     const classes = useStyles();
-
-    const {} = props;
     
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    // FIREBASE ADD HERE when user click save, the new group should be added into firebase and shown in the page
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -36,9 +38,21 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         setOpen(false);
     };
 
-    const [groupName, setGroupName] = React.useState('');
-    const [groupDescription, setgroupDescription] = React.useState('');
+    // these are the fields that group document has. groupMembers is set to be empty here since it will be overwritten in the invite member functionality.
+    const [groupName, setGroupName] = useState('');
+    const [groupDescription, setgroupDescription] = useState('');
+    const [groupMembers, setGroupMembers] = useState([]);
 
+    // this creates a new document in the groups collection. this represents each group created in the database.
+    const handleSubmit = (newDataObj) => {
+        groupsCollection
+        .doc()
+        .set(newDataObj)
+        .catch((err) => {
+            alert(err)
+            console.log(err)
+        })
+    }
 
     return (
         <div>
@@ -55,7 +69,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                 {buttonTitle}
             </DialogTitle>
             <DialogContent>
-                {/* Name of the group, group description, what else?*/}
+                {/* group name, group description, group members */}
                 <DialogContentText>
                     {"To create a group, add a group name and description. (description is completely optional)"}
                 </DialogContentText>
@@ -67,6 +81,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     fullWidth
                     variant="standard"
                     className={classes.textField}
+                    onChange={(e) => setGroupName(e.target.value)}
                 />
                 <TextField
                     autoFocus
@@ -76,14 +91,18 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     fullWidth
                     variant="standard"
                     className={classes.textField}
+                    onChange={(e) => setgroupDescription(e.target.value)}
                 />
             </DialogContent>
             <DialogActions>
-                {/* change the colour buttons to indicate which is save and cancel */}
+                {/* FRONTEND - change the colour buttons to indicate which is save and cancel */}
                 <Button autoFocus onClick={handleClose}>
                     {"Cancel"}
                 </Button>
-                <Button onClick={handleClose} autoFocus>
+                <Button autoFocus onClick={() => {
+                    handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: Date.now() })
+                    handleClose()
+                }}>
                     {"Save"}
                 </Button>
             </DialogActions>
