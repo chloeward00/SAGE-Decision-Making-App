@@ -1,6 +1,6 @@
 import fire from 'firebase/app'
 import 'firebase/auth'
-
+import createUserDocument from './functions';
 
 const config = {
     apiKey: "AIzaSyCwaFXi8bFlFlupg4YSy5nmiZSIrhakcdI",
@@ -18,7 +18,14 @@ class Firebase {
         if (!fire.apps.length) {
             fire.initializeApp(config);
         }
+        
         this.auth = fire.auth()
+    }
+
+    isInitialized() {
+        return new Promise(resolve => {
+            this.auth.onAuthStateChanged(resolve)
+        })
     }
 
     async login({ email, password }) {
@@ -30,18 +37,13 @@ class Firebase {
     }
 
     async register({ name, email, password }) {
-        await this.auth.createUserWithEmailAndPassword(email, password)
+        const { user } = await this.auth.createUserWithEmailAndPassword(email, password)
+        await createUserDocument(user, name)
         await this.auth.currentUser.sendEmailVerification()
         return this.auth.currentUser.updateProfile({
             displayName: name,
-
         })
-    }
 
-    isInitialized() {
-        return new Promise(resolve => {
-            this.auth.onAuthStateChanged(resolve)
-        })
     }
 
     isLoggedIN() {

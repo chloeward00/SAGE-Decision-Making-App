@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { groupsCollection } from '../../../firebase/collections';
 import { v4 as uuidv4 } from 'uuid';
 import 'firebase/firestore';
+import fire from 'firebase/app'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +46,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
 
     // this creates a new document in the groups collection. this represents each group created in the database.
     const handleSubmit = (newDataObj) => {
-        groupsCollection
+        fire.firestore().collection('groups')
         .doc()
         .set(newDataObj)
         .catch((err) => {
@@ -100,7 +101,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     {"Cancel"}
                 </Button>
                 <Button autoFocus onClick={() => {
-                    handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: Date.now() })
+                    handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: new Date() })
                     handleClose()
                 }}>
                     {"Save"}
