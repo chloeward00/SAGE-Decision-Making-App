@@ -3,10 +3,9 @@ import { Paper, TextField, Typography, Grid, Button, Divider, Container} from '@
 import Link from '../components/Link/Link';
 import firebase from "../firebase/firebase";
 import Router from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import LeftGrid from '../components/Authentication/LeftGrid';
-
 
 const caption = "Enter your personal details and start planning with us!";
 const createAccount = "Create account";
@@ -68,22 +67,15 @@ const SignUp = () => {
 
     useEffect(() => { 
         if (firebase.isLoggedIN()) {
-          Router.push("/dashboard");
+          Router.push("/home");
         }
     });
     
     async function doSignup(values) {
-        // message.loading({ key: "SignedUp", content: "Signing up!" });
         try {
             await firebase.register(values);
-            // message.success({ key: "SignedUp", content: "You have successfully created your account!" }); // when signed up
-            Router.push("/login");
+            Router.push("/home");
         } catch (error) {
-            // an error message which shows if account is not successfully created.
-            // message.error({
-            // key: "Create Account",
-            // content: error.message || "An error occurred when trying to create your account. Please try again.",
-            // });
             console.log(error);
         }
     }
@@ -115,7 +107,7 @@ const SignUp = () => {
                                 {...register("name", {
                                     required: "Please enter your name"})}
                                 error={!!errors?.name}
-                                helperText={errors?.name ? errors.name.message : null} 
+                                helperText={errors?.name  ? errors.name.message : null}
                             />
                             <TextField
                                 id="email" 

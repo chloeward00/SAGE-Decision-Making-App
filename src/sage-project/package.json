@@ -41,7 +41,8 @@
     "react-tinder-card": "^1.4.5",
     "reactstrap": "^9.0.1",
     "sass": "^1.45.1",
-    "sweetalert2": "^11.4.4"
+    "sweetalert2": "^11.4.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "8.5.0",
