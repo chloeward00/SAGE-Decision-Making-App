@@ -11,7 +11,6 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
-import { groupsCollection } from '../../../firebase/collections';
 import { v4 as uuidv4 } from 'uuid';
 import 'firebase/firestore';
 import fire from 'firebase/app'

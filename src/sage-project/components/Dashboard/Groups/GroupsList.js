@@ -3,8 +3,8 @@ import { Grid, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import GroupsCard from './GroupsCard';
 import { useEffect, useState } from 'react';
-import { groupsCollection } from '../../../firebase/collections';
 import 'firebase/firestore';
+import fire from 'firebase/app'
 
 const useStyles = makeStyles((theme) => ({
     page: {
@@ -21,7 +21,7 @@ const Groups = () => {
     
     // display the groups according to their timestamp - using orderBy
     useEffect(() => {
-        groupsCollection.orderBy('createdAt', 'desc').onSnapshot(snapshot => (
+        fire.firestore().collection('groups').orderBy('createdAt', 'desc').onSnapshot(snapshot => (
             setGroupList(snapshot.docs.map(doc => doc.data()))
         ))
     }, [])
