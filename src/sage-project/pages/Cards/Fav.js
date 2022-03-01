@@ -78,7 +78,9 @@ export default function Fav() {
         <span> Your Favourites</span>
       </div>
       {favi.map((k, index) => (
+          
         <div
+       
           style={{
             display: "flex",
             alignItems: "center",

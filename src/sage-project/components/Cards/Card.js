@@ -34,7 +34,7 @@ export const Card = () => {
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(people.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
