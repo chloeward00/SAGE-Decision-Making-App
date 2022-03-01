@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { favi } from "../../components/Cards/Card"
+import { favi } from "./Card";
 import CancelIcon from '@mui/icons-material/Cancel';
 import fire from 'firebase/app'
 import 'firebase/firestore';
