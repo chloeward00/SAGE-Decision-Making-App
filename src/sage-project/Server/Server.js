@@ -11,3 +11,6 @@ cors_proxy.createServer({
 }).listen(port, host, function() {
     console.log('Running CORS Anywhere on ' + host + ':' + port);
 });
+
+// https://www.npmjs.com/package/cors-anywhere
+// needs to be deployed on heroku
