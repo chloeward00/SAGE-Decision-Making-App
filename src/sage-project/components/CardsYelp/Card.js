@@ -29,10 +29,10 @@ export const Card = () => {
   useEffect(() => {
      axios
       .get(
-        'http://localhost:8080/https://api.yelp.com/v3/businesses/search?term=delis&latitude=' +
-          (37.786882) +
+        'http://localhost:8080/https://api.yelp.com/v3/businesses/search?term=Food&latitude=' +
+          (53.396111) + // cordinates for coolock
           '&longitude=' +
-          (-122.399972) +
+          (-6.216250) +
           '&limit=' +
           limit,
           config,
