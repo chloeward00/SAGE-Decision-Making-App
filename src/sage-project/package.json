@@ -26,6 +26,9 @@
     "@next-tools/dynamic": "^0.0.11",
     "antd": "^4.18.0",
     "bootstrap-sweetalert": "^1.0.1",
+    "cors": "^2.8.5",
+    "cors-anywhere": "^0.4.4",
+    "express": "^4.17.3",
     "firebase": "^8.6.8",
     "install": "^0.13.0",
     "moment": "^2.29.1",
@@ -40,7 +43,8 @@
     "reactstrap": "^9.0.1",
     "sass": "^1.45.1",
     "sweetalert2": "^11.4.4",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yelp-fusion": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "8.5.0",

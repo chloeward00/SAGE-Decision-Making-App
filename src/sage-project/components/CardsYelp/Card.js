@@ -29,7 +29,7 @@ export const Card = () => {
   useEffect(() => {
      axios
       .get(
-        'https://api.yelp.com/v3/businesses/search?term=delis&latitude=' +
+        'http://localhost:8080/https://api.yelp.com/v3/businesses/search?term=delis&latitude=' +
           (37.786882) +
           '&longitude=' +
           (-122.399972) +
