@@ -40,7 +40,6 @@ export const Card = () => {
   //   []
   // )
 
-
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val)
     currentIndexRef.current = val

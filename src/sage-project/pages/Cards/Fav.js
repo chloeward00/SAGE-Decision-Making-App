@@ -80,8 +80,8 @@ export default function Fav() {
       {favi.map((k, index) => (
           
         <div
-        key={k.id[0]}
-       
+        
+        key={k.id}
           style={{
             display: "flex",
             alignItems: "center",
