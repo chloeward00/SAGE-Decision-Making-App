@@ -1,4 +1,3 @@
-/* eslint-disable */
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
@@ -22,12 +21,15 @@ export default function MyApp(props) {
     const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
-    useEffect(async () => {
-        await firebase.isInitialized();
-        setFirebaseInitialized(true);
-    }, []);
-
-
+    useEffect(() => {
+        async function fetchData() {
+          
+          await firebase.isInitialized();
+          setFirebaseInitialized(true);
+         
+        }
+        fetchData();
+      }, []); // Or [] if effect doesn't need props or state
     return (
     <>
         {!firebaseInitialized ? (

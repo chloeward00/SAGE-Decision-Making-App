@@ -1,4 +1,3 @@
-/* eslint-disable */
 import TinderCard from "react-tinder-card";
 import { useState, useEffect,useMemo, useRef} from "react";
 import React from 'react';
@@ -10,7 +9,6 @@ export const Card = () => {
   const [people, setPeople] = useState([]);
   const [favs, setFavs] = useState([]);
   
-  const peop = people;
   useEffect(() => {
     axios
       .get(
@@ -24,7 +22,7 @@ export const Card = () => {
 
   }, []);
 
-  const db = peop
+  const db = people
   const [currentIndex, setCurrentIndex] = useState()
 
 
@@ -33,13 +31,14 @@ export const Card = () => {
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex)
 
-  const childRefs = useMemo(
-    () =>
-      Array(people.length)
-        .fill(0)
-        .map((i) => React.createRef()),
-    []
-  )
+  const childRefs = 0;
+  // const childRefs = useMemo(
+  //   () =>
+  //     Array(people.length)
+  //       .fill(0)
+  //       .map((i) => React.createRef()),
+  //   []
+  // )
 
 
   const updateCurrentIndex = (val) => {
@@ -109,7 +108,7 @@ export const Card = () => {
           <TinderCard
             ref={childRefs[index]}
             className={styles.swipe}
-            key={k.id}
+            key={k.id[0]}
             
             onSwipe={(dir) => swiped(dir,index,k.original_title, k.poster_path,childRefs[index])}
             onCardLeftScreen={() => outOfFrame(k.original_title,index)}

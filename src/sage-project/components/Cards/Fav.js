@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState,useEffect } from "react";
 import { favi } from "./Card";
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -79,9 +78,9 @@ export default function Fav() {
         <span> Your Favourites</span>
       </div>
       {favi.map((k, index) => (
-       
+      
         <div
-        
+        key={k.id[0]}
           style={{
             display: "flex",
             alignItems: "center",

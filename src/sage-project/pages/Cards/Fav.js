@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState,useEffect } from "react";
 import { favi } from "../../components/Cards/Card"
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -81,6 +80,7 @@ export default function Fav() {
       {favi.map((k, index) => (
           
         <div
+        key={k.id[0]}
        
           style={{
             display: "flex",
