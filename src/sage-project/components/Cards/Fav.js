@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState,useEffect } from "react";
 import { favi } from "./Card";
 import CancelIcon from '@mui/icons-material/Cancel';

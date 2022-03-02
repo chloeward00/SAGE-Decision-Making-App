@@ -1,3 +1,4 @@
+/* eslint-disable */
 import TinderCard from "react-tinder-card";
 import { useState, useEffect,useMemo, useRef} from "react";
 import React from 'react';
