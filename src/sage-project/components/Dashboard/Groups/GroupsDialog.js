@@ -10,7 +10,7 @@ import { useTheme } from '@mui/material/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import 'firebase/firestore';
 import 'firebase/auth'
@@ -44,6 +44,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
     const [groupDescription, setgroupDescription] = useState('');
     // initialised the current user as the first member of the group if they create a group.
     const [groupMembers, setGroupMembers] = useState([fire.auth().currentUser.displayName]);
+    const [userGroups, setUserGroups] = useState([]);
 
     // this creates a new document in the groups collection. this represents each group created in the database.
     const handleSubmit = (newDataObj) => {
@@ -56,9 +57,18 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         })
     }
 
-    // const userUID = fire.auth().currentUser.uid
-    // const groupField = fire.firestore().collection('users').doc(userUID)
-    // console.log("user id    " + userUID)
+    // this should update the users collection -> update the userGroups array + add the created group in the array
+    const handleUserGroups = () => {
+        fire.firestore().collection('users')
+        .doc(fire.auth().currentUser.uid)
+        .update({
+            userGroups: userGroups
+        })
+        .catch((err) => {
+            alert(err)
+            console.log(err)
+        })  
+    }
 
     return (
         <div>
@@ -88,6 +98,10 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     variant="standard"
                     className={classes.textField}
                     onChange={(e) => setGroupName(e.target.value)}
+                    // onChange={ (e) => {
+                    //      setGroupName(e.target.value)
+                    //      setUserGroups( userGroups => [ ...userGroups, e.target.value])
+                    // }}
                 />
                 <TextField
                     autoFocus
@@ -105,9 +119,10 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                 <Button autoFocus onClick={handleClose}>
                     {"Cancel"}
                 </Button>
-                <Button autoFocus onClick={() => {
-                    console.log("setting group memberss")
+                <Button autoFocus onClick={ () => {
+                    setUserGroups( userGroups => [...userGroups, groupName])
                     handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: new Date() })
+                    handleUserGroups()
                     handleClose()
                 }}>
                     {"Save"}

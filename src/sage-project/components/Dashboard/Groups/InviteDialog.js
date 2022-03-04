@@ -29,38 +29,32 @@ const InviteDialog = () => {
         setOpen(false);
     };
 
-    const [groupName, setGroupName] = useState('');
-    const [groupDescription, setgroupDescription] = useState('');
-    const [groupMembers, setGroupMembers] = useState([]);
+    const [email, setEmail] = useState('');
 
     // this creates a new document in the groups collection. this represents each group created in the database.
     const handleSubmit = (newDataObj) => {
-        fire.firestore().collection('users')
+        fire.firestore().collection('groups')
         .doc()
-        .set(newDataObj)
+        .update(newDataObj)
         .catch((err) => {
             alert(err)
             console.log(err)
         })
     }
 
-    const checkThisEmail = "something@rv.com" 
-    const usersColl = fire.firestore().collection('users').doc()
-    // const query = usersColl.where("userEmail", "==", checkThisEmail)
-    console.log(usersColl)
+    // // this is how to get the users details to be added into a group from the user collection. how do we know if this user does not exist in the database?
+    // fire.firestore().collection('users').where("userEmail", "==", "bkaaa")
+    // .get()
+    // .then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //         // doc.data() is never undefined for query doc snapshots
+    //         console.log(doc.id, " => ", doc.data());
+    //     });
+    // })
+    // .catch((error) => {
+    //     console.log("Error getting documents: ", error);
+    // });
 
-    // this is how to get the users details to be added into a group from the user collection. how do we know if this user does not exist in the database?
-    fire.firestore().collection('users').where("userEmail", "==", "blabla@gmail.com")
-    .get()
-    .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-        });
-    })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
-    });
 
     return (
         <div>
@@ -88,6 +82,7 @@ const InviteDialog = () => {
                     type="email"
                     fullWidth
                     variant="standard"
+                    onChange={(e) => setEmail(e.target.value)}
                     // className={classes.textField}
                 />
             </DialogContent>
@@ -95,8 +90,11 @@ const InviteDialog = () => {
                 <Button autoFocus onClick={handleClose}>
                     {"Cancel"}
                 </Button>
-                <Button onClick={handleClose} autoFocus>
-                    {"Add"}
+                <Button autoFocus onClick={() => {
+                    // handleSubmit({ groupMembers: [email]})
+                    handleClose()
+                }}>                    
+                {"Add"}
                 </Button>
             </DialogActions>
             </Dialog>
@@ -105,3 +103,17 @@ const InviteDialog = () => {
 }
 
 export default InviteDialog;
+
+
+    // const checkThisEmail = "something@rv.com" 
+    // const usersColl = fire.firestore().collection('users')
+    // const query = usersColl.where("userEmail", "==", "bp").get()
+    // if(!query.empty){
+    //     console.log("this user exists")
+    // } else {
+    //     console.log("this user does not exist")
+    // }
+
+    // console.log(fire.auth().getUserByEmail("irene@rv.com"))
+    // console.log(query ? "it exists" : "doesnt exist")
+    // console.log(query)
