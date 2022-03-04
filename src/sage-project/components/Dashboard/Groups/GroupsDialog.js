@@ -13,6 +13,7 @@ import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import 'firebase/firestore';
+import 'firebase/auth'
 import fire from 'firebase/app'
 
 
@@ -41,7 +42,8 @@ const CreateGroupDialog = ({ buttonTitle }) => {
     // these are the fields that group document has. groupMembers is set to be empty here since it will be overwritten in the invite member functionality.
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setgroupDescription] = useState('');
-    const [groupMembers, setGroupMembers] = useState([]);
+    // initialised the current user as the first member of the group if they create a group.
+    const [groupMembers, setGroupMembers] = useState([fire.auth().currentUser.displayName]);
 
     // this creates a new document in the groups collection. this represents each group created in the database.
     const handleSubmit = (newDataObj) => {
@@ -53,6 +55,10 @@ const CreateGroupDialog = ({ buttonTitle }) => {
             console.log(err)
         })
     }
+
+    // const userUID = fire.auth().currentUser.uid
+    // const groupField = fire.firestore().collection('users').doc(userUID)
+    // console.log("user id    " + userUID)
 
     return (
         <div>
@@ -100,6 +106,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     {"Cancel"}
                 </Button>
                 <Button autoFocus onClick={() => {
+                    console.log("setting group memberss")
                     handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: new Date() })
                     handleClose()
                 }}>

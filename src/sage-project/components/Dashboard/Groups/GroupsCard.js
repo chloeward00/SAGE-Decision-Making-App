@@ -28,7 +28,7 @@ export default function GroupsCard({ groups }) {
                 ))} */}
             </CardContent>
             <CardActions>
-                {/* ADD STYLING BUTTON HERE */}
+                {/* ADD STYLING BUTTON HERE + WHEN CLICKED, THIS SHOULD TAKE THEM TO THE GROUPS PAGE ONLY*/}
                 <Button size="small">OPEN</Button>
             </CardActions>
         </Card>
