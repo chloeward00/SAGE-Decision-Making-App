@@ -43,19 +43,21 @@ const CreateGroupDialog = ({ buttonTitle }) => {
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setgroupDescription] = useState('');
     // initialised the current user as the first member of the group if they create a group.
-    const [groupMembers, setGroupMembers] = useState([fire.auth().currentUser.displayName]);
+    const [groupMembers, setGroupMembers] = useState([fire.auth().currentUser.uid]); // CHANGE THIS TO UID
     // this userGroups is a field under users collection -> this gets updated once a user creates a group.
     const [userGroups, setUserGroups] = useState([]);
 
-    // this creates a new document in the groups collection. this represents each group created in the database.
+    // this creates a new document in the groups collection. 
+    // this represents each group created in the database.
     const handleSubmit = (data) => {
-        fire.firestore().collection('groups')
-        .doc()
-        .set(data)
-        .catch((err) => {
+        const docRef = fire.firestore().collection('groups').doc()
+        docRef.set(data).catch((err) => {
             alert(err)
             console.log(err)
         })
+        // this saves the groups document ID into each user's userGroups array field
+        setUserGroups([...userGroups, docRef.id])
+        console.log(docRef.id)
     }
 
     // this should update the users collection -> update the userGroups array + add the created group in the array
@@ -77,6 +79,10 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         updateUserGroup()
         console.log(userGroups)
     }, [userGroups]);
+
+
+    const query = fire.firestore().collection('groups').doc().get()
+    // console.log(query)
 
     return (
         <div>
@@ -124,7 +130,6 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     {"Cancel"}
                 </Button>
                 <Button autoFocus onClick={ () => {
-                    setUserGroups([...userGroups, groupName])
                     handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: new Date() })
                     handleClose()
                 }}>

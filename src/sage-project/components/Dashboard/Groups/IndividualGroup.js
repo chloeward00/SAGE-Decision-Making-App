@@ -51,7 +51,7 @@ const IndividualGroup = () => {
         }
     ]
 
-    console.log(fire.auth().currentUser.email)
+    // console.log(fire.auth().currentUser.email)
 
     return (
         <Container className={classes.page}>

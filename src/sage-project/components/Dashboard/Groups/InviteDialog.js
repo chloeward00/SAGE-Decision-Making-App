@@ -30,12 +30,25 @@ const InviteDialog = () => {
     };
 
     const [email, setEmail] = useState('');
+    const [members, setMembers] = useState([]);
 
     // this creates a new document in the groups collection. this represents each group created in the database.
     const handleSubmit = (newDataObj) => {
         fire.firestore().collection('groups')
         .doc()
         .update(newDataObj)
+        .catch((err) => {
+            alert(err)
+            console.log(err)
+        })
+    }
+
+    const updateGroupMembers = () => {
+        fire.firestore().collection('users')
+        .doc()
+        .update({
+            groupMembers: fire.firestore.FieldValue.arrayUnion(...userGroups)
+        })
         .catch((err) => {
             alert(err)
             console.log(err)
@@ -55,6 +68,12 @@ const InviteDialog = () => {
     //     console.log("Error getting documents: ", error);
     // });
 
+    // useEffect(() => {
+
+    // }, []);
+
+
+    console.log('current email   ' + email)
 
     return (
         <div>
