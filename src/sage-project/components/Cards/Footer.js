@@ -12,7 +12,7 @@ export default function Footer() {
         <FavoriteIcon
         className="fav"
         onClick={() => {
-          Router.push("/Cards/Fav");
+          Router.push("/cards/fav");
          
         }}
       >
