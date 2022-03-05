@@ -28,21 +28,11 @@ export const Card = () => {
     },
   };
 
- 
- 
-  const getUserLocation = () => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-       setLatitude(position.coords.latitude);
-       setLongitude(position.coords.longitude);
-      })
 
-  }
-
-  console.log(lat + "looooool")
-  console.log(long + "looooool")
+  // console.log(lat)
+  // console.log(long)
    useEffect(() => {
-    
-        
+      
           navigator.geolocation.getCurrentPosition(function(position) {
           setLatitude(position.coords.latitude);
           setLongitude(position.coords.longitude);
@@ -52,11 +42,8 @@ export const Card = () => {
 }, [])
 
 
-
-
- // Have to edit this to try figure out how to get the current users latitude and longitude and figure out cors policy
   useEffect(() => {
-    //getUserLocation()
+  
      axios
       .get(
         'http://localhost:8080/https://api.yelp.com/v3/businesses/search?term=Food&latitude=' +
@@ -88,6 +75,8 @@ export const Card = () => {
     if (direction === "right") {
     
       alert(name + " was swiped right and added to your favourites") // can add r left too but i feel like it takes the fun away when alerts keep popping up idk 
+      favi.push({name,url})
+      console.log(favi + "loooool")
     }
     
   }

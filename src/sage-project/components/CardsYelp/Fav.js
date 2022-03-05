@@ -26,14 +26,14 @@ export default function Fav() {
       
         const doc = await fire
         .firestore()
-        .collection('userFavs')
+        .collection('userActivityLikes')
         .doc(currentUserUID)
         .get()
         ///firefunctions.addfavs
-          db.collection("userFavs")
+          db.collection("userActivityLikes")
           .doc(currentUserUID)
           .set({
-            favs: favi
+            ActivityLikes: favi
           })
           
       }
@@ -59,7 +59,7 @@ export default function Fav() {
     
     let doc = await fire
     .firestore()
-    .collection('userFavs')
+    .collection('userActivityLikes')
     .doc(currentUserUID)
     .get()
 
@@ -80,7 +80,7 @@ export default function Fav() {
       {favi.map((k, index) => (
       
         <div
-        key={k.id[0]}
+    
           style={{
             display: "flex",
             alignItems: "center",
@@ -91,7 +91,7 @@ export default function Fav() {
           
           <div
             style={{
-              backgroundImage: `url(https://image.tmdb.org/t/p/w500${k.url})`,
+              backgroundImage: `url(${k.url})`,
               margin: "10px",
               display: "flex",
               flexDirection: "row",

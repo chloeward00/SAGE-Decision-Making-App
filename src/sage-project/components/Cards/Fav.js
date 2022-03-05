@@ -18,7 +18,7 @@ export default function Fav() {
   };
 
 
-  console.log(fs + "loooooooool")
+
   const getData = async () => {
   let currentUserUID = fire.auth().currentUser.uid
 
