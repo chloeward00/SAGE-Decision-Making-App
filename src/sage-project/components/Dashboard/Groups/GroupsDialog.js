@@ -58,7 +58,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
     }
 
     // this should update the users collection -> update the userGroups array + add the created group in the array
-    const handleUserGroups = () => {
+    const updateUserGroup = () => {
         fire.firestore().collection('users')
         .doc(fire.auth().currentUser.uid)
         .update({
@@ -67,8 +67,14 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         .catch((err) => {
             alert(err)
             console.log(err)
-        })  
+        })
     }
+
+    useEffect(() => {
+        // we add this updateUserGroup here so everytime the user creates a group, their list of groups will be updated. 
+        updateUserGroup()
+        console.log(userGroups)
+    }, [userGroups]);
 
     return (
         <div>
@@ -120,9 +126,8 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     {"Cancel"}
                 </Button>
                 <Button autoFocus onClick={ () => {
-                    setUserGroups( userGroups => [...userGroups, groupName])
+                    setUserGroups([...userGroups, groupName])
                     handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: new Date() })
-                    handleUserGroups()
                     handleClose()
                 }}>
                     {"Save"}
