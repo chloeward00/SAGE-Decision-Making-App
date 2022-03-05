@@ -39,18 +39,19 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         setOpen(false);
     };
 
-    // these are the fields that group document has. groupMembers is set to be empty here since it will be overwritten in the invite member functionality.
+    // these are the fields that group document has
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setgroupDescription] = useState('');
     // initialised the current user as the first member of the group if they create a group.
     const [groupMembers, setGroupMembers] = useState([fire.auth().currentUser.displayName]);
+    // this userGroups is a field under users collection -> this gets updated once a user creates a group.
     const [userGroups, setUserGroups] = useState([]);
 
     // this creates a new document in the groups collection. this represents each group created in the database.
-    const handleSubmit = (newDataObj) => {
+    const handleSubmit = (data) => {
         fire.firestore().collection('groups')
         .doc()
-        .set(newDataObj)
+        .set(data)
         .catch((err) => {
             alert(err)
             console.log(err)
@@ -58,11 +59,12 @@ const CreateGroupDialog = ({ buttonTitle }) => {
     }
 
     // this should update the users collection -> update the userGroups array + add the created group in the array
+    // fire.firestore.FieldValue.arrayUnion(...userGroups) ->  userGroups is an array so we use spread operator to get its values since the array only takes string values
     const updateUserGroup = () => {
         fire.firestore().collection('users')
         .doc(fire.auth().currentUser.uid)
         .update({
-            userGroups: userGroups
+            userGroups: fire.firestore.FieldValue.arrayUnion(...userGroups)
         })
         .catch((err) => {
             alert(err)
@@ -104,10 +106,6 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     variant="standard"
                     className={classes.textField}
                     onChange={(e) => setGroupName(e.target.value)}
-                    // onChange={ (e) => {
-                    //      setGroupName(e.target.value)
-                    //      setUserGroups( userGroups => [ ...userGroups, e.target.value])
-                    // }}
                 />
                 <TextField
                     autoFocus
