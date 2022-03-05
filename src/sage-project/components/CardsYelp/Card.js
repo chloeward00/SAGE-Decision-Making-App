@@ -8,8 +8,12 @@ import {yelpAPIKey} from '../../YELP-API/YelpAPI.js';
 export const favi = [];
 export const Card = () => {
 
+  
+
   // places rendered by yelp api
   const [places, setPlaces] = useState([]);
+  const [lat, setLatitude] = useState();
+  const [long, setLongitude] = useState();
   
 
   // Set radius from current location as 4 km.
@@ -24,15 +28,41 @@ export const Card = () => {
     },
   };
 
+ 
+ 
+  const getUserLocation = () => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+       setLatitude(position.coords.latitude);
+       setLongitude(position.coords.longitude);
+      })
+
+  }
+
+  console.log(lat + "looooool")
+  console.log(long + "looooool")
+   useEffect(() => {
+    
+        
+          navigator.geolocation.getCurrentPosition(function(position) {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+       
+        });
+
+}, [])
+
+
+
 
  // Have to edit this to try figure out how to get the current users latitude and longitude and figure out cors policy
   useEffect(() => {
+    //getUserLocation()
      axios
       .get(
         'http://localhost:8080/https://api.yelp.com/v3/businesses/search?term=Food&latitude=' +
-          (53.396111) + // cordinates for coolock
+          (lat) + // cordinates for coolock
           '&longitude=' +
-          (-6.216250) +
+          (long) +
           '&limit=' +
           limit,
           config,
