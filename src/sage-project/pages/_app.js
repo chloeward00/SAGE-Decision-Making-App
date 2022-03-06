@@ -10,6 +10,9 @@ import "../styles/style.scss";
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
 import { Spin } from "antd";
+import "@fullcalendar/common/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/timegrid/main.css";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -18,12 +21,15 @@ export default function MyApp(props) {
     const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
 
-    useEffect(async () => {
-        await firebase.isInitialized();
-        setFirebaseInitialized(true);
-    }, []);
-
-
+    useEffect(() => {
+        async function fetchData() {
+          
+          await firebase.isInitialized();
+          setFirebaseInitialized(true);
+         
+        }
+        fetchData();
+      }, []); // Or [] if effect doesn't need props or state
     return (
     <>
         {!firebaseInitialized ? (
