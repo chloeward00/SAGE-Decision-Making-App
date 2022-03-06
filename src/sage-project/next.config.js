@@ -12,4 +12,5 @@ const withTM = require("next-transpile-modules")([
 
 module.exports = withTM({
   // your custom config goes here
+  reactStrictMode: true,
 });
