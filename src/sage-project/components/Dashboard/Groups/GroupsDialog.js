@@ -57,7 +57,6 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         })
         // this saves the groups document ID into each user's userGroups array field
         setUserGroups([...userGroups, docRef.id])
-        console.log(docRef.id)
     }
 
     // this should update the users collection -> update the userGroups array + add the created group in the array
@@ -79,10 +78,6 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         updateUserGroup()
         console.log(userGroups)
     }, [userGroups]);
-
-
-    const query = fire.firestore().collection('groups').doc().get()
-    // console.log(query)
 
     return (
         <div>

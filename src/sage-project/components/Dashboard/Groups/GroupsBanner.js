@@ -28,7 +28,7 @@ const GroupsBanner = ({ groupName, buttonTitle }) => {
                     <Typography variant="h5" className={classes.groupLine}>
                         {groupName}
                     </Typography>
-                    {buttonTitle == "Create a new group" ? <CreateGroupDialog buttonTitle={buttonTitle}/> : <CustomizedDialogs buttonTitle={buttonTitle}/>}
+                    {buttonTitle == "Create a new group" ? <CreateGroupDialog buttonTitle={buttonTitle}/> : <CustomizedDialogs buttonTitle={buttonTitle} groupName={groupName}/>}
                 </Grid>
             </Container>
         </div>

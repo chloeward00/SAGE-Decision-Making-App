@@ -30,43 +30,48 @@ const InviteDialog = () => {
     };
 
     const [email, setEmail] = useState('');
-    const [members, setMembers] = useState([]);
+    const [member, setMember] = useState('');
 
-    // this creates a new document in the groups collection. this represents each group created in the database.
-    const handleSubmit = (newDataObj) => {
-        fire.firestore().collection('groups')
-        .doc()
-        .update(newDataObj)
-        .catch((err) => {
-            alert(err)
-            console.log(err)
+    // this is how to get the users details to be added into a group from the user collection. how do we know if this user does not exist in the database?
+    // this returns user ID / document reference from users collection
+    const handleSubmit = () => {
+        fire.firestore().collection('users').where("userEmail", "==", email)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc.id, " => ", doc.data());
+                // setMember(doc.id)
+            });
         })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
     }
 
-    const updateGroupMembers = () => {
-        fire.firestore().collection('users')
-        .doc()
-        .update({
-            groupMembers: fire.firestore.FieldValue.arrayUnion(...userGroups)
-        })
-        .catch((err) => {
-            alert(err)
-            console.log(err)
-        })
-    }
+    // this should update the group collection -> group's members update
+    // const updateGroupMembers = () => {
+    //     fire.firestore().collection('users')
+    //     .doc()
+    //     .update({
+    //         userGroups: fire.firestore.FieldValue.arrayUnion(member)
+    //     })
+    //     .catch((err) => {
+    //         alert(err)
+    //         console.log(err)
+    //     })
+    // }
 
-    // // this is how to get the users details to be added into a group from the user collection. how do we know if this user does not exist in the database?
-    // fire.firestore().collection('users').where("userEmail", "==", "bkaaa")
-    // .get()
-    // .then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-    //         // doc.data() is never undefined for query doc snapshots
-    //         console.log(doc.id, " => ", doc.data());
-    //     });
-    // })
-    // .catch((error) => {
-    //     console.log("Error getting documents: ", error);
-    // });
+    // const updateUserGroup = () => {
+    //     fire.firestore().collection('users')
+    //     .doc(fire.auth().currentUser.uid)
+    //     .update({
+    //         userGroups: fire.firestore.FieldValue.arrayUnion(...userGroups)
+    //     })
+    //     .catch((err) => {
+    //         alert(err)
+    //         console.log(err)
+    //     })
+    // }
 
     // useEffect(() => {
 
@@ -111,6 +116,7 @@ const InviteDialog = () => {
                 </Button>
                 <Button autoFocus onClick={() => {
                     // handleSubmit({ groupMembers: [email]})
+                    handleSubmit()
                     handleClose()
                 }}>                    
                 {"Add"}
