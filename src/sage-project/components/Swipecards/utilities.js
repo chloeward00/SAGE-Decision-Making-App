@@ -17,9 +17,10 @@ export function debounce(callback, wait) {
   }
   
   export function skimProfileData(rawData) {
-    return rawData.map(({ original_title, poster_path }) => ({
+    return rawData.map(({ original_title, poster_path, overview }) => ({
       name: `${original_title}`,
       imgUrl:  `https://image.tmdb.org/t/p/w500${poster_path}`,
+      overView: `${overview}`,
 
      
  

@@ -12,7 +12,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
       {profiles
         .slice()
         .reverse()
-        .map(({ imgUrl, name}, index) => {
+        .map(({ imgUrl, name,overView}, index) => {
           return (
             <SwipableWrapper
               key={name}
@@ -29,6 +29,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                     className={css.profileCardDescriptionTitle}
                     strong
                   >{`${name}`}</Text>
+                  
                  
                 </div>
               </div>
