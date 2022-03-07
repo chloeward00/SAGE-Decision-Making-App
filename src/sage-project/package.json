@@ -36,6 +36,7 @@
     "next-transpile-modules": "^9.0.0",
     "npm": "^8.5.1",
     "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-big-calendar": "^0.38.9",
     "react-bootstrap-sweetalert": "^5.2.0",
     "react-hook-form": "^7.25.2",

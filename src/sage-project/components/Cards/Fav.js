@@ -17,8 +17,6 @@ export default function Fav() {
     setFs([...favi]);
   };
 
-
-
   const getData = async () => {
   let currentUserUID = fire.auth().currentUser.uid
 
