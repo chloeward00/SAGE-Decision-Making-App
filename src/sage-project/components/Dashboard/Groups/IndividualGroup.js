@@ -15,9 +15,6 @@ const IndividualGroup = () => {
 
     const classes = useStyles();
 
-    // this will eventually be changed by the data pulled from firebase
-    // the events of a particular group
-
     const eventsList = [
         {
             eventName: "Movie Night",
@@ -50,8 +47,6 @@ const IndividualGroup = () => {
             onClick: () => router.push('/home/notifications')
         }
     ]
-
-    // console.log(fire.auth().currentUser.email)
 
     return (
         <Container className={classes.page}>

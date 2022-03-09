@@ -11,7 +11,6 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import 'firebase/firestore';
 import 'firebase/auth'
 import fire from 'firebase/app'
@@ -49,9 +48,16 @@ const CreateGroupDialog = ({ buttonTitle }) => {
 
     // this creates a new document in the groups collection. 
     // this represents each group created in the database.
-    const handleSubmit = (data) => {
+    const createGroup = () => {
         const docRef = fire.firestore().collection('groups').doc()
-        docRef.set(data).catch((err) => {
+        docRef.set({
+            groupName: groupName,
+            groupDescription: groupDescription,
+            groupMembers: groupMembers,
+            groupID: docRef.id,
+            createdAt: new Date()
+        })
+        .catch((err) => {
             alert(err)
             console.log(err)
         })
@@ -66,7 +72,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         .doc(fire.auth().currentUser.uid)
         .update({
             userGroups: fire.firestore.FieldValue.arrayUnion(...userGroups)
-        })
+        })  
         .catch((err) => {
             alert(err)
             console.log(err)
@@ -125,7 +131,7 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     {"Cancel"}
                 </Button>
                 <Button autoFocus onClick={ () => {
-                    handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: new Date() })
+                    createGroup()
                     handleClose()
                 }}>
                     {"Save"}

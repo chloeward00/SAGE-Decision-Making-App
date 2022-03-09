@@ -19,8 +19,8 @@ const Groups = () => {
 
     const [groupsList, setGroupList] = useState([]);
     
-    useEffect(() => {
-        fire.firestore().collection('groups').where("groupMembers", "array-contains", fire.auth().currentUser.uid).onSnapshot(snapshot => (
+    useEffect( async () => {
+        await fire.firestore().collection('groups').where("groupMembers", "array-contains", fire.auth().currentUser.uid).orderBy('createdAt', 'desc').onSnapshot(snapshot => (
             setGroupList(snapshot.docs.map(doc => doc.data()))
         ))
     }, [])
