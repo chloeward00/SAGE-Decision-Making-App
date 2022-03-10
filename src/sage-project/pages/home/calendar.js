@@ -21,7 +21,7 @@ const Calendar = () => {
   const handleDateClick = async (DateClickArg) => {
 
 
-      if(DateClickArg.jsEvent.altKey){
+      if(DateClickArg){
           const title = prompt("Enter title",DateClickArg.dateStr); // allows user to put a title in
           // making object
           const event = {
