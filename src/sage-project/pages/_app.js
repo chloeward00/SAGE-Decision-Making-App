@@ -7,6 +7,8 @@ import { CacheProvider } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import "../styles/style.scss";
+import "../styles/component.module.css";
+
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
 import { Spin } from "antd";
