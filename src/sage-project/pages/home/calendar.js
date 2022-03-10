@@ -6,8 +6,32 @@ import ResponsiveDrawer from "../../components/Dashboard/Drawer/SideDrawer";
 import fire from 'firebase/app'
 import {getFirestore, addDoc,collection} from 'firebase/firestore';
 import React, { useState,useEffect,useRef } from "react";
+import styled from "@emotion/styled";
 
 export const allEvents = [];
+
+export const StyleWrapper2 = styled.div`
+  .calendar{
+  contentHeight: 200
+    
+}
+.fc-event-past {
+  opacity: 0.4;
+}
+
+.fc { /* the calendar root */
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.fc-button.fc-prev-button, .fc-button.fc-next-button, .fc-button.fc-button-primary,.fc-event{
+  background: #A9B5DD;
+  background-image: none;
+
+.fc-event{
+  background: #ff9999
+}
+`
 
 const Calendar = () => {
   const calendarRef = useRef(null);
@@ -18,6 +42,9 @@ const Calendar = () => {
      allEvents.splice(index, 1);
      setData([...allEvents]);
    };
+
+   
+   
   const handleDateClick = async (DateClickArg) => {
 
 
@@ -27,7 +54,8 @@ const Calendar = () => {
           const event = {
               title: title ? title : DateClickArg.dateStr,
               start: DateClickArg.date,
-              allDay: true
+              allDay: true,
+              
           }
 
           allEvents.push(event)
@@ -40,7 +68,7 @@ const Calendar = () => {
                       .doc(currentUserUID)
                       .get()
                     
-                      // might change to the below code, not
+                      // might change to the below code, not sure yet
                       //  db.collection("userCalendar")
                       //  .doc(currentUserUID)
                       //  .update({
@@ -73,13 +101,8 @@ const Calendar = () => {
             //setData(data)
             console.log(data);
             setData([...data])
-           
-            
-
   
 }
-
-
            useEffect(() => {
              let mounted = false
     
@@ -97,19 +120,23 @@ const Calendar = () => {
 
   return (
       <>
-  
+      <ResponsiveDrawer/>  
+      <StyleWrapper2>
+
     <FullCalendar
       innerRef={calendarRef}
+      editable={true}
+      nowIndicator={true}
       plugins={[daygridPlugin,interactionPlugin]}
       dateClick={handleDateClick}
-      editable
       selectable
       // when adding events with firebase
       events={date}
-  
-      
     />
+   
+    </StyleWrapper2>
     </>
+    
   );
 };
 
