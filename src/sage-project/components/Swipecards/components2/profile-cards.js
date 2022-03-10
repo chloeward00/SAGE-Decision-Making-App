@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Row, Button, Space, Typography } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
-import css from "./component.module.css";
+//import css from "./component.module.css";
+import css from "../../../styles/component.module.css";
 
 const { Text } = Typography;
 
@@ -12,7 +13,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
       {profiles
         .slice()
         .reverse()
-        .map(({ imgUrl, name}, index) => {
+        .map(({ imgUrl, name,overView}, index) => {
           return (
             <SwipableWrapper
               key={name}
@@ -29,6 +30,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                     className={css.profileCardDescriptionTitle}
                     strong
                   >{`${name}`}</Text>
+                  
                  
                 </div>
               </div>
