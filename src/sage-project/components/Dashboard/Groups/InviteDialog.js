@@ -34,22 +34,6 @@ const InviteDialog = ({ groupName }) => {
     const [userEmail, setUserEmail] = useState('');
     const [members, setMembers] = useState('');
 
-    // THIS RETURNS THE DOC REFERENCE ID OF THE GROUP THE USER IS CURRENTLY ON
-    const getGroupDocRef = async () => {
-
-        await fire.firestore().collection('groups').where("groupName", "==", groupName)
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                // console.log(doc.id, " => ", doc.data());
-                setGroupDocRef(doc.id)
-            });
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
-    }
-
     // this should update the group collection -> group's members update
     const updateGroupMembers = () => {
 
@@ -65,21 +49,6 @@ const InviteDialog = ({ groupName }) => {
         
     }
 
-    // THIS RETURNS THE DOC REFERENCE OF THE USERS TO BE ADDED IN THE GROUP
-    const getUserDocRef = () => {
-        
-        fire.firestore().collection('users').where("userEmail", "==", userEmail)
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                setMembers(doc.id)
-            });
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-        });
-    }
-
     // THIS UPDATE THE userGroups UNDER USER COLLECTION 
     const updateUserGroup = () => {
         fire.firestore().collection('users')
@@ -93,13 +62,44 @@ const InviteDialog = ({ groupName }) => {
         })
     }
 
+    // THIS RETURNS THE DOC REFERENCE ID OF THE GROUP THE USER IS CURRENTLY ON
     // this will be on its own use effect since we want to run it once this component is called - this will run the first render
     useEffect(() => {
-        getGroupDocRef()
-    }, []);
+        async function getGroupDocRef() {
 
+            await fire.firestore().collection('groups').where("groupName", "==", groupName)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // console.log(doc.id, " => ", doc.data());
+                    setGroupDocRef(doc.id)
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+        }
+
+        getGroupDocRef();
+    });
+
+    // THIS RETURNS THE DOC REFERENCE OF THE USERS TO BE ADDED IN THE GROUP
     useEffect(() => {
-        getUserDocRef()
+    async function getUserDocRef() {
+        
+        await fire.firestore().collection('users').where("userEmail", "==", userEmail)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                setMembers(doc.id)
+            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
+    }
+
+        getUserDocRef();
     }, [userEmail]);
 
     return (

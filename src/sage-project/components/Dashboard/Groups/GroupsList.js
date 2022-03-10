@@ -19,11 +19,28 @@ const Groups = () => {
 
     const [groupsList, setGroupList] = useState([]);
     
-    useEffect( async () => {
-        await fire.firestore().collection('groups').where("groupMembers", "array-contains", fire.auth().currentUser.uid).orderBy('createdAt', 'desc').onSnapshot(snapshot => (
-            setGroupList(snapshot.docs.map(doc => doc.data()))
-        ))
-    }, [])
+    // isMounted is added to prevent memory leaks
+    useEffect(() => {
+
+        let isMounted = true;
+        
+        async function fetchData() {
+            
+            await fire.firestore().collection('groups').where("groupMembers", "array-contains", fire.auth().currentUser.uid)
+            .orderBy('createdAt', 'desc')
+            .onSnapshot(snapshot => {
+                if(isMounted){
+                    setGroupList(snapshot.docs.map( doc => doc.data()))
+                }
+            })
+        }
+
+        fetchData();
+
+        return () => {
+            isMounted = false
+        }
+      });
 
     return (
         <Container className={classes.page}>

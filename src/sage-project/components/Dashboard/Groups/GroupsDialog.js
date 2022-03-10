@@ -67,23 +67,22 @@ const CreateGroupDialog = ({ buttonTitle }) => {
 
     // this should update the users collection -> update the userGroups array + add the created group in the array
     // fire.firestore.FieldValue.arrayUnion(...userGroups) ->  userGroups is an array so we use spread operator to get its values since the array only takes string values
-    const updateUserGroup = () => {
-        fire.firestore().collection('users')
-        .doc(fire.auth().currentUser.uid)
-        .update({
-            userGroups: fire.firestore.FieldValue.arrayUnion(...userGroups)
-        })  
-        .catch((err) => {
-            alert(err)
-            console.log(err)
-        })
-    }
-
     useEffect(() => {
-        // we add this updateUserGroup here so everytime the user creates a group, their list of groups will be updated. 
-        updateUserGroup()
-        console.log(userGroups)
-    }, [userGroups]);
+        async function updateUserGroup() {
+
+            await fire.firestore().collection('users')
+            .doc(fire.auth().currentUser.uid)
+            .update({
+                userGroups: fire.firestore.FieldValue.arrayUnion(...userGroups)
+            })  
+            .catch((err) => {
+                alert(err)
+                console.log(err)
+            })
+        }
+
+        updateUserGroup();
+      }, [userGroups]);
 
     return (
         <div>
