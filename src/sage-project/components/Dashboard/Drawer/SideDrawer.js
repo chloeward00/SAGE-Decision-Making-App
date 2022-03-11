@@ -24,24 +24,26 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     active: {
-        backgroundColor: '#FAFAFB',
+        // backgroundColor: '#FAFAFB',
+        backgroundColor: '#EFD3D7',
     },
     icons: {
         marginLeft: '30px',
-        color: '#194F92',
+        // color: '#194F92',
     },
     text: {
         marginLeft: '-10px',
-        color: '#194F92',
+        // color: '#194F92',
         fontWeight: 800,
     },
     listContainer: {
-        padding: '0px',
+        // marginTop: '50px'
+        // padding: '0px',
         // backgroundColor: '#DBC2D9'
     },
     logo: {
-        backgroundColor: '#EFD3D7',
-        // padding: '30px'
+        // backgroundColor: '#EFD3D7',
+        padding: '20px'
     }
 }))
 
@@ -56,6 +58,8 @@ function ResponsiveDrawer(props) {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    console.log("AHHHHHHHH   " + router.query)
 
     const itemsList = [
         {
@@ -93,7 +97,7 @@ function ResponsiveDrawer(props) {
                 {"SAGE"}
             </Typography>
         </Toolbar>
-        <Divider />
+        {/* <Divider /> */}
         <List className={classes.listContainer}>
             {itemsList.map((item, index) => {
             const { text, icon, path, onClick } = item;
@@ -163,11 +167,12 @@ function ResponsiveDrawer(props) {
                     {drawer}
                 </Drawer>
                 {/* THIS DRAWER IS FOR LARGER SCREENS / DRAWER WILL BE PERMANENT*/}
+                {/* backgroundColor: '#CBD5F0' -- ADD THE COLOUR OF THE BG IN THE DISPLAY COMPONENT*/}
                 <Drawer
                     variant="permanent"
                     sx={{
                     display: { xs: 'none', sm: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, backgroundColor: '#CBD5F0'},
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth},
                     }}
                     open
                 >
