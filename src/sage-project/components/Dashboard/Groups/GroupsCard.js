@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
+import Link from '../../Link/Link'
+
 
 export default function GroupsCard({ groups }) {
 
@@ -28,8 +30,10 @@ export default function GroupsCard({ groups }) {
                 ))} */}
             </CardContent>
             <CardActions>
-                {/* ADD STYLING BUTTON HERE */}
-                <Button size="small">OPEN</Button>
+                {/* ADD STYLING BUTTON HERE + WHEN CLICKED, THIS SHOULD TAKE THEM TO THE GROUPS PAGE ONLY*/}
+                <Link href={'/groups/' + groupName} underline="none">
+                    <Button size="small">OPEN</Button>
+                </Link>
             </CardActions>
         </Card>
     );

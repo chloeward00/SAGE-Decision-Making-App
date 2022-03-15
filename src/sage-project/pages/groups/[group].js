@@ -3,17 +3,21 @@ import Layout from "../../components/Layout/Layout";
 import IndividualGroup from "../../components/Dashboard/Groups/IndividualGroup";
 import { useRouter } from 'next/router'
 
-const name = "Big Brains";
 const buttonTitle = "See members";
 
 const Group = () => {
     const router = useRouter();
     console.log("MEHHHHH   " + router.query.group)
 
+    const { asPath } = useRouter();
+    // this reads the path where we take the groupname
+    const url = asPath.split('/')
+    const groupName = url[url.length - 1].split('%20').join(' ')
+
     return (
         <div>
             <Layout>
-                <GroupsBanner groupName={name} buttonTitle={buttonTitle}/>
+                <GroupsBanner groupName={groupName} buttonTitle={buttonTitle}/>
                 <IndividualGroup/>
             </Layout>
         </div>

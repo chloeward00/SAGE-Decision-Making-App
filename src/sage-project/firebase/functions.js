@@ -20,6 +20,7 @@ const createUserDocument = async (user, name) => {
             userRef.set({
                 userName: name,
                 userEmail: email,
+                userUID: user.uid,
                 userEvents: [],
                 userGroups: [],
                 createdAt: new Date()
@@ -33,4 +34,7 @@ const createUserDocument = async (user, name) => {
     }
 }
 
+
 export default createUserDocument;
+
+

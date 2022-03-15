@@ -1,5 +1,5 @@
 
-import { Grid, Container } from '@mui/material';
+import { Grid, Container, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import GroupsCard from './GroupsCard';
 import { useEffect, useState } from 'react';
@@ -19,15 +19,33 @@ const Groups = () => {
 
     const [groupsList, setGroupList] = useState([]);
     
-    // display the groups according to their timestamp - using orderBy
+    // isMounted is added to prevent memory leaks
     useEffect(() => {
-        fire.firestore().collection('groups').orderBy('createdAt', 'desc').onSnapshot(snapshot => (
-            setGroupList(snapshot.docs.map(doc => doc.data()))
-        ))
-    }, [])
+
+        let isMounted = true;
+        
+        async function fetchData() {
+            
+            await fire.firestore().collection('groups').where("groupMembers", "array-contains", fire.auth().currentUser.uid)
+            .orderBy('createdAt', 'desc')
+            .onSnapshot(snapshot => {
+                if(isMounted){
+                    setGroupList(snapshot.docs.map( doc => doc.data()))
+                }
+            })
+        }
+
+        fetchData();
+
+        return () => {
+            isMounted = false
+        }
+      });
 
     return (
         <Container className={classes.page}>
+        {
+            groupsList.length != 0 ?
             <Grid container spacing={3}>
                 {groupsList.map(group => (
                     <Grid key={group.id} item xs={12} md={6} lg={4}>
@@ -35,6 +53,10 @@ const Groups = () => {
                     </Grid>
                 ))}
             </Grid>
+            :
+            // NEEDS STYLING!!!!
+            <Typography textAlign="center"> NOT A MEMBER OF ANY GROUP. CREATE OR JOIN A GROUP NOW. </Typography>
+        }
         </Container>
     );
 }
