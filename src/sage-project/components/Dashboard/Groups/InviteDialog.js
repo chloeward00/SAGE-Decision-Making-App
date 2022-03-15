@@ -9,9 +9,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { TextField } from '@mui/material';
+import { useState, useEffect } from 'react';
+import 'firebase/firestore';
+import 'firebase/auth'
+import fire from 'firebase/app'
 
 
-const InviteDialog = () => {
+const InviteDialog = ({ groupName }) => {
 
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
@@ -24,6 +28,79 @@ const InviteDialog = () => {
     const handleClose = () => {
         setOpen(false);
     };
+
+    // this records the docRef of the group the user is currently on
+    const [groupDocRef, setGroupDocRef] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [members, setMembers] = useState('');
+
+    // this should update the group collection -> group's members update
+    const updateGroupMembers = () => {
+
+        fire.firestore().collection('groups')
+        .doc(groupDocRef)
+        .update({
+            groupMembers: fire.firestore.FieldValue.arrayUnion(members)
+        })
+        .catch((err) => {
+            alert(err)
+            console.log(err)
+        }) 
+        
+    }
+
+    // THIS UPDATE THE userGroups UNDER USER COLLECTION 
+    const updateUserGroup = () => {
+        fire.firestore().collection('users')
+        .doc(members)
+        .update({
+            userGroups: fire.firestore.FieldValue.arrayUnion(groupDocRef)
+        })
+        .catch((err) => {
+            alert(err)
+            console.log(err)
+        })
+    }
+
+    // THIS RETURNS THE DOC REFERENCE ID OF THE GROUP THE USER IS CURRENTLY ON
+    // this will be on its own use effect since we want to run it once this component is called - this will run the first render
+    useEffect(() => {
+        async function getGroupDocRef() {
+
+            await fire.firestore().collection('groups').where("groupName", "==", groupName)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // console.log(doc.id, " => ", doc.data());
+                    setGroupDocRef(doc.id)
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+        }
+
+        getGroupDocRef();
+    });
+
+    // THIS RETURNS THE DOC REFERENCE OF THE USERS TO BE ADDED IN THE GROUP
+    useEffect(() => {
+    async function getUserDocRef() {
+        
+        await fire.firestore().collection('users').where("userEmail", "==", userEmail)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                setMembers(doc.id)
+            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
+    }
+
+        getUserDocRef();
+    }, [userEmail]);
 
     return (
         <div>
@@ -51,6 +128,7 @@ const InviteDialog = () => {
                     type="email"
                     fullWidth
                     variant="standard"
+                    onChange={(e) => setUserEmail(e.target.value)}
                     // className={classes.textField}
                 />
             </DialogContent>
@@ -58,8 +136,12 @@ const InviteDialog = () => {
                 <Button autoFocus onClick={handleClose}>
                     {"Cancel"}
                 </Button>
-                <Button onClick={handleClose} autoFocus>
-                    {"Invite"}
+                <Button autoFocus onClick={() => {
+                    updateGroupMembers()
+                    updateUserGroup()
+                    handleClose()
+                }}>                    
+                {"Add"}
                 </Button>
             </DialogActions>
             </Dialog>

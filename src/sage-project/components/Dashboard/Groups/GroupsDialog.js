@@ -10,9 +10,9 @@ import { useTheme } from '@mui/material/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useState, useEffect } from 'react';
 import 'firebase/firestore';
+import 'firebase/auth'
 import fire from 'firebase/app'
 
 
@@ -38,21 +38,51 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         setOpen(false);
     };
 
-    // these are the fields that group document has. groupMembers is set to be empty here since it will be overwritten in the invite member functionality.
+    // these are the fields that group document has
     const [groupName, setGroupName] = useState('');
     const [groupDescription, setgroupDescription] = useState('');
-    const [groupMembers, setGroupMembers] = useState([]);
+    // initialised the current user as the first member of the group if they create a group.
+    const [groupMembers, setGroupMembers] = useState([fire.auth().currentUser.uid]); // CHANGE THIS TO UID
+    // this userGroups is a field under users collection -> this gets updated once a user creates a group.
+    const [userGroups, setUserGroups] = useState([]);
 
-    // this creates a new document in the groups collection. this represents each group created in the database.
-    const handleSubmit = (newDataObj) => {
-        fire.firestore().collection('groups')
-        .doc()
-        .set(newDataObj)
+    // this creates a new document in the groups collection. 
+    // this represents each group created in the database.
+    const createGroup = () => {
+        const docRef = fire.firestore().collection('groups').doc()
+        docRef.set({
+            groupName: groupName,
+            groupDescription: groupDescription,
+            groupMembers: groupMembers,
+            groupID: docRef.id,
+            createdAt: new Date()
+        })
         .catch((err) => {
             alert(err)
             console.log(err)
         })
+        // this saves the groups document ID into each user's userGroups array field
+        setUserGroups([...userGroups, docRef.id])
     }
+
+    // this should update the users collection -> update the userGroups array + add the created group in the array
+    // fire.firestore.FieldValue.arrayUnion(...userGroups) ->  userGroups is an array so we use spread operator to get its values since the array only takes string values
+    useEffect(() => {
+        async function updateUserGroup() {
+
+            await fire.firestore().collection('users')
+            .doc(fire.auth().currentUser.uid)
+            .update({
+                userGroups: fire.firestore.FieldValue.arrayUnion(...userGroups)
+            })  
+            .catch((err) => {
+                alert(err)
+                console.log(err)
+            })
+        }
+
+        updateUserGroup();
+      }, [userGroups]);
 
     return (
         <div>
@@ -99,8 +129,8 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                 <Button autoFocus onClick={handleClose}>
                     {"Cancel"}
                 </Button>
-                <Button autoFocus onClick={() => {
-                    handleSubmit({ groupName, groupDescription, groupMembers, id: uuidv4(), createdAt: new Date() })
+                <Button autoFocus onClick={ () => {
+                    createGroup()
                     handleClose()
                 }}>
                     {"Save"}

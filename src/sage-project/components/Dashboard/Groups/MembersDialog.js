@@ -53,7 +53,7 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-const CustomizedDialogs = ({ buttonTitle }) => {
+const CustomizedDialogs = ({ buttonTitle, groupName }) => {
 
     const [open, setOpen] = React.useState(false);
 
@@ -87,7 +87,8 @@ const CustomizedDialogs = ({ buttonTitle }) => {
                     <Typography gutterBottom align="center" sx={{ marginBottom: '20px'}}>
                         {"No current members"}
                     </Typography>
-                    <InviteDialog/>
+                    {/* this is the add member button under individual groups - SEE MEMBERS Button atm */}
+                    <InviteDialog groupName={groupName}/>
                 </DialogContent>
                 {/* <DialogActions>
                     <Button autoFocus onClick={handleClose}>
