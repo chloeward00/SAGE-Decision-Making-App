@@ -23,17 +23,24 @@ import { makeStyles } from '@mui/styles';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-    active: {
-        // backgroundColor: '#FAFAFB',
+    activeRoute: {
         backgroundColor: '#EFD3D7',
+    },
+    activeText: {
+        color: '#000000',
+        marginLeft: '-10px',
+    },
+    activeIcon: {
+        marginLeft: '30px',
+        color: '#000000',
     },
     icons: {
         marginLeft: '30px',
-        // color: '#194F92',
+        color: '#8E8E8E',
     },
     text: {
         marginLeft: '-10px',
-        // color: '#194F92',
+        color: '#8E8E8E',
         fontWeight: 800,
     },
     listContainer: {
@@ -59,8 +66,6 @@ function ResponsiveDrawer(props) {
         setMobileOpen(!mobileOpen);
     };
 
-    console.log("AHHHHHHHH   " + router.query)
-
     const itemsList = [
         {
             text: "Dashboard",
@@ -81,10 +86,9 @@ function ResponsiveDrawer(props) {
             onClick: () => router.push('/home/calendar')
         },
         {
-            // make sure this is active too for every individual group = pathname -> /groups/[group]
             text: "Groups",
             icon: <GroupsIcon/>,
-            path: '/groups',
+            path: router.pathname == '/groups' ? '/groups' : '/groups/[group]',
             onClick: () => router.push('/groups')
         },
     ]
@@ -106,10 +110,10 @@ function ResponsiveDrawer(props) {
                 // button
                 key={text} 
                 onClick={onClick}
-                className={router.pathname == item.path ? classes.active : null}
+                className={router.pathname == item.path ? classes.activeRoute : null}
                 >
                     {icon && <ListItemIcon className={classes.icons}>{icon}</ListItemIcon>}
-                    <ListItemText primary={text} className={classes.text}/>
+                    <ListItemText primary={text} className={router.pathname == item.path ? classes.activeText : classes.text}/>
                 </ListItem>
             )})}
         </List>
