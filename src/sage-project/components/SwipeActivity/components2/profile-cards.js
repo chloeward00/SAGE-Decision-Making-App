@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Row, Button, Space, Typography } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-
-import css from "./component.module.css";
+import css from "../../../styles/component.module.css";
 
 const { Text } = Typography;
 
