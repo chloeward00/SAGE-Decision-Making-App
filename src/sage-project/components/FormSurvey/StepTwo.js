@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Card, Button } from "react-bootstrap";
+import { Form, Card, Button, InputGroup,FormControl } from "react-bootstrap";
 import validator from "validator";
 
 // creating functional component ans getting props from app.js and destucturing them
@@ -38,6 +38,12 @@ const StepTwo = ({ nextStep, handleFormData, prevStep, values }) => {
               ) : (
                 ""
               )}
+
+<InputGroup className="mb-3">
+    <InputGroup.Text>£</InputGroup.Text>
+    <InputGroup.Text>0.00</InputGroup.Text>
+    <FormControl aria-label="Dollar amount (with dot and two decimal places)" />
+  </InputGroup>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>

@@ -62,6 +62,15 @@ const StepOne = ({ nextStep, handleFormData, values }) => {
               ) : (
                 ""
               )}
+
+            
+        <Form.Select size='lg'>
+          <option>Open this select menu</option>
+          <option value="1">Romance</option>
+          <option value="2">Comedy</option>
+          <option value="3">Action</option>
+          <option value="3">Rom Coms</option>
+        </Form.Select>
             </Form.Group>
             <Button variant="primary" type="submit">
               Continue

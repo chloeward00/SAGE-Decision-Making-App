@@ -1,7 +1,15 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import Router from "next/router";
+
 
 const Final = ({ values }) => {
+
+  const handleClick = () => {
+   
+    Router.push("/home")
+  }
+
 
     //destructuring the object from values
   const { firstName, lastName, age, email } = values;
@@ -23,6 +31,14 @@ const Final = ({ values }) => {
           </p>
         </Card.Body>
       </Card>
+
+      <button
+             
+            onClick={handleClick}
+              type="button"
+            >
+              Finish  Survey
+            </button>
     </>
   );
 };
