@@ -20,7 +20,7 @@ export const StyleWrapper2 = styled.div`
 }
 
 .fc { /* the calendar root */
-  max-width: 900px;
+  max-width: 750px;
   margin: 0 auto;
 }
 
