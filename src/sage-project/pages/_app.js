@@ -8,6 +8,7 @@ import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import "../styles/style.scss";
 import "../styles/component.module.css";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
