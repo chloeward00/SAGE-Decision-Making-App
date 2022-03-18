@@ -17,42 +17,115 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import GroupsIcon from '@mui/icons-material/Groups';
+import LogoutIcon from '@mui/icons-material/Logout';
+import ButtonBase from '@mui/material/ButtonBase';
+import Avatar from '@mui/material/Avatar';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { useRouter } from 'next/router'
 import { makeStyles } from '@mui/styles';
+import { borderRadius } from '@mui/system';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     activeRoute: {
         backgroundColor: '#EFD3D7',
+        borderRadius: '20px',
     },
     activeText: {
         color: '#000000',
-        marginLeft: '-10px',
+        // marginLeft: '0px',
     },
     activeIcon: {
         marginLeft: '30px',
         color: '#000000',
+    },
+    activeAvatar: {
+        '& .MuiAvatar-root': {
+            borderRadius: 15,
+            backgroundColor: '#EFD3D7',
+            marginLeft: '-15px'
+        }
+    },
+    avatar: {
+        '& .MuiAvatar-root': {
+            borderRadius: 15,
+            backgroundColor: 'white',
+            marginLeft: '-15px'
+        }
     },
     icons: {
         marginLeft: '30px',
         color: '#8E8E8E',
     },
     text: {
-        marginLeft: '-10px',
         color: '#8E8E8E',
         fontWeight: 800,
+        marginLeft: '-10px',
     },
     listContainer: {
-        // marginTop: '50px'
-        // padding: '0px',
-        // backgroundColor: '#DBC2D9'
+        margin: '20px',
+        // flexGrow: 1
     },
     logo: {
         // backgroundColor: '#EFD3D7',
         padding: '20px'
-    }
+    },
+    sampleIcon: {
+        backgroundColor: 'yellow',
+        
+        borderRadius: '20px'
+    },
+    sampleText: {
+        backgroundColor: 'pink',
+        padding: '4px',
+        borderRadius: 10,
+        marginLeft: '-60px',
+        paddingRight: 50,
+        paddingLeft: 50
+    },
+    dashboardText: {
+        backgroundColor: 'pink',
+        padding: '4px',
+        borderRadius: 15,
+        marginLeft: '-60px',
+        paddingRight: 55,
+        paddingLeft: 50
+    },
+    notifsText: {
+        backgroundColor: 'pink',
+        padding: '4px',
+        borderRadius: 15,
+        marginLeft: '-60px',
+        paddingRight: 40,
+        paddingLeft: 50
+    },
+    calendarText: {
+        backgroundColor: 'pink',
+        padding: '4px',
+        borderRadius: 15,
+        marginLeft: '-60px',
+        paddingRight: 70,
+        paddingLeft: 50
+    },
+    groupsText: {
+        backgroundColor: 'pink',
+        padding: '4px',
+        borderRadius: 15,
+        marginLeft: '-60px',
+        paddingRight: 80,
+        paddingLeft: 50
+    },
+    logOutButton: {
+        // alignItems: 'flex-end',
+        // alignContent: 'flex-end'
+    },
+    root: {
+        display: 'flex',
+        alignItems: 'flex-end',
+    },
 }))
+
 
 function ResponsiveDrawer(props) {
     
@@ -93,6 +166,16 @@ function ResponsiveDrawer(props) {
         },
     ]
 
+    const logOut = [
+        {
+            text: "Logout",
+            icon: <LogoutIcon/>,
+            onClick: async () => {
+                await firebase.logout()
+                Router.push('/login')}
+        }
+    ]
+
     const drawer = (
         <div>
         {/* THIS TOOLBAR HERE WILL BE ADDED WITH THE SAGE LOGO OR JUST SAGE TEXT */}
@@ -107,16 +190,40 @@ function ResponsiveDrawer(props) {
             const { text, icon, path, onClick } = item;
             return (
                 <ListItem
-                // button
+                component={ButtonBase}
                 key={text} 
                 onClick={onClick}
-                className={router.pathname == item.path ? classes.activeRoute : null}
+                // className={router.pathname == path ? classes.activeRoute : null}
                 >
-                    {icon && <ListItemIcon className={classes.icons}>{icon}</ListItemIcon>}
-                    <ListItemText primary={text} className={router.pathname == item.path ? classes.activeText : classes.text}/>
+                    <ListItemAvatar className={router.pathname == path? classes.activeAvatar : classes.avatar}>
+                        <Avatar>
+                        {icon && <ListItemIcon className={router.pathname == path ? classes.activeIcon : classes.icons}>{icon}</ListItemIcon>}
+                        </Avatar>
+                    </ListItemAvatar>
+                    {/* THIS NEEDS TO BE FIXED - MAKE THE PADDING RIGHT IN A FIX VALUE FOR EACH ONE */}
+                    <div className={
+                        router.pathname == path ? classes.sampleText : null}>
+                        <ListItemText primary={text} className={router.pathname == path ? classes.activeText : classes.text}/>
+                    </div>
                 </ListItem>
             )})}
         </List>
+        {/* <div  className={classes.root}> */}
+        <List className={classes.root}>
+            {logOut.map((item, index) => {
+            const { text, icon, onClick } = item;
+            return (
+                <ListItem
+                component={ButtonBase}
+                key={text} 
+                onClick={onClick}
+                >
+                    {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                    <ListItemText primary={text}/>
+                </ListItem>
+            )})}
+        </List>
+        {/* </div> */}
         </div>
     );
 
@@ -176,7 +283,7 @@ function ResponsiveDrawer(props) {
                     variant="permanent"
                     sx={{
                     display: { xs: 'none', sm: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth},
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth}, backgroundColor: 'yellow'
                     }}
                     open
                 >

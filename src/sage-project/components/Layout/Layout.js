@@ -1,8 +1,9 @@
 import ResponsiveDrawer from "../Dashboard/Drawer/SideDrawer";
 import { makeStyles } from '@mui/styles';
-import { AppBar, Avatar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Toolbar, Typography, Button, ButtonBase } from "@mui/material";
 import 'firebase/auth';
 import fire from 'firebase/app'
+import { useRouter } from 'next/router'
 
 
 const drawerWidth = 240;
@@ -16,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     avatar: {
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
     },
     appBar: {
         width: `calc(100% - ${drawerWidth}px)`,
         // height: '10%'
-        backgroundColor: '#556cd6'
+        backgroundColor: '#556cd6'  // leave this colour for testing purposes
     },
     toolbar: theme.mixins.toolbar,
     welcomeSign: {
@@ -32,8 +33,12 @@ const useStyles = makeStyles((theme) => ({
 const Layout = ({ children }) => {
 
     const classes = useStyles();
+
+    const router = useRouter();
     
     const currentUserName = fire.auth().currentUser.displayName;
+
+    const getUserFirstLetterName = currentUserName.charAt(0).toLocaleUpperCase()
 
     return (
         <div className={classes.root}>
@@ -46,7 +51,7 @@ const Layout = ({ children }) => {
                     <Typography className={classes.welcomeSign}>
                         {"Welcome back, " + currentUserName + "!"}
                     </Typography>
-                    <Avatar className={classes.avatar}>{currentUserName.charAt(0)}</Avatar>
+                    <Avatar component={ButtonBase} className={classes.avatar} onClick={() => {router.push('/profile')}} >{getUserFirstLetterName}</Avatar>
                 </Toolbar>
             </AppBar>
             <ResponsiveDrawer/>
