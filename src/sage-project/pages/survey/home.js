@@ -14,7 +14,8 @@ function App() {
     firstName: "",
     lastName: "",
     age: "",
-    email: ""
+    email: "",
+    genreType: ""
   })
 
   // function for going to next step by increasing step state by 1

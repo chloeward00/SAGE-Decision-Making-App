@@ -12,7 +12,7 @@ const Final = ({ values }) => {
 
 
     //destructuring the object from values
-  const { firstName, lastName, age, email } = values;
+  const { firstName, lastName, age, email, genreType } = values;
   return (
     <>
       <Card style={{ marginTop: 100, textAlign: "left" }}>
@@ -28,6 +28,9 @@ const Final = ({ values }) => {
           </p>
           <p>
             <strong>Email :</strong> {email}{" "}
+          </p>
+          <p>
+            <strong>Genre Type :</strong> {genreType}{" "}
           </p>
         </Card.Body>
       </Card>

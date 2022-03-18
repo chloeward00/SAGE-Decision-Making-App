@@ -14,7 +14,8 @@ const StepOne = ({ nextStep, handleFormData, values }) => {
     // checking if value of first name and last name is empty show error else take to step 2
     if (
       validator.isEmpty(values.firstName) ||
-      validator.isEmpty(values.lastName)
+      validator.isEmpty(values.lastName) || 
+      validator.isEmpty(values.genreType)
     ) {
       setError(true);
     } else {
@@ -63,14 +64,25 @@ const StepOne = ({ nextStep, handleFormData, values }) => {
                 ""
               )}
 
-            
-        <Form.Select size='lg'>
-          <option>Open this select menu</option>
-          <option value="1">Romance</option>
-          <option value="2">Comedy</option>
-          <option value="3">Action</option>
-          <option value="3">Rom Coms</option>
-        </Form.Select>
+
+        <Form.Label>Select Norm Type</Form.Label>
+        <Form.Control
+          as="select"
+          name="genreType"
+          defaultValue={values.genreType}
+          type="text"
+          //onChange={handleFormData("lastName")}
+          onChange={ handleFormData("genreType")
+           // console.log("e.target.value", e.target.value);
+          
+          
+          }
+        >
+          <option value="Romance">Romance</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Action">Action</option>
+        </Form.Control>
+  
             </Form.Group>
             <Button variant="primary" type="submit">
               Continue
