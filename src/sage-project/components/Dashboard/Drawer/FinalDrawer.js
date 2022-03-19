@@ -73,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
     },
     sampleIcon: {
         backgroundColor: 'yellow',
-        
         borderRadius: '20px'
     },
     sampleText: {
@@ -184,7 +183,6 @@ function ResponsiveDrawer(props) {
                 {"SAGE"}
             </Typography>
         </Toolbar>
-        {/* <Divider /> */}
         <List className={classes.listContainer}>
             {itemsList.map((item, index) => {
             const { text, icon, path, onClick } = item;
@@ -230,8 +228,8 @@ function ResponsiveDrawer(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: 'flex', boxShadow: 'none' }}>
-            <CssBaseline />
+        <Box>
+            {/* <CssBaseline /> */}
             <AppBar
             position="fixed"
             sx={{
@@ -255,11 +253,11 @@ function ResponsiveDrawer(props) {
                 </Typography>
             </Toolbar>
             </AppBar>
-            <Box
+            {/* <Box
             component="nav"
             sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, boxShadow: 'none' }}
             aria-label="mailbox folders"
-            >
+            > */}
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 {/* THIS DRAWER IS FOR SMALLER SCREENS */}
                 <Drawer
@@ -289,7 +287,7 @@ function ResponsiveDrawer(props) {
                 >
                     {drawer}
                 </Drawer>
-            </Box>
+            {/* </Box> */}
         </Box>
     );
 }

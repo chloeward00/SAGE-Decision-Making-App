@@ -42,6 +42,7 @@ const Layout = ({ children }) => {
 
     return (
         <div className={classes.root}>
+        {/* CHANGE THIS APP BAR - NO APP BAR JUST A CONTAINER THAT SAYS WELCOME BACK TO THE USER AND THE CALENDAR */}
             <AppBar
                 className={classes.appBar}
                 elevation={0}
@@ -62,5 +63,5 @@ const Layout = ({ children }) => {
         </div>
     );
 }
-
+    
 export default Layout;

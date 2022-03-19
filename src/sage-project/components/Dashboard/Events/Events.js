@@ -5,7 +5,7 @@ import EventsCard from './EventsCard';
 
 const useStyles = makeStyles((theme) => ({
     page: {
-        padding: '50px'
+        padding: theme.spacing(3)
     }
 }))
 

@@ -14,11 +14,16 @@ const theme = createTheme({
             main: red.A400,
         },
     },
-    stylesBG: {
+    colours: {
         blue: '#96E9EE',
         purple: '#9896EE',
         pink: '#D796EE',
         rose: '#EE96B5'
+    },
+    text: {
+        purple: '#410179',
+        gray: '#8E8E8E',
+        darkGray: '#555555',
     }
 });
 
