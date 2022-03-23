@@ -18,7 +18,9 @@ const theme = createTheme({
         blue: '#96E9EE',
         purple: '#9896EE',
         pink: '#D796EE',
-        rose: '#EE96B5'
+        rose: '#EE96B5',
+        lightBlue: '#86A8E7',
+        lightPurple: '#7F7FD5'
     },
     text: {
         purple: '#410179',

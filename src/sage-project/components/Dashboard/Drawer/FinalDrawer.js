@@ -22,10 +22,15 @@ import ButtonBase from '@mui/material/ButtonBase';
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { useRouter } from 'next/router'
-import { makeStyles } from '@mui/styles';
-import { borderRadius } from '@mui/system';
+import { makeStyles, useTheme } from '@mui/styles';
+import Image from 'next/image'
+import sageLogo from '../../../assets/sage_1_cropped.png'
+import 'firebase/auth';
+import fire from 'firebase/app'
+import firebase from "../../../firebase/firebase";
 
 const drawerWidth = 240;
+
 
 const useStyles = makeStyles((theme) => ({
     activeRoute: {
@@ -163,25 +168,39 @@ function ResponsiveDrawer(props) {
             path: router.pathname == '/groups' ? '/groups' : '/groups/[group]',
             onClick: () => router.push('/groups')
         },
-    ]
-
-    const logOut = [
         {
-            text: "Logout",
+            text: "Log out",
             icon: <LogoutIcon/>,
             onClick: async () => {
                 await firebase.logout()
-                Router.push('/login')}
+                router.push('/login')}
         }
     ]
+
+    // const logOut = [
+    //     {
+    //         text: "Logout",
+    //         icon: <LogoutIcon/>,
+    //         onClick: async () => {
+    //             await firebase.logout()
+    //             router.push('/login')}
+    //     }
+    // ]
 
     const drawer = (
         <div>
         {/* THIS TOOLBAR HERE WILL BE ADDED WITH THE SAGE LOGO OR JUST SAGE TEXT */}
         <Toolbar className={classes.logo}>
-            <Typography align="center" variant="h3">
+            {/* <Typography align="center" variant="h3">
                 {"SAGE"}
-            </Typography>
+            </Typography> */}
+            <Image 
+            src={sageLogo}
+            alt="sage logo"
+            // layout="fill"
+            // width="350px"
+            // height="300px"
+            />
         </Toolbar>
         <List className={classes.listContainer}>
             {itemsList.map((item, index) => {
@@ -207,7 +226,7 @@ function ResponsiveDrawer(props) {
             )})}
         </List>
         {/* <div  className={classes.root}> */}
-        <List className={classes.root}>
+        {/* <List className={classes.root}>
             {logOut.map((item, index) => {
             const { text, icon, onClick } = item;
             return (
@@ -221,14 +240,14 @@ function ResponsiveDrawer(props) {
                 </ListItem>
             )})}
         </List>
-        {/* </div> */}
+        </div> */}
         </div>
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box>
+        <div>
             {/* <CssBaseline /> */}
             <AppBar
             position="fixed"
@@ -288,7 +307,7 @@ function ResponsiveDrawer(props) {
                     {drawer}
                 </Drawer>
             {/* </Box> */}
-        </Box>
+        </div>
     );
 }
 

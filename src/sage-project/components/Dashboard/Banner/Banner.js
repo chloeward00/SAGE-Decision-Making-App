@@ -26,11 +26,13 @@ const getTime = () => {
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(3),
+        // margin: 'auto'
     },
     banner: {
         display: 'flex', 
         justifyContent: 'space-between',
-        marginRight: theme.spacing(3)
+        marginRight: theme.spacing(3),
+        marginLeft: theme.spacing(3)
     },
     date: {
         borderStyle: "solid",
@@ -50,7 +52,8 @@ const useStyles = makeStyles((theme) => ({
     userName: {
         paddingLeft: 5,
         fontWeight: 500,
-        color: theme.text.purple
+        // color: theme.text.purple
+        color: 'rgba(134,168,231,1)'
     },
     dateText: {
         marginLeft: 10,
@@ -62,10 +65,8 @@ const useStyles = makeStyles((theme) => ({
         // color: theme.colours.rose
     },
     lowerText: {
-        // color: '#555555',
-        // color: theme.text.gray
-        color: theme.text.darkGray
-
+        color: theme.text.darkGray,
+        marginLeft: theme.spacing(3)
     }
 }))
 

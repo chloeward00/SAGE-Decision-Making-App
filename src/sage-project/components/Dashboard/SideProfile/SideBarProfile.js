@@ -15,7 +15,9 @@ const gradient11 = 'rgba(134,168,231,1)' // #86A8E7
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        // display: 'flex',
+        position: 'sticky',
+        top: 0,
+        // backgroundColor: 'yellow'
     },
     profileBG: {
         backgroundImage: `linear-gradient(${gradient11}, ${gradient10})`,
@@ -145,7 +147,7 @@ const SideProfile = () => {
     const getUserFirstLetterName = currentUserName.charAt(0).toLocaleUpperCase()
 
     return (
-        <Container>
+        <Container className={classes.root}>
             <div className={classes.profileText}>
                 <Typography variant="h5">
                     {"Profile"}

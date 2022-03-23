@@ -73,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
     },
     sampleIcon: {
         backgroundColor: 'yellow',
-        
         borderRadius: '20px'
     },
     sampleText: {
