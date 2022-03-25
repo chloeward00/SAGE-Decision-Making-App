@@ -1,14 +1,16 @@
 import Events from "../../components/Dashboard/Events/Events";
 import Layout from "../../components/Layout/Layout";
+import DashboardLayout from "../../components/Layout/DashboardLayout"
 
 const HomeDashboard = () => {
 
     return (
         <div>
-            <Layout>
+            <DashboardLayout>
                 <Events/>
-            </Layout>
+            </DashboardLayout>
         </div>
+    
     );
 }
 

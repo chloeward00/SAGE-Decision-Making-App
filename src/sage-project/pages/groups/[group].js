@@ -3,10 +3,11 @@ import Layout from "../../components/Layout/Layout";
 import IndividualGroup from "../../components/Dashboard/Groups/IndividualGroup";
 import { useRouter } from 'next/router'
 
-
 const buttonTitle = "See members";
 
 const Group = () => {
+    const router = useRouter();
+    console.log("MEHHHHH   " + router.query.group)
 
     const { asPath } = useRouter();
     // this reads the path where we take the groupname
