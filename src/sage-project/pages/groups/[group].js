@@ -52,16 +52,6 @@ const Group = () => {
     }
 
 
-    // const db = fire.firestore();
-    // ///var addfavss = firestores.addfavs();
-    // const doc = await fire
-    // .firestore()
-    // .collection('userSurvey')
-    // .doc(currentUserUID)
-    // .get()
-    // ///firefunctions.addfavs
-
-
     useEffect(() => {
     
           fire.firestore().collection("posts")
@@ -132,17 +122,9 @@ const Group = () => {
           </p>
         ))}
       </div>
-            </Layout>
-
-
-
-  
-
- 
+            </Layout> 
       
    </div>
-
-
         
     );
 }
