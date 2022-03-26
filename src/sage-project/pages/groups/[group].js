@@ -44,18 +44,18 @@ const Group = () => {
     }
 
     
-    useEffect(() => {
-      let mounted = false
+        useEffect(() => {
+          let mounted = false
 
-      if(!mounted){
-          getUserInfo()
-      }
-      
-      return () => {
-          mounted = true
-      }
+          if(!mounted){
+              getUserInfo()
+          }
+          
+          return () => {
+              mounted = true
+          }
 
-  }, [])
+      }, [])
 
     return (
         <div>

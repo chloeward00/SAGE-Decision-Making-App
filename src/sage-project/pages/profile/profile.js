@@ -8,58 +8,58 @@ import fire from 'firebase/app'
 import 'firebase/firestore';
 
 export default function Profile() {
-  const profile = firebase.getProfile();
-  const [name, setName] = useState("");
-  const [bio, setBio] = useState("");
- 
-
-  const handlePress = async () => {
-    let currentUserUID = fire.auth().currentUser.uid
-    const db = fire.firestore();
-    db.collection("UserProfile")
-    .doc(currentUserUID)
-    .set({
-      Name: name,
-      Bio: bio
-    })
-
-   
-    Router.push("/home")  
-  }
-
-
-
-
-  const getUserInfo = async () => {
-      let currentUserUID = fire.auth().currentUser.uid
-      
-      let doc = await fire
-      .firestore()
-      .collection('UserProfile')
-      .doc(currentUserUID)
-      .get()
+    const profile = firebase.getProfile();
+    const [name, setName] = useState("");
+    const [bio, setBio] = useState("");
   
-      if (!doc.exists){
-          console.log('no profile saved in the database. edit profile now')
-      } else {
-          let dataObj = doc.data();
-          setName(dataObj.Name)
-          setBio(dataObj.Bio)
-      }
-  }
 
-    useEffect(() => {
-      let mounted = false
+    const handlePress = async () => {
+      let currentUserUID = fire.auth().currentUser.uid
+      const db = fire.firestore();
+      db.collection("UserProfile")
+      .doc(currentUserUID)
+      .set({
+        Name: name,
+        Bio: bio
+      })
 
-      if(!mounted){
-          getUserInfo()
-      }
-      
-      return () => {
-          mounted = true
-      }
+    
+      Router.push("/home")  
+    }
 
-  }, [])
+
+
+
+    const getUserInfo = async () => {
+          let currentUserUID = fire.auth().currentUser.uid
+            
+          let doc = await fire
+          .firestore()
+          .collection('UserProfile')
+          .doc(currentUserUID)
+          .get()
+        
+          if (!doc.exists){
+              console.log('no profile saved in the database. edit profile now')
+            } else {
+              let dataObj = doc.data();
+              setName(dataObj.Name)
+              setBio(dataObj.Bio)
+            }
+        }
+
+      useEffect(() => {
+        let mounted = false
+
+        if(!mounted){
+            getUserInfo()
+          }
+          
+        return () => {
+            mounted = true
+          }
+
+      }, [])
 
 
   return (
