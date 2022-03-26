@@ -7,10 +7,40 @@ import fire from 'firebase/app'
 import 'firebase/auth';
 import 'firebase/firestore';
 import Avatar from "@material-ui/core/Avatar";
+import { makeStyles } from '@mui/styles';
 
 const buttonTitle = "See members";
 
+
+
+const useStyles = makeStyles((theme) => ({
+
+  avatar: {
+      width: 20,
+      height: 20,
+      fontSize: 10,
+      // change these colours
+      // color: 'black',
+      backgroundColor: theme.colours.pink,
+      marginTop: 25,
+      margin: 'auto',
+       left: 80
+      
+  },
+  avatarWhite: {
+      width: 10,
+      height: 20,
+      borderRadius: 100 / 2,
+      backgroundColor: 'white',
+      margin: 'right',
+      marginTop: 30,
+  }
+}))
+
+
+
 const Group = () => {
+    const classes = useStyles();
     const router = useRouter();
     console.log("MEHHHHH   " + router.query.group)
 
@@ -65,7 +95,6 @@ const Group = () => {
     
     }, []);
 
-    console.log(comments + "looooooool")
     const postComment = (event) => {
       event.preventDefault();
       fire.firestore().collection("posts").doc(groupID).collection("comments").add({
@@ -88,6 +117,8 @@ const Group = () => {
           }
 
       }, [])
+
+  
 
     return (
         <div>
@@ -116,8 +147,12 @@ const Group = () => {
 
         <div className="post__comments">
         {comments.map((comment) => (
+        //comment.username.charAt(0).toLocaleUpperCase(),
           <p>
-            <strong>{comment.username} </strong>
+             <div>
+                <Avatar className={classes.avatar}>{comment.username.charAt(0).toLocaleUpperCase()}</Avatar>
+            </div>
+            <strong>{comment.username.charAt(0).toLocaleUpperCase()} </strong>
             {comment.text}
           </p>
         ))}

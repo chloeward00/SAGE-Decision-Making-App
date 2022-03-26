@@ -14,6 +14,7 @@ import 'firebase/firestore';
 const gradient10 = 'rgba(127,127,213,0.5)' //#7F7FD5
 const gradient11 = 'rgba(134,168,231,1)' // #86A8E7
 
+const classes = useStyles();
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'sticky',
