@@ -27,7 +27,6 @@ import GroupsCard from '../../components/Dashboard/Groups/GroupsCard';
 import { Grid, Container, Typography } from '@mui/material';
 
 
-
 const buttonTitle = "See members";
 
 

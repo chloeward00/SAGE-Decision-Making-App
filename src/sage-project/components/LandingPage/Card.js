@@ -5,6 +5,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 
+
+const gradient3 = "#4568DC"; // rgba(69 , 104, 220, 1)
+const gradient4 = "#B06AB3"; // rgba(176 , 106, 179, 1)
+
 const useStyles = makeStyles((theme) => ({
     card: {
         maxWidth: '100%',
