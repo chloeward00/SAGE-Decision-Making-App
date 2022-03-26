@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import fire from 'firebase/app'
 import 'firebase/auth';
 import 'firebase/firestore';
+import Avatar from "@material-ui/core/Avatar";
 
 const buttonTitle = "See members";
 
@@ -22,6 +23,13 @@ const Group = () => {
     const [members, setMembers] = useState('');
     const [description, setDescription] = useState('');
     const [createdAt, setCreatedAt] = useState('');
+    
+    // comment stuff
+
+    const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState("");
+
+    const username = fire.auth().currentUser.displayName;
 
     const getUserInfo = async () => {
         let currentUserUID = fire.auth().currentUser.uid
@@ -43,7 +51,41 @@ const Group = () => {
         }
     }
 
+
+    // const db = fire.firestore();
+    // ///var addfavss = firestores.addfavs();
+    // const doc = await fire
+    // .firestore()
+    // .collection('userSurvey')
+    // .doc(currentUserUID)
+    // .get()
+    // ///firefunctions.addfavs
+
+
+    useEffect(() => {
     
+          fire.firestore().collection("posts")
+          .doc(groupID)
+          .collection("comments")
+          .orderBy("timestamp", "desc")
+          .onSnapshot((snapshot) => {
+            setComments(snapshot.docs.map((doc) => doc.data()));
+          });
+    
+    
+    }, []);
+
+    console.log(comments + "looooooool")
+    const postComment = (event) => {
+      event.preventDefault();
+      fire.firestore().collection("posts").doc(groupID).collection("comments").add({
+        text: comment,
+        username:  fire.auth().currentUser.displayName,
+        timestamp: new Date()
+      });
+      setComment("");
+    };
+
         useEffect(() => {
           let mounted = false
 
@@ -62,8 +104,46 @@ const Group = () => {
             <Layout>
                 <GroupsBanner groupName={name} buttonTitle={buttonTitle}/>
                 <IndividualGroup/>
+
+                <form className="post__commentBox">
+          <input
+            className="post__input"
+            type="text"
+            placeholder="Add a comment..."
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+          <button
+            className="post__button"
+            disabled={!comment}
+            type="submit"
+            onClick={postComment}
+          >
+            Post
+          </button>
+        </form>
+
+
+        <div className="post__comments">
+        {comments.map((comment) => (
+          <p>
+            <strong>{comment.username} </strong>
+            {comment.text}
+          </p>
+        ))}
+      </div>
             </Layout>
-        </div>
+
+
+
+  
+
+ 
+      
+   </div>
+
+
+        
     );
 }
 
