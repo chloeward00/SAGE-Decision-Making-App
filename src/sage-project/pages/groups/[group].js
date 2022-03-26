@@ -152,7 +152,7 @@ const Group = () => {
              <div>
                 <Avatar className={classes.avatar}>{comment.username.charAt(0).toLocaleUpperCase()}</Avatar>
             </div>
-            <strong>{comment.username.charAt(0).toLocaleUpperCase()} </strong>
+            <strong>{comment.username} </strong>
             {comment.text}
           </p>
         ))}
