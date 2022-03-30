@@ -6,59 +6,60 @@ import css from "../../../styles/component.module.css";
 const { Text } = Typography;
 
 const ProfileCards = ({ profiles, handleSwipe }) => {
-  return (
-    <div className={css.swipingList}>
-      {profiles
-        .slice()
-        .reverse()
-        .map(({ imgUrl, name}, index) => {
-          return (
-            <SwipableWrapper
-              key={name}
-              className={css.swipingWrapper}
-              onSwipeLeft={() => handleSwipe("skip")}
-              onSwipeRight={() => handleSwipe("like")}
-            >
-              <div
-                className={css.profileCard}
-                style={{ backgroundImage: `url(${imgUrl})` }}
-              >
-                <div className={css.profileCardDescription}>
-                  <Text
-                    className={css.profileCardDescriptionTitle}
-                    strong
-                  >{`${name}`}</Text>
-                 
-                </div>
-              </div>
-              <span className={`${css.swipingMessage} ${css.likeMessage}`}>
-                LIKE
-              </span>
-              <span className={`${css.swipingMessage} ${css.skipMessage}`}>
-                SKIP
-              </span>
-            </SwipableWrapper>
-          );
-        })}
-      <Row justify="center" className={css.toolbar}>
-        <Space size={64}>
-          <Button
-            danger
-            className={css.toolbarButton}
-            size="large"
-            shape="circle"
-            icon={<CloseOutlined size="large" />}
-            onClick={() => handleSwipe("skip")}
-          />
-          <Button
-            className={css.toolbarButton}
-            shape="circle"
-            icon={<CheckOutlined style={{ color: "#52c41a" }} />}
-            onClick={() => handleSwipe("like")}
-          />
-        </Space>
-      </Row>
-    </div>
+    return (
+        <div className={css.swipingList}>
+            {profiles
+            .slice()
+            .reverse()
+            .map(({ imgUrl, name}, index) => {
+                return (
+                <SwipableWrapper
+                    key={name}
+                    className={css.swipingWrapper}
+                    onSwipeLeft={() => handleSwipe("skip")}
+                    onSwipeRight={() => handleSwipe("like")}
+                >
+                    <div
+                    className={css.profileCard}
+                    style={{ backgroundImage: `url(${imgUrl})` }}
+                    >
+                        <div className={css.profileCardDescription}>
+                            <Text
+                                className={css.profileCardDescriptionTitle}
+                                strong
+                            >
+                                {`${name}`}
+                            </Text>
+                        </div>
+                    </div>
+                    <span className={`${css.swipingMessage} ${css.likeMessage}`}>
+                        LIKE
+                    </span>
+                    <span className={`${css.swipingMessage} ${css.skipMessage}`}>
+                        SKIP
+                    </span>
+                </SwipableWrapper>
+                );
+            })}
+            <Row justify="center" className={css.toolbar}>
+            <Space size={64}>
+                <Button
+                    danger
+                    className={css.toolbarButton}
+                    size="large"
+                    shape="circle"
+                    icon={<CloseOutlined size="large" />}
+                    onClick={() => handleSwipe("skip")}
+                />
+                <Button
+                    className={css.toolbarButton}
+                    shape="circle"
+                    icon={<CheckOutlined style={{ color: "#52c41a" }} />}
+                    onClick={() => handleSwipe("like")}
+                />
+            </Space>
+            </Row>
+        </div>
   );
 };
 

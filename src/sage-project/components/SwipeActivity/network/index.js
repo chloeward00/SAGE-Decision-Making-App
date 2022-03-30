@@ -24,34 +24,15 @@ import { get } from "react-hook-form";
        lati.push(position.coords.latitude);
        longi.push(position.coords.longitude);
     
-}); 
-
-
-console.log(lati)
-function getdata2() {
-    
-    navigator.geolocation.getCurrentPosition(function(position) {
-        
-      long = position.coords.longitude;
-       
-}); 
-
-}
+});
 
 export async function getProfilesData() {
  
-   return axios.get('http://localhost:8080/https://api.yelp.com/v3/businesses/search?term=Food&latitude=' +
-   (lati[0]) + 
-   '&longitude=' +
-   (longi[0]) +
-   '&limit=' +
-   limit,
-   config)
-
- .then(response => 
-    response.data.businesses.map(({name,image_url}) => ({
-        name: `${name}`,
-        imgUrl:  `${image_url}`,
-    })))
+    return axios.get('https://sage-app-decision.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=zoos&location=ireland', config)
+    .then(response => 
+        response.data.businesses.map(({name,image_url}) => ({
+            name: `${name}`,
+            imgUrl:  `${image_url}`,
+        })))
    
 }

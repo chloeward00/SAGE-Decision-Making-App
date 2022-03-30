@@ -2,6 +2,7 @@ import GroupsBanner from "../../components/Dashboard/Groups/GroupsBanner";
 import Layout from "../../components/Layout/Layout";
 import IndividualGroup from "../../components/Dashboard/Groups/IndividualGroup";
 import { useRouter } from 'next/router'
+import { Button } from "@mui/material";
 
 const buttonTitle = "See members";
 
@@ -18,6 +19,7 @@ const Group = () => {
         <div>
             <Layout>
                 <GroupsBanner groupName={groupName} buttonTitle={buttonTitle}/>
+                <Button></Button>
                 <IndividualGroup/>
             </Layout>
         </div>
