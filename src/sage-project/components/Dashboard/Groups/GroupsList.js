@@ -37,6 +37,8 @@ const Groups = () => {
 
         fetchData();
 
+      
+
         return () => {
             isMounted = false
         }

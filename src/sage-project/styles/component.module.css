@@ -121,3 +121,12 @@
     overflow: hidden;
     display: inline-block;
   }
+
+  .overViewCardDescriptionTitle {
+    margin: auto;
+  width: 90%;
+  max-width: 40rem;
+  background-color: white;
+  border-radius: 1.5rem;
+
+  }

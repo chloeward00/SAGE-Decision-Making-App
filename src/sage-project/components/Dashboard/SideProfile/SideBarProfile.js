@@ -2,6 +2,7 @@
 import { AppBar, Avatar, Toolbar, Typography, Button, ButtonBase, Container, Box, Divider } from "@mui/material";
 import { useState, useEffect } from "react";
 import GroupsIcon from '@mui/icons-material/Groups';
+import EditIcon from '@mui/icons-material/Edit';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router'
@@ -98,6 +99,29 @@ const SideProfile = () => {
     const userID = fire.auth().currentUser.uid;
     const [numGroups, setNumGroups] = useState('');
     const [numEvents, setNumEvents] = useState('');
+    const [name, setName] = useState('');
+    const [bio, setBio] = useState('');
+
+    const getUserInfo = async () => {
+        let currentUserUID = fire.auth().currentUser.uid
+        
+        let doc = await fire
+        .firestore()
+        .collection('UserProfile')
+        .doc(currentUserUID)
+        .get()
+    
+        if (!doc.exists){
+            console.log('no profile saved in the database. edit profile now')
+        } else {
+            let dataObj = doc.data();
+            setName(dataObj.Name)
+            setBio(dataObj.Bio)
+        }
+    }
+
+
+    console.log(bio,"looooooooooooool")
 
     useEffect(() => {
         async function getNumberGroups() {
@@ -136,6 +160,7 @@ const SideProfile = () => {
 
         getNumberGroups();
         getNumberEvents();
+        getUserInfo();
     });
 
     const classes = useStyles();
@@ -177,7 +202,7 @@ const SideProfile = () => {
             {/* INSERT USER BIO HERE */}
             <div className={classes.userBio}>
                 <Typography align="center" className={classes.userBioText}>
-                    {"Software Engineer at Google || '98 || Dublin, Ireland"}
+                {bio}
                 </Typography>
             </div>
 
@@ -188,6 +213,12 @@ const SideProfile = () => {
                 <ButtonBase onClick={ () => { router.push('/groups')}}>
                     <Avatar className={classes.groupStats}>
                         <GroupsIcon/>
+                    </Avatar>
+                </ButtonBase>
+
+                <ButtonBase onClick={ () => { router.push('/profile/profile')}}>
+                    <Avatar className={classes.groupStats}>
+                        <EditIcon/>
                     </Avatar>
                 </ButtonBase>
 

@@ -1,12 +1,66 @@
 import { Layout, Card, message } from "antd";
-import Home from "../../components/Dashboard/Home";
 import Head from "next/head";
 import { DeleteOutlined, KeyOutlined, MailOutlined } from "@ant-design/icons";
 import firebase from "../../firebase/firebase";
 import Router from "next/router";
+import React, { useState, useEffect} from 'react'
+import fire from 'firebase/app'
+import 'firebase/firestore';
 
 export default function Profile() {
-  const profile = firebase.getProfile();
+    const profile = firebase.getProfile();
+    const [name, setName] = useState("");
+    const [bio, setBio] = useState("");
+  
+
+    const handlePress = async () => {
+      let currentUserUID = fire.auth().currentUser.uid
+      const db = fire.firestore();
+      db.collection("UserProfile")
+      .doc(currentUserUID)
+      .set({
+        Name: name,
+        Bio: bio
+      })
+
+    
+      Router.push("/home")  
+    }
+
+
+
+
+    const getUserInfo = async () => {
+          let currentUserUID = fire.auth().currentUser.uid
+            
+          let doc = await fire
+          .firestore()
+          .collection('UserProfile')
+          .doc(currentUserUID)
+          .get()
+        
+          if (!doc.exists){
+              console.log('no profile saved in the database. edit profile now')
+            } else {
+              let dataObj = doc.data();
+              setName(dataObj.Name)
+              setBio(dataObj.Bio)
+            }
+        }
+
+      useEffect(() => {
+        let mounted = false
+
+        if(!mounted){
+            getUserInfo()
+          }
+          
+        return () => {
+            mounted = true
+          }
+
+      }, [])
+
 
   return (
     <>
@@ -14,7 +68,7 @@ export default function Profile() {
         <title>Profile | Firenext</title>
       </Head>
       <Layout>
-        <Home activeKey={"2"} />
+  
         <Layout.Content style={{ padding: "0 50px", marginTop: 64 }}>
           <div className="site-layout-background mainlayout">
             <div className="container">
@@ -45,13 +99,13 @@ export default function Profile() {
                 key="delete"
                 onClick={async () => {
                   
-                  Router.push("/dashboard/ChangeAccountEmail"); // goes to the change email page
+                  Router.push("changeemail"); // goes to the change email page
                 }}
               />,
                 <KeyOutlined
                     key="changepass"
                     onClick={async () => {
-                        Router.push("ChangeLoginPassword"); // goes to change login password page
+                        Router.push("changepassword"); // goes to change login password page
                     }}
                   />,
                 ]}
@@ -88,8 +142,35 @@ export default function Profile() {
               </Card>
             </div>
           </div>
+          
+          <form>
+      <label>Name:
+        <input
+          type="text" 
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </label>
+
+      <label>Bio:
+        <input
+          type="text" 
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+        />
+      </label>
+    </form>
         </Layout.Content>
       </Layout>
+
+      <button
+              
+              onClick={handlePress}
+              type="button"
+            >
+              Submit
+            </button>
+        
     </>
   );
 }
