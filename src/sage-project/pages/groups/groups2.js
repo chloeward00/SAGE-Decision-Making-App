@@ -45,9 +45,9 @@ const { asPath } = useRouter();
 
   useEffect(() => {
     (async function getData() {
-      setViewedProfiles(getLocalViewedProfiles());
+     // setViewedProfiles(getLocalViewedProfiles());
       const fetchedProfiles = await getProfilesData();
-      setProfiles([...profiles, ...fetchedProfiles]);
+      setProfiles([...fetchedProfiles]);
     })();
   }, []);
 
@@ -168,13 +168,14 @@ const { asPath } = useRouter();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-         
-      <SideBar
+
+<SideBar
         viewSelected={viewSelected}
         selectView={setViewSelected}
         viewedProfiles={viewedProfiles}
       />
- 
+         
+     
       <Layout>
         <Content
           style={{
