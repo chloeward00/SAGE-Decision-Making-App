@@ -14,8 +14,11 @@ import ProfileCards from "../../components/SwipeActivity/components2/profile-car
 import fire from 'firebase/app'
 import 'firebase/firestore';
 
+import getYELPData from "../../hooks/yelp-api/useCategoriesSearch";
+
 const { Footer, Content } = Layout;
 const REMAINING_PROFILES_THRESHOLD = 2;
+
 
 function App() {
   const [profiles, setProfiles] = useState([]);
@@ -103,7 +106,7 @@ function App() {
           duration: 1,
         });
         (async function getData() {
-          const fetchedProfiles = await getProfilesData();
+          const fetchedProfiles = await getYELPData();
           setProfiles([...tail, ...fetchedProfiles]);
         })();
       } else {

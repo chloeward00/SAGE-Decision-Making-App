@@ -7,7 +7,7 @@ import React, { useState, useEffect} from 'react'
 import fire from 'firebase/app'
 import 'firebase/firestore';
 
-export default function Profile() {
+export default function EditProfilePage() {
     const profile = firebase.getProfile();
     const [name, setName] = useState("");
     const [bio, setBio] = useState("");
@@ -22,13 +22,8 @@ export default function Profile() {
         Name: name,
         Bio: bio
       })
-
-    
       Router.push("/home")  
     }
-
-
-
 
     const getUserInfo = async () => {
           let currentUserUID = fire.auth().currentUser.uid
@@ -99,13 +94,13 @@ export default function Profile() {
                 key="delete"
                 onClick={async () => {
                   
-                  Router.push("changeemail"); // goes to the change email page
+                  Router.push("/profile/changeemail"); // goes to the change email page
                 }}
               />,
                 <KeyOutlined
                     key="changepass"
                     onClick={async () => {
-                        Router.push("changepassword"); // goes to change login password page
+                        Router.push("/profile/changepassword"); // goes to change login password page
                     }}
                   />,
                 ]}

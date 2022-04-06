@@ -23,9 +23,9 @@ const Groups = () => {
     useEffect(() => {
 
         let isMounted = true;
-        
+
         async function fetchData() {
-            
+
             await fire.firestore().collection('groups').where("groupMembers", "array-contains", fire.auth().currentUser.uid)
             .orderBy('createdAt', 'desc')
             .onSnapshot(snapshot => {
@@ -37,12 +37,10 @@ const Groups = () => {
 
         fetchData();
 
-      
-
         return () => {
             isMounted = false
         }
-      });
+    });
 
     return (
         <Container className={classes.page}>

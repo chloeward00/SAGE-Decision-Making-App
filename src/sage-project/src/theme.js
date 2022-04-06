@@ -20,7 +20,9 @@ const theme = createTheme({
         pink: '#D796EE',
         rose: '#EE96B5',
         lightBlue: '#86A8E7',
-        lightPurple: '#7F7FD5'
+        lightPurple: '#7F7FD5',
+        gradient1: '#7F7FD5',
+        gradient2: '#86A8E7'
     },
     text: {
         purple: '#410179',

@@ -9,6 +9,8 @@ import { useRouter } from 'next/router'
 import fire from 'firebase/app'
 import 'firebase/auth';
 import 'firebase/firestore';
+import SettingsDialog from '../Drawer/SettingsDialog'
+import EditProfileDialog from "./EditProfileDialog";
 
 // azur lane
 const gradient10 = 'rgba(127,127,213,0.5)' //#7F7FD5
@@ -18,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         position: 'sticky',
         top: 0,
-        // backgroundColor: 'yellow'
     },
     profileBG: {
         backgroundImage: `linear-gradient(${gradient11}, ${gradient10})`,
@@ -30,14 +31,11 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         marginTop: theme.spacing(4)
-        // position: 'relative',
     },
     avatar: {
         width: 60,
         height: 60,
         fontSize: 32,
-        // change these colours
-        // color: 'black',
         backgroundColor: theme.colours.pink,
         marginTop: -65,
         margin: 'auto'
@@ -63,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
     userName: {
         paddingLeft: 5,
         fontWeight: 500,
-        // ADD COLOUR HERE
     },
     userNameContainer: {
         padding: theme.spacing(3)
@@ -91,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
     },
     userBioText: {
         color: theme.text.gray
+    },
+    editIcon: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: theme.spacing(2),
     }
 }))
 
@@ -120,9 +122,6 @@ const SideProfile = () => {
         }
     }
 
-
-    console.log(bio,"looooooooooooool")
-
     useEffect(() => {
         async function getNumberGroups() {
 
@@ -138,7 +137,6 @@ const SideProfile = () => {
             }).catch((error) => {
                 console.log("Error getting document:", error);
             });
-
         }
 
         async function getNumberEvents() {
@@ -192,6 +190,18 @@ const SideProfile = () => {
                 <Avatar className={classes.avatar}>{getUserFirstLetterName}</Avatar>
             </div>
 
+            {/* EDIT THIS AND MOVE UNDER THE USERNAME */}
+            {/* <div className={classes.editIcon}>
+                <ButtonBase onClick={ () => { router.push('/profile/editprofile')}}>
+                    <EditIcon/>
+                </ButtonBase>
+            </div> */}
+
+            {/* EDIT PROFILE BUTTON HERE */}
+            <div className={classes.editIcon}>
+                <EditProfileDialog/>
+            </div>
+
             {/* USER NAME */}
             <div className={classes.userNameContainer}>
                 <Typography variant="h5" align="center" className={classes.userName}>
@@ -213,12 +223,6 @@ const SideProfile = () => {
                 <ButtonBase onClick={ () => { router.push('/groups')}}>
                     <Avatar className={classes.groupStats}>
                         <GroupsIcon/>
-                    </Avatar>
-                </ButtonBase>
-
-                <ButtonBase onClick={ () => { router.push('/profile/profile')}}>
-                    <Avatar className={classes.groupStats}>
-                        <EditIcon/>
                     </Avatar>
                 </ButtonBase>
 

@@ -6,6 +6,7 @@ import fire from 'firebase/app'
 import { useRouter } from 'next/router'
 import TodayIcon from '@mui/icons-material/Today';
 
+
 const getTime = () => {
     
     var today = new Date()
@@ -96,7 +97,7 @@ const Banner = () => {
                     </Typography>
                 </div>
 
-                <ButtonBase>
+                <ButtonBase onClick={ () => router.push('/home/calendar')}>
                     <div className={classes.date}>
                         <TodayIcon className={classes.dateIcon}/>
                         <Typography className={classes.dateText}>

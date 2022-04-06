@@ -11,7 +11,7 @@ import Link from '../../Link/Link'
 
 export default function GroupsCard({ groups }) {
 
-    const { groupName, groupDescription,groupID} = groups;
+    const { groupName, groupDescription, groupID } = groups;
 
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
