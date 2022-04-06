@@ -11,12 +11,14 @@ import { Chip, ListItem, Grid } from '@mui/material';
 import { useState } from 'react';
 import { getYELPData } from '../../hooks/yelp-api/useCategoriesSearch';
 import { useRouter } from 'next/router'
+import fire from 'firebase/app'
+import 'firebase/firestore';
 
 
-
-const getQueryParams = (categories) => {
-    const query = categories.join();
-    return query
+const getQueryParams = (groupID) => {
+    // const query = groupID.join();
+    console.log("passing group ID here " + groupID)
+    return groupID
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -37,11 +39,20 @@ const ActiveDialog = ({ name, path }) => {
     const classes = useStyles();    
     const theme = useTheme();
     const router = useRouter();
+
+    const url = router.asPath.split('/')
+    const urlCategory = url[2]
+  
+    const groupID = router.query.activities
+
+    console.log("url hereee " + urlCategory)
+
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState(false);
     const [chipsSelected, setChipsSelected] = useState([])
+    const [category, setCategory] = useState("")
 
 
     const handleAddChip = (cat) => {
@@ -52,32 +63,49 @@ const ActiveDialog = ({ name, path }) => {
 
     console.log(chipsSelected);
 
-    // const returnedOptions =  getYELPData()
-    // console.log("yelp data hook " + returnedOptions)
-
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleSubmit = () => {
-        getQueryParams(chipsSelected)
+        getQueryParams(groupID)
+        addUserPicks()
         router.push('/categories/activity/options')
-        // return chipsSelected
     }
 
     const handleClose = () => {
         setOpen(false);
+        // updateCollection()
     };
 
     const handleUndo = () => {
         setChipsSelected([])
     }
 
+    const addUserPicks = () => {
+        
+        let currentUserUID = fire.auth().currentUser.uid
+        const db = fire.firestore();
+
+        db.collection("groupsCategory")
+        .doc(groupID)
+        .collection("memberPicks")
+        .doc(currentUserUID)
+        .set({
+            category: urlCategory,
+            categoryTerms: chipsSelected
+        })
+
+        console.log(currentUserUID)
+
+    }
+
+
     const activeCategories = [
         {
             // this needs to open more options
             name: "active",
-            onClick: () => router.push('/home/calendar')
+            // onClick: () => router.push('/home/calendar')
         }, 
         
         {
@@ -92,12 +120,11 @@ const ActiveDialog = ({ name, path }) => {
             name: "nightlife"
         }, 
         
-        {
-            // this needs to open more options
-            name: "sports",
-            path: ""
-        }, 
-        
+        // {
+        //     // this needs to open more options
+        //     name: "sports",
+        //     path: ""
+        // },
         {
             name: "zoos"
         }
@@ -105,9 +132,9 @@ const ActiveDialog = ({ name, path }) => {
 
     // const chillCategories = ['arts', 'beautysvc', 'movietheaters', 'museums', 'shopping', 'wineries']
     const chillCategories = [
-        {
-            name: "arts"
-        },
+        // {
+        //     name: "arts"
+        // },
         {
             name: "beautysvc"
         },
@@ -173,12 +200,6 @@ const ActiveDialog = ({ name, path }) => {
                         )
                     })}
                 </Grid>
-
-                {/* <DialogContentText>
-                Let Google help apps determine location. This means sending anonymous
-                location data to Google, even when no apps are running.
-                </DialogContentText> */}
-
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={handleUndo}>
@@ -193,4 +214,4 @@ const ActiveDialog = ({ name, path }) => {
     );
 }
 
-export default ActiveDialog;
+export  { ActiveDialog, getQueryParams };

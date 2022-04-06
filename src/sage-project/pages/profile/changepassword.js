@@ -1,5 +1,4 @@
 import { Layout,Card,Form, Input, Button, Checkbox,message } from 'antd';
-import Home from "../../components/Dashboard/Home";
 import Head from "next/head";
 import { DeleteOutlined, KeyOutlined } from "@ant-design/icons";
 import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";

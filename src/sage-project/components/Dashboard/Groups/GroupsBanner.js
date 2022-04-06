@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const GroupsBanner = ({ groupName, buttonTitle }) => {
+const GroupsBanner = ({ groupName, buttonTitle, groupID }) => {
     
     const classes = useStyles();
 
@@ -29,7 +29,7 @@ const GroupsBanner = ({ groupName, buttonTitle }) => {
                     <Typography variant="h5" className={classes.groupLine}>
                         {groupName}
                     </Typography>
-                    {buttonTitle == "Create a new group" ? null : <CreateEventDialog/>}
+                    {buttonTitle == "Create a new group" ? null : <CreateEventDialog groupID={groupID} />}
                     {buttonTitle == "Create a new group" ? <CreateGroupDialog buttonTitle={buttonTitle}/> : <CustomizedDialogs buttonTitle={buttonTitle} groupName={groupName}/>}
                 </Grid>
             </Container>

@@ -5,7 +5,7 @@ import { AppBar, Avatar, Toolbar, Typography, Button, ButtonBase, Grid, Paper, C
 import 'firebase/auth';
 import fire from 'firebase/app'
 import { useRouter } from 'next/router'
-import ActiveDialog from "./ActivityDialog";
+import { ActiveDialog } from "./ActivityDialog";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,37 +46,6 @@ const CategoriesLayout = ({ children }) => {
         }
     ]
 
-    const activeCategories = [
-        {
-            // this needs to open more options
-            name: "active",
-            onClick: () => router.push('/home/calendar')
-        }, 
-        
-        {
-            name: "festivals"
-        }, 
-        
-        {
-            name: "fitness"
-        }, 
-        
-        {
-            name: "nightlife"
-        }, 
-        
-        {
-            // this needs to open more options
-            name: "sports",
-            path: ""
-        }, 
-        
-        {
-            name: "zoos"
-        }
-    ]
-
-
     return (
         <div className={classes.root}>
             <Paper elevation={10} className={classes.paper}>
@@ -87,10 +56,6 @@ const CategoriesLayout = ({ children }) => {
                         </div>
                     )
                 })}
-                {/* <Chip variant="outline" label="sample chipp"/>
-                <Chip variant="outline" label="sample chipp"/>
-                <Chip variant="outline" label="sample chipp"/>
-                <Chip variant="outline" label="sample chipp"/> */}
             </Paper>
         </div>
     );

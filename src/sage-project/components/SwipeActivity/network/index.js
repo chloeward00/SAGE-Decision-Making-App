@@ -28,11 +28,18 @@ import { get } from "react-hook-form";
 
 export async function getProfilesData() {
  
-    return axios.get('https://sage-app-decision.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=zoos&location=ireland', config)
-    .then(response => 
-        response.data.businesses.map(({name,image_url}) => ({
-            name: `${name}`,
-            imgUrl:  `${image_url}`,
-        })))
+   return axios.get('https://sage-app-decision.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=pizza&latitude=' +
+   (lati[0]) + 
+   '&longitude=' +
+   (longi[0]) +
+   '&limit=' +
+   limit,
+   config)
+
+ .then(response => 
+    response.data.businesses.map(({name,image_url}) => ({
+        name: `${name}`,
+        imgUrl:  `${image_url}`,
+    })))
    
 }

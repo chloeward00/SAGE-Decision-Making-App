@@ -10,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
-import InviteDialog from './InviteDialog';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -24,16 +23,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 
-
-
-// const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-//     '& .MuiDialogContent-root': {
-//         padding: theme.spacing(2),
-//     },s
-//     '& .MuiDialogActions-root': {
-//         padding: theme.spacing(1),
-//     },
-// }));
 
 const gradient10 = 'rgba(127,127,213,0.5)' //#7F7FD5
 const gradient11 = 'rgba(134,168,231,1)' // #86A8E7
@@ -82,7 +71,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 
-const CustomizedDialogs = ({ buttonTitle, groupName }) => {
+const SettingsDialog = () => {
 
     const router = useRouter();
     const theme = useTheme();
@@ -99,66 +88,13 @@ const CustomizedDialogs = ({ buttonTitle, groupName }) => {
         setOpen(false);
     };
 
-    // this will be used for querying
-    const groupID = router.query.group
-
-    const [groupsList, setGroupList] = useState([]);
-    const [userNames, setUserNames] = useState([]);
-
-    useEffect(() => {
-
-        let isMounted = true;
-
-        async function fetchData() {
-
-            await fire.firestore().collection('groups').where("groupID", "==", groupID)
-            .onSnapshot(snapshot => {
-                if(isMounted){
-                    setGroupList(snapshot.docs.map(doc => doc.data().groupMembers))
-                }
-            })
-        }
-
-        fetchData();
-
-        return () => { 
-            isMounted = false
-        }
-
-    }, []);
-
-    const getNames = async () => { 
-        // the array members is added to the array as an array so we have to do it like this
-        const loopArray = groupsList[0]
-   
-        for(let i = 0; i < loopArray.length; i++) {
-
-            await fire.firestore().collection('users').where("userUID", "==", loopArray[i])
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    if(!userNames.includes(doc.data().userName)){
-                        setUserNames( arr => [...arr, doc.data().userName])
-                    }
-                });
-            })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            });
-        }
-    }
-    
-    console.log("usernamessss    " + userNames)
-    console.log("groupslist   " + groupsList) 
-    
     return (
         <div>
             <Container>
                 <Button variant="outlined" onClick={ () => {
-                            handleClickOpen()
-                            getNames()
+                        handleClickOpen()
                     }}>
-                    {buttonTitle}
+                    {"settings"}
                 </Button>
                 <Dialog
                     onClose={handleClose}
@@ -170,27 +106,7 @@ const CustomizedDialogs = ({ buttonTitle, groupName }) => {
                     {"Members"}
                 </BootstrapDialogTitle>
                 <DialogContent dividers className={classes.dialogCont}>
-                    {userNames.length == 0 ? 
-                        <Typography gutterBottom align="center" sx={{ marginBottom: '20px'}}>
-                            {"No current members"}
-                        </Typography>
-                    :
-                        <List className={classes.membersList}>
-                            {userNames.map((members) => {
-                            return (
-                                <ListItem>
-                                    <ListItemAvatar>
-                                    <Avatar className={classes.avatarBgColor}>
-                                        {members.charAt(0).toLocaleUpperCase()}
-                                    </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText primary={members} />
-                                </ListItem>
-                            )})}
-                        </List>
-                    }
                     {/* this is the add member button under individual groups - SEE MEMBERS Button atm */}
-                    <InviteDialog groupName={groupName}/>
                 </DialogContent>
                 {/* <DialogActions>
                     <Button autoFocus onClick={handleClose}>
@@ -203,4 +119,4 @@ const CustomizedDialogs = ({ buttonTitle, groupName }) => {
     );
 }
 
-export default CustomizedDialogs;
+export default SettingsDialog;

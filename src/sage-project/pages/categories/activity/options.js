@@ -1,7 +1,6 @@
 import "antd/dist/antd.css";
 import { useEffect, useState } from "react";
 import { notification, Spin, Layout } from "antd";
-import { getProfilesData } from "../../../components/SwipeActivity/network";
 import SideBar from "../../../components/SwipeActivity/components2/Sidebar";
 import { debounce, getLocalViewedProfiles, setLocalViewedProfiles } from "../../../components/SwipeActivity/utilities"
 import ProfileCards from "../../../components/SwipeActivity/components2/profile-cards";
@@ -20,11 +19,12 @@ const SwipeOptions = () => {
 
     useEffect(() => {
         (async function getData() {
-            setViewedProfiles(getLocalViewedProfiles());
-            const fetchedProfiles = await getProfilesData();
-            setProfiles([...profiles, ...fetchedProfiles]);
+            // setViewedProfiles(getLocalViewedProfiles());
+            const fetchedProfiles = await getYELPData();
+            setProfiles([...fetchedProfiles]);
         })();
     }, []);
+
 
     const debouncedSwipe = debounce(function handleSwipe(type) {
         
@@ -51,18 +51,18 @@ const SwipeOptions = () => {
 
         // FIREBASE CALL HERE - USERACTIVITITYFAVS collection - takes in imgurl, liked, name, overView
         let currentUserUID = fire.auth().currentUser.uid
-
+  
         const db = fire.firestore();
-
+     
         const doc = await fire
         .firestore()
-        .collection('userActivityFavs')
+        .collection('userFavs')
         .doc(currentUserUID)
         .get()
-    
+         
         // this is the working section
-        db.collection("userActivityFavs")
-        .doc(currentUserUID)
+        db.collection("groupFavs")
+        .doc(groupID).collection("UserFavs").doc(currentUserUID)
         .set({
             favs: likedData
         })
@@ -78,7 +78,7 @@ const SwipeOptions = () => {
                     duration: 1,
                 });
                 (async function getData() {
-                    const fetchedProfiles = await getProfilesData();
+                    const fetchedProfiles = await getYELPData();
                     setProfiles([...tail, ...fetchedProfiles]);
                 })();
 

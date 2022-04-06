@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const CategoriesCards = () => {
+const CategoriesCards = ({ groupID }) => {
 
     const classes = useStyles();
     
@@ -21,15 +21,15 @@ const CategoriesCards = () => {
             <Grid container spacing={6}>
                 {/* Movies */}
                 <Grid item xs={12} sm={6} md={4}>
-                    <ActivityCard/>
+                    <ActivityCard groupID={groupID}/>
                 </Grid>
                 {/* Activities */}
                 <Grid item xs={12} sm={6} md={4}>
-                    <RestaurantCard/>
+                    <RestaurantCard groupID={groupID}/>
                 </Grid>
                 {/* Restaurants */}
                 <Grid item xs={12} sm={6} md={4}>
-                    <MovieCard/>
+                    <MovieCard groupID={groupID}/>
                 </Grid>
             </Grid>
         </Container>

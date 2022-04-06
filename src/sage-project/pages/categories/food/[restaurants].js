@@ -1,4 +1,5 @@
-import CategoriesLayout from "../../components/Categories/CategoriesLayout";
+
+import CategoriesLayout from "../../../components/Categories/CategoriesLayout";
 
 const RestaurantCategory = () => {
     return (  

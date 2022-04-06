@@ -2,64 +2,89 @@ import { useState } from "react";
 import { Row, Button, Space, Typography } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import css from "../../../styles/component.module.css";
+// import { Modal } from "react-bootstrap";
 
 const { Text } = Typography;
 
 const ProfileCards = ({ profiles, handleSwipe }) => {
-    return (
-        <div className={css.swipingList}>
-            {profiles
-            .slice()
-            .reverse()
-            .map(({ imgUrl, name}, index) => {
-                return (
-                <SwipableWrapper
-                    key={name}
-                    className={css.swipingWrapper}
-                    onSwipeLeft={() => handleSwipe("skip")}
-                    onSwipeRight={() => handleSwipe("like")}
-                >
-                    <div
-                    className={css.profileCard}
-                    style={{ backgroundImage: `url(${imgUrl})` }}
-                    >
-                        <div className={css.profileCardDescription}>
-                            <Text
-                                className={css.profileCardDescriptionTitle}
-                                strong
-                            >
-                                {`${name}`}
-                            </Text>
-                        </div>
-                    </div>
-                    <span className={`${css.swipingMessage} ${css.likeMessage}`}>
-                        LIKE
-                    </span>
-                    <span className={`${css.swipingMessage} ${css.skipMessage}`}>
-                        SKIP
-                    </span>
-                </SwipableWrapper>
-                );
-            })}
-            <Row justify="center" className={css.toolbar}>
-            <Space size={64}>
-                <Button
-                    danger
-                    className={css.toolbarButton}
-                    size="large"
-                    shape="circle"
-                    icon={<CloseOutlined size="large" />}
-                    onClick={() => handleSwipe("skip")}
-                />
-                <Button
-                    className={css.toolbarButton}
-                    shape="circle"
-                    icon={<CheckOutlined style={{ color: "#52c41a" }} />}
-                    onClick={() => handleSwipe("like")}
-                />
-            </Space>
-            </Row>
-        </div>
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  return (
+    <div className={css.swipingList}>
+      {profiles
+        .slice()
+        .reverse()
+        .map(({ imgUrl, name}, index) => {
+          return (
+            <SwipableWrapper
+              key={name}
+              className={css.swipingWrapper}
+              onSwipeLeft={() => handleSwipe("skip")}
+              onSwipeRight={() => handleSwipe("like")}
+            >
+              <div
+                className={css.profileCard}
+                style={{ backgroundImage: `url(${imgUrl})` }}
+              >
+                <div className={css.profileCardDescription}>
+                  <Text
+                    className={css.profileCardDescriptionTitle}
+                    strong
+                  >{`${name}`}</Text>
+                 
+                </div>
+              </div>
+              <span className={`${css.swipingMessage} ${css.likeMessage}`}>
+                LIKE
+              </span>
+              <span className={`${css.swipingMessage} ${css.skipMessage}`}>
+                SKIP
+              </span>
+            </SwipableWrapper>
+          );
+        })}
+      <Row justify="center" className={css.toolbar}>
+        <Space size={64}>
+          <Button
+            danger
+            className={css.toolbarButton}
+            size="large"
+            shape="circle"
+            icon={<CloseOutlined size="large" />}
+            onClick={() => handleSwipe("skip")}
+          />
+          <Button
+            className={css.toolbarButton}
+            shape="circle"
+            icon={<CheckOutlined style={{ color: "#52c41a" }} />}
+            onClick={() => handleSwipe("like")}
+          />
+        </Space>
+      </Row>
+
+            {/* <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
+      
+    </div>
   );
 };
 

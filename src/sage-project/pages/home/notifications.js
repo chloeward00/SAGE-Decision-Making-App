@@ -1,11 +1,14 @@
 import ResponsiveDrawer from "../../components/Dashboard/Drawer/SideDrawer";
+import DashboardLayout from "../../components/Layout/DashboardLayout"
+import PageLayout from "../../components/Layout/PageLayout";
 
 const Notifications = () => {
     return (  
-        <>
-            <ResponsiveDrawer/>  
-            <h1>CALENDAR PAGE</h1>
-        </>
+        <div>
+            <PageLayout>
+                <h1>NOTIFICATIONS PAGE HERE</h1>
+            </PageLayout>
+        </div>
     );
 }
  

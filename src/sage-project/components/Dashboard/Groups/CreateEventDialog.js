@@ -13,6 +13,11 @@ import { makeStyles } from '@mui/styles';
 import { useState, useEffect } from 'react';
 import { TextField } from '@mui/material';
 import CategoriesCards from '../../Categories/CategoriesPage';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import PropTypes from 'prop-types';
+
+
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -20,8 +25,37 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
+const BootstrapDialogTitle = (props) => {
 
-const CreateEventDialog = () => {
+    const { children, onClose, ...other } = props;
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+            <IconButton
+                aria-label="close"
+                onClick={onClose}
+                sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+                }}
+            >
+                <CloseIcon />
+            </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+};
+
+BootstrapDialogTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+};
+
+const CreateEventDialog = ({ groupID }) => {
 
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
@@ -46,18 +80,18 @@ const CreateEventDialog = () => {
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
-            <DialogTitle id="responsive-dialog-title">
+            <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
                 {"Pick a category"}
-            </DialogTitle>
+            </BootstrapDialogTitle>
             <DialogContent>
                 <DialogContentText>
                 {"Start creating an event and choose one of the categories below."}
                 </DialogContentText>
-                <CategoriesCards/>
+                <CategoriesCards groupID={groupID}/>
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={handleClose}>
-                Close 
+                {"Cancel"} 
                 </Button>
             </DialogActions>
             </Dialog>
