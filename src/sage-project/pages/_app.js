@@ -15,6 +15,9 @@ import { Spin } from "antd";
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
+import "leaflet/dist/leaflet.css";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+//import "leaflet-defaulticon-compatibility";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -22,6 +25,7 @@ const clientSideEmotionCache = createEmotionCache();
 export default function MyApp(props) {
     const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
     const [firebaseInitialized, setFirebaseInitialized] = useState(false);
+ 
 
     useEffect(() => {
         async function fetchData() {
