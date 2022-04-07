@@ -15,74 +15,70 @@ import PageLayout from "../../components/Layout/PageLayout";
 const buttonTitle = "See members";
 
 const useStyles = makeStyles((theme) => ({
-
-  avatar: {
-      width: 20,
-      height: 20,
-      fontSize: 10,
-      // change these colours
-      // color: 'black',
-      backgroundColor: theme.colours.pink,
-      marginTop: 25,
-      margin: 'auto',
-       left: 80
-      
-  },
-  avatarWhite: {
-      width: 10,
-      height: 20,
-      borderRadius: 100 / 2,
-      backgroundColor: 'white',
-      margin: 'right',
-      marginTop: 30,
-  }
+    avatar: {
+        width: 20,
+        height: 20,
+        fontSize: 10,
+        // change these colours
+        // color: 'black',
+        backgroundColor: theme.colours.pink,
+        marginTop: 25,
+        margin: 'auto',
+        left: 80
+        
+    },
+    avatarWhite: {
+        width: 10,
+        height: 20,
+        borderRadius: 100 / 2,
+        backgroundColor: 'white',
+        margin: 'right',
+        marginTop: 30,
+    }
 }))
-
-
 
 const Group = () => {
     const classes = useStyles();
     const router = useRouter();
     const groupID = router.query.group
-    
-    console.log("MEHHHHH   " + router.query.group)
 
     // const { asPath } = useRouter();
     // this reads the path where we take the groupname
     // const url = asPath.split('/')
     // const groupID = url[url.length - 1].split('%20').join(' ')
 
-    const [name, setName] = useState('');
+    const [groupName, setGroupName] = useState('');
     const [members, setMembers] = useState('');
     const [description, setDescription] = useState('');
     const [createdAt, setCreatedAt] = useState('');
     
     // comment stuff
-
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState("");
 
     const username = fire.auth().currentUser.displayName;
 
-    const getUserInfo = async () => {
-        let currentUserUID = fire.auth().currentUser.uid
-        
-        let doc = await fire
-        .firestore()
-        .collection('groups')
-        .doc(groupID)
-        .get()
-    
-        if (!doc.exists){
-            console.log('no group saved in the database')
-        } else {
-            let dataObj = doc.data();
-            setName(dataObj.groupName)
-            setMembers(dataObj.groupMembers)
-            setDescription(dataObj.description)
-            setCreatedAt(dataObj.createdAt)
+    useEffect(() => {
+
+        async function fetchData() {
+            //  calling firebase like this does not lag when updated
+            await fire.firestore().collection('groups').where("groupID", "==", groupID)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    console.log("printing admin deeeets here  " + doc.data().groupName);
+                    // setGroupCreator(doc.data().groupAdmin)
+                    setGroupName(doc.data().groupName)
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+
         }
-    }
+
+        fetchData()
+    });
 
     useEffect(() => {
     
@@ -93,8 +89,7 @@ const Group = () => {
         .onSnapshot((snapshot) => {
             setComments(snapshot.docs.map((doc) => doc.data()));
         });
-    
-    
+
     }, []);
 
     const postComment = (event) => {
@@ -107,25 +102,10 @@ const Group = () => {
         setComment("");
     };
 
-        useEffect(() => {
-          let mounted = false
-
-          if(!mounted){
-              getUserInfo()
-          }
-          
-          return () => {
-              mounted = true
-          }
-
-      }, [])
-
-  
-
     return (
         <div>
             <PageLayout>
-                <GroupsBanner groupName={name} buttonTitle={buttonTitle} groupID={groupID}/>
+                <GroupsBanner groupName={groupName} buttonTitle={buttonTitle} groupID={groupID}/>
                 <IndividualGroup/>
                 {/* NEEDS DESIGN FOR THE COMMENTS */}
                 <form className="post__commentBox">
