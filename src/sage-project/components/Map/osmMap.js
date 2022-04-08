@@ -8,7 +8,7 @@ import { icon } from "leaflet";
 
 
 
-const osmMap = ({ center, draggable, onDragMarker, location }) => {
+const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     const markerRef = useRef(null);
 
     const mapRef = useRef();
@@ -20,7 +20,8 @@ useEffect( () => {
     const { current = {} } = mapRef;
     const { leafletElement: map } = current;
     
-   // mapRef.locate()
+   
+   // eslint-disable-next-line react-hooks/exhaustive-deps
 
 
 }, [])
@@ -32,11 +33,19 @@ const dragHandlers = useMemo(
             const marker = markerRef.current;
             if(marker != null ) {
                 onDragMarker(marker.getLatLng());
+                // eslint-disable-next-line react-hooks/exhaustive-deps
             }
         },
     }),
     []
 );
+
+useEffect(() => {
+    // other code
+    
+ 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, [])
 
 // var LeafIcon = L.Icon.extend({
 //     options: {
@@ -102,4 +111,4 @@ const ICON = icon({
     );
 
     };
-export default osmMap;
+export default OsmMap;
