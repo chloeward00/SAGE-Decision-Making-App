@@ -1,0 +1,2 @@
+
+export const yelpAPIKey = "mc44p3kCKevpLl_KgiMwTSospDD7XXy4wuURrD1I76UEm71lQ2WuZv9IcNOnCKn_ze_MakNMDKHdC4Xjfl91jOOHWGDD42k5TDbeEkXv5YZHhZklzu59leF-9U78YXYx"

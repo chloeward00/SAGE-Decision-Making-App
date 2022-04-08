@@ -14,6 +14,9 @@ import { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import 'firebase/auth'
 import fire from 'firebase/app'
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import PropTypes from 'prop-types';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +24,37 @@ const useStyles = makeStyles((theme) => ({
         margin: '10px auto'
     }
 }))
+
+const BootstrapDialogTitle = (props) => {
+
+    const { children, onClose, ...other } = props;
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+            <IconButton
+                aria-label="close"
+                onClick={onClose}
+                sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+                }}
+            >
+                <CloseIcon />
+            </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+};
+
+BootstrapDialogTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+};
+
 
 const CreateGroupDialog = ({ buttonTitle }) => {
     
@@ -95,9 +129,12 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
-            <DialogTitle id="responsive-dialog-title">
+            {/* <DialogTitle id="responsive-dialog-title">
                 {buttonTitle}
-            </DialogTitle>
+            </DialogTitle> */}
+            <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                {"Create a new group"}
+            </BootstrapDialogTitle>
             <DialogContent>
                 {/* group name, group description, group members */}
                 <DialogContentText>

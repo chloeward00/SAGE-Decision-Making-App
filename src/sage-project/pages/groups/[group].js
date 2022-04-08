@@ -2,16 +2,17 @@ import GroupsBanner from "../../components/Dashboard/Groups/GroupsBanner";
 import Layout from "../../components/Layout/Layout";
 import IndividualGroup from "../../components/Dashboard/Groups/IndividualGroup";
 import { useRouter } from 'next/router'
+import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import fire from 'firebase/app'
 import 'firebase/auth';
 import 'firebase/firestore';
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from '@mui/styles';
+import PageLayout from "../../components/Layout/PageLayout";
+
 
 const buttonTitle = "See members";
-
-
 
 const useStyles = makeStyles((theme) => ({
 
@@ -42,12 +43,14 @@ const useStyles = makeStyles((theme) => ({
 const Group = () => {
     const classes = useStyles();
     const router = useRouter();
+    const groupID = router.query.group
+    
     console.log("MEHHHHH   " + router.query.group)
 
-    const { asPath } = useRouter();
+    // const { asPath } = useRouter();
     // this reads the path where we take the groupname
-    const url = asPath.split('/')
-    const groupID = url[url.length - 1].split('%20').join(' ')
+    // const url = asPath.split('/')
+    // const groupID = url[url.length - 1].split('%20').join(' ')
 
     const [name, setName] = useState('');
     const [members, setMembers] = useState('');
@@ -81,28 +84,27 @@ const Group = () => {
         }
     }
 
-
     useEffect(() => {
     
-          fire.firestore().collection("posts")
-          .doc(groupID)
-          .collection("comments")
-          .orderBy("timestamp", "desc")
-          .onSnapshot((snapshot) => {
+        fire.firestore().collection("posts")
+        .doc(groupID)
+        .collection("comments")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) => {
             setComments(snapshot.docs.map((doc) => doc.data()));
-          });
+        });
     
     
     }, []);
 
     const postComment = (event) => {
-      event.preventDefault();
-      fire.firestore().collection("posts").doc(groupID).collection("comments").add({
-        text: comment,
-        username:  fire.auth().currentUser.displayName,
-        timestamp: new Date()
-      });
-      setComment("");
+        event.preventDefault();
+        fire.firestore().collection("posts").doc(groupID).collection("comments").add({
+            text: comment,
+            username:  fire.auth().currentUser.displayName,
+            timestamp: new Date()
+        });
+        setComment("");
     };
 
         useEffect(() => {
@@ -122,44 +124,41 @@ const Group = () => {
 
     return (
         <div>
-            <Layout>
-                <GroupsBanner groupName={name} buttonTitle={buttonTitle}/>
+            <PageLayout>
+                <GroupsBanner groupName={name} buttonTitle={buttonTitle} groupID={groupID}/>
                 <IndividualGroup/>
-
+                {/* NEEDS DESIGN FOR THE COMMENTS */}
                 <form className="post__commentBox">
-          <input
-            className="post__input"
-            type="text"
-            placeholder="Add a comment..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <button
-            className="post__button"
-            disabled={!comment}
-            type="submit"
-            onClick={postComment}
-          >
-            Post
-          </button>
-        </form>
+                    <input
+                        className="post__input"
+                        type="text"
+                        placeholder="Add a comment..."
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                    />
+                    <button
+                        className="post__button"
+                        disabled={!comment}
+                        type="submit"
+                        onClick={postComment}
+                    >
+                        {"Post"}
+                    </button>
+                </form>
 
-
-        <div className="post__comments">
-        {comments.map((comment) => (
-        //comment.username.charAt(0).toLocaleUpperCase(),
-          <p>
-             <div>
-                <Avatar className={classes.avatar}>{comment.username.charAt(0).toLocaleUpperCase()}</Avatar>
-            </div>
-            <strong>{comment.username} </strong>
-            {comment.text}
-          </p>
-        ))}
-      </div>
-            </Layout> 
-      
-   </div>
+                <div className="post__comments">
+                    {comments.map((comment) => (
+                        <p>
+                            <div>
+                                <Avatar className={classes.avatar}>{comment.username.charAt(0).toLocaleUpperCase()}</Avatar>
+                            </div>
+                            <strong>{comment.username}</strong>
+                            {comment.text}
+                        </p>
+                    ))}
+                </div>  
+            </PageLayout>    
+        </div>
         
     );
 }

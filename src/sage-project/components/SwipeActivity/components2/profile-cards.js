@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Row, Button, Space, Typography } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import css from "../../../styles/component.module.css";
-import { Modal } from "react-bootstrap";
+// import { Modal } from "react-bootstrap";
 
 const { Text } = Typography;
 
@@ -65,7 +65,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
         </Space>
       </Row>
 
-            <Button variant="primary" onClick={handleShow}>
+            {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
       </Button>
 
@@ -82,7 +82,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
             Save Changes
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
       
     </div>
   );

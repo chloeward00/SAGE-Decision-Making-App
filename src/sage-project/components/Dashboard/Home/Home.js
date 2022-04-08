@@ -16,42 +16,42 @@ export default function Home(props) {
     });
 
     return (
-        // <Layout.Header className="headerContainer">
-        // <h1>LOG OUT FUNCTIONALITY</h1>
-        // <Menu
-        //     style={{ float: "right" }}
-        //     theme="dark"
-        //     mode="horizontal"
-        //     defaultSelectedKeys={[props.activeKey]}
-        // >
-        //     <Menu.Item key="1">
-        //     <Link href="/dashboard">Dashboard</Link>
-        //     </Menu.Item>
+        <Layout.Header className="headerContainer">
+        <h1>LOG OUT FUNCTIONALITY</h1>
+        <Menu
+            style={{ float: "right" }}
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={[props.activeKey]}
+        >
+            <Menu.Item key="1">
+            <Link href="/dashboard">Dashboard</Link>
+            </Menu.Item>
 
-        //     <Menu.Item key="2">
-        //     <Link href="/dashboard/profile">Profile</Link>
-        //     </Menu.Item>
+            <Menu.Item key="2">
+            <Link href="/dashboard/profile">Profile</Link>
+            </Menu.Item>
 
-        //     <Menu.Item
-        //     key="3"
-        //     onClick={async () => {
-        //         // Logout
-        //         await firebase.logout();
-        //         Router.push("/login");
-        //     }}
-        //     >
-        //     Logout
-        //     </Menu.Item>
-        // </Menu>
-        // </Layout.Header>
-        <div>
-            <Button variant="outlined" onClick={ async () => {
+            <Menu.Item
+            key="3"
+            onClick={async () => {
+                // Logout
                 await firebase.logout();
-                Router.push('/login')
-            }}>
-                {"LOG OUT"}
-            </Button>
-        </div>
+                Router.push("/login");
+            }}
+            >
+            Logout
+            </Menu.Item>
+        </Menu>
+        </Layout.Header>
+        // <div>
+        //     <Button variant="outlined" onClick={ async () => {
+        //         await firebase.logout();
+        //         Router.push('/login')
+        //     }}>
+        //         {"LOG OUT"}
+        //     </Button>
+        // </div>
     );
 }
 

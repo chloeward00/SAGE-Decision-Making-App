@@ -19,6 +19,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import GroupsIcon from '@mui/icons-material/Groups';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ButtonBase from '@mui/material/ButtonBase';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { useRouter } from 'next/router'
@@ -28,6 +29,7 @@ import sageLogo from '../../../assets/sage_1_cropped.png'
 import 'firebase/auth';
 import fire from 'firebase/app'
 import firebase from "../../../firebase/firebase";
+import SettingsDialog from "./SettingsDialog"
 
 const drawerWidth = 240;
 
@@ -177,15 +179,6 @@ function ResponsiveDrawer(props) {
         }
     ]
 
-    // const logOut = [
-    //     {
-    //         text: "Logout",
-    //         icon: <LogoutIcon/>,
-    //         onClick: async () => {
-    //             await firebase.logout()
-    //             router.push('/login')}
-    //     }
-    // ]
 
     const drawer = (
         <div>

@@ -20,7 +20,7 @@ useEffect( () => {
     const { current = {} } = mapRef;
     const { leafletElement: map } = current;
     
-    mapRef.locate()
+   // mapRef.locate()
 
 
 }, [])
@@ -38,13 +38,20 @@ const dragHandlers = useMemo(
     []
 );
 
-var LeafIcon = L.Icon.extend({
-    options: {
-        iconSize: [40,40],
-    },
-});
+// var LeafIcon = L.Icon.extend({
+//     options: {
+//         iconSize: [40,40],
+//     },
+// });
 
-var customIcon = new LeafIcon({ iconUrl:MarkerLogo})
+const markerIcon = new L.Icon({
+    iconUrl: require("./marker2.png"),
+    iconSize: [40, 40],
+    iconAnchor: [17, 46], //[left/right, top/bottom]
+    popupAnchor: [0, -46], //[left/right, top/bottom]
+  });
+
+//var customIcon = new LeafIcon({ iconUrl:MarkerLogo})
 
 // const ICON = icon({
 //     iconUrl: "../../assets/marker2.png",
@@ -59,26 +66,26 @@ const ICON = icon({
 
     return (  
        
-  <MapContainer
+    <MapContainer
     center={[center.lng, center.lat]}
     zoom={13}
     scrollWheelZoom={false}
     style={{height: 700, width: "60%"}}
     >
-<TileLayer
+    <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
     <Marker
-   //icon={ICON}
+    // icon={markerIcon}
     icon={L.divIcon({
     iconSize: [60, 60],
-     iconAnchor: [60, 60],
-     className: "mymarker",
-     html: "😊",
+    iconAnchor: [60, 60],
+    className: "mymarker",
+    html: "😊",
      
-   })}
+    })}
     
     position={[
         location && location.lng ? location.lng : "",
@@ -90,7 +97,7 @@ const ICON = icon({
     >
     <Popup>{"Chosen Location"}</Popup>
     </Marker>
-  </MapContainer>
+    </MapContainer>
      
     );
 

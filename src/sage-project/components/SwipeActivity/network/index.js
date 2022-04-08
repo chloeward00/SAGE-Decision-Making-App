@@ -24,19 +24,7 @@ import { get } from "react-hook-form";
        lati.push(position.coords.latitude);
        longi.push(position.coords.longitude);
     
-}); 
-
-
-console.log(lati)
-function getdata2() {
-    
-    navigator.geolocation.getCurrentPosition(function(position) {
-        
-      long = position.coords.longitude;
-       
-}); 
-
-}
+});
 
 export async function getProfilesData() {
  
