@@ -52,6 +52,13 @@ const GroupsBanner = ({ groupName, buttonTitle, groupID }) => {
 
     const adminPrivilege = buttonTitle != "Create a new group" && userID == groupCreator;
 
+    // const handleClickOpen = () => {
+    //     // getYELPData('museums')
+    //     // useBusinessSearch('museums')
+    //     // const[businesses, amountResults, searchParams] = useSearch('museums')
+    //     console.log('THESE ARE FROM THE USERSEARCH FUNCTION   ' + businesses, amountResults, searchParams)
+    // }
+
     return (
         <div>
             <Container className={classes.page}>
@@ -60,6 +67,8 @@ const GroupsBanner = ({ groupName, buttonTitle, groupID }) => {
                     <Typography variant="h5" className={classes.groupLine}>
                         {groupName}
                     </Typography>
+                    {/* to be deleted!!!!!!! for testing purposes */}
+                    {/* {adminPrivilege == true ? <Button variant="outlined" onClick={handleClickOpen}> {"yelp_api"} </Button> : null}         */}
                     {adminPrivilege == true ? <CreateEventDialog groupID={groupID}/> : null}
                     {/* {buttonTitle == "Create a new group" ? null : <CreateEventDialog groupID={groupID} />} */}
                     {buttonTitle == "Create a new group" ? <CreateGroupDialog buttonTitle={buttonTitle}/> : <CustomizedDialogs buttonTitle={buttonTitle} groupName={groupName}/>}

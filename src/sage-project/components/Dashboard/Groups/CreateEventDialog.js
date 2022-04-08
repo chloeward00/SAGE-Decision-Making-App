@@ -69,6 +69,8 @@ const CreateEventDialog = ({ groupID }) => {
         setOpen(false);
     };
 
+    
+
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen} startIcon={<AddCircleIcon />}>

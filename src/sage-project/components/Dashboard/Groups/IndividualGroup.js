@@ -2,8 +2,11 @@
 import { Grid, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import EventsCard from '../Events/EventsCard';
+import { useState, useEffect } from 'react';
 import fire from 'firebase/app'
+import 'firebase/firestore';
 import 'firebase/auth'
+
 
 const useStyles = makeStyles((theme) => ({
     page: {
@@ -11,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const IndividualGroup = () => {
+const IndividualGroup = ({ groupID }) => {
 
     const classes = useStyles();
 
@@ -48,11 +51,42 @@ const IndividualGroup = () => {
         }
     ]
 
+
+    const [groupsList, setGroupList] = useState([]);
+    
+    // isMounted is added to prevent memory leaks
+    useEffect(() => {
+        let isMounted = true;
+
+        async function fetchData() {
+
+            await fire.firestore()
+            .collection("groupsCategory")
+            .doc(groupID)
+            .collection('events')
+            .orderBy('createdAt', 'desc')
+            .onSnapshot((querySnapshot) => {
+                if(isMounted){
+                    setGroupList(querySnapshot.docs.map(doc => doc.data()))
+                }
+            });
+        }
+
+        fetchData();
+
+        return () => {
+            isMounted = false
+        }
+
+    }, []);
+
+    console.log("events listt deets here " + groupsList)
+
     return (
         <Container className={classes.page}>
             <Grid container spacing={3}>
-                {eventsList.map( event => (
-                    <Grid key={event.eventName} item xs={12} md={6} lg={4}>
+                {groupsList.map( event => (
+                    <Grid key={event.eventID} item xs={12} md={6} lg={4}>
                         <EventsCard events={event}/>
                     </Grid>
                 ))}
@@ -62,3 +96,7 @@ const IndividualGroup = () => {
 }
  
 export default IndividualGroup;
+
+
+// PULL THE FIREBASE DATA HERE FROM THE GROUPSCATEGORY COLLECTION, BASICALLY JUST TAKE
+// THE EVENTS COLLECTION SINCE THE EVENT ID IS UNIQUE

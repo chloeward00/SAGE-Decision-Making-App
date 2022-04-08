@@ -45,8 +45,7 @@ const InviteDialog = ({ groupName }) => {
         .catch((err) => {
             alert(err)
             console.log(err)
-        }) 
-        
+        })
     }
 
     // THIS UPDATE THE userGroups UNDER USER COLLECTION 

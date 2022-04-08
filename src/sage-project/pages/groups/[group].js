@@ -74,7 +74,6 @@ const Group = () => {
             .catch((error) => {
                 console.log("Error getting documents: ", error);
             });
-
         }
 
         fetchData()
@@ -106,7 +105,7 @@ const Group = () => {
         <div>
             <PageLayout>
                 <GroupsBanner groupName={groupName} buttonTitle={buttonTitle} groupID={groupID}/>
-                <IndividualGroup/>
+                <IndividualGroup groupID={groupID}/>
                 {/* NEEDS DESIGN FOR THE COMMENTS */}
                 <form className="post__commentBox">
                     <input

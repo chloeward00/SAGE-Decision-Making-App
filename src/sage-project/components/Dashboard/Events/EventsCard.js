@@ -9,14 +9,16 @@ import CardHeader from '@mui/material/CardHeader';
 
 export default function EventsCard({ events }) {
 
-    const { eventName, eventDetails, imageURL, groupName, altText } = events;
+    // const { eventName, eventDetails, imageURL, groupName, altText } = events;
+    
+    const { eventName, eventDetails, eventDate, eventCategory, eventID, imageURL, groupName, altText } = events;
 
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
             <CardMedia
                 component="img"
                 height="140"
-                image={imageURL}
+                image={imageURL}        // this will be the result of the matching algorithm
                 alt={altText}
             />
             <CardHeader
@@ -25,10 +27,13 @@ export default function EventsCard({ events }) {
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                    {eventDetails.where}
+                    {"Where: " + eventDetails.where}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {eventDetails.when}
+                    {"When: " + eventDetails.when}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {"Time: " + eventDetails.time}
                 </Typography>
             </CardContent>
             <CardActions>

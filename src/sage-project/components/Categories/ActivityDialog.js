@@ -8,18 +8,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme, makeStyles } from '@mui/styles';
 import { Chip, ListItem, Grid } from '@mui/material';
-import { useState } from 'react';
-import { getYELPData } from '../../hooks/yelp-api/useCategoriesSearch';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import fire from 'firebase/app'
 import 'firebase/firestore';
 
-
-const getQueryParams = (groupID) => {
-    // const query = groupID.join();
-    console.log("passing group ID here " + groupID)
-    return groupID
-}
 
 const useStyles = makeStyles((theme) => ({
     chipGrid: {
@@ -45,15 +38,14 @@ const ActiveDialog = ({ name, path }) => {
   
     const groupID = router.query.activities
 
-    console.log("url hereee " + urlCategory)
+    console.log("url hereee " + urlCategory.toUpperCase())
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState(false);
     const [chipsSelected, setChipsSelected] = useState([])
-    const [category, setCategory] = useState("")
-
+    const [eventKeyID, setEventKeyID] = useState("")
 
     const handleAddChip = (cat) => {
         if(!chipsSelected.includes(cat)){
@@ -61,45 +53,60 @@ const ActiveDialog = ({ name, path }) => {
         }
     };
 
-    console.log(chipsSelected);
+    console.log("PRINTING CHIPS SELECTED HEREEE " + chipsSelected);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleSubmit = () => {
-        getQueryParams(groupID)
-        addUserPicks()
-        router.push('/categories/activity/options')
+    const handleSubmit = (eventID) => {
+        // router.push(`/categories/activity/options/group=${groupID}&event=${eventID}&categories=${chipsSelected}`)
+        router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected)
+        console.log("lets seeee if event id is here " + eventID)
     }
 
     const handleClose = () => {
         setOpen(false);
-        // updateCollection()
     };
 
     const handleUndo = () => {
         setChipsSelected([])
     }
 
-    const addUserPicks = () => {
+    const adminCategoryPick = () => {
         
-        let currentUserUID = fire.auth().currentUser.uid
-        const db = fire.firestore();
-
-        db.collection("groupsCategory")
+        const docRef = fire.firestore()
+        .collection('groupsCategory')
         .doc(groupID)
-        .collection("memberPicks")
-        .doc(currentUserUID)
-        .set({
-            category: urlCategory,
-            categoryTerms: chipsSelected
+        .collection('events')
+        .doc()
+
+        docRef.set({
+            groupEvent: '',             // this is the result after the matching
+            eventImage: '',             // this will be pulled from the matching result
+            eventCategory: urlCategory,
+            eventDate: '',
+            eventDetails: {
+                where: '',
+                when: '',
+                time: ''
+            },
+            eventName: 'add event name',    // this can be edited by the Admin only
+            eventID: docRef.id,
+            eventLocation: '',          // this is for getting the location users want to check (TBD by Chloe)
+            adminPicks: chipsSelected,
+            createdAt: new Date()
+        })
+        .catch((err) => {
+            alert(err)
+            console.log(err)
         })
 
-        console.log(currentUserUID)
+        handleSubmit(docRef.id)
 
     }
 
+    // here we want to write into this groupsCategory collection will all the stuff we need
 
     const activeCategories = [
         {
@@ -205,7 +212,10 @@ const ActiveDialog = ({ name, path }) => {
                 <Button autoFocus onClick={handleUndo}>
                 Undo
                 </Button>
-                <Button onClick={handleSubmit} autoFocus>
+                <Button onClick={ () => {
+                    adminCategoryPick()
+                    // handleSubmit()
+                }} autoFocus>
                 Proceed
                 </Button>
             </DialogActions>
@@ -214,4 +224,4 @@ const ActiveDialog = ({ name, path }) => {
     );
 }
 
-export  { ActiveDialog, getQueryParams };
+export default ActiveDialog;
