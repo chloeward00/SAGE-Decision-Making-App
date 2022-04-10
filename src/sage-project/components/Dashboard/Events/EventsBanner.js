@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const EventsBanner = ({ eventName, groupID }) => {
+const EventsBanner = ({ eventID, eventName, groupID, eventDetails }) => {
     
     const classes = useStyles();
 
@@ -59,7 +59,7 @@ const EventsBanner = ({ eventName, groupID }) => {
                         {eventName}
                     </Typography>
                     {/* only show thr edit event to group admin */}
-                    {userID == groupCreator ? <EditEventDialog /> : null}
+                    {userID == groupCreator ? <EditEventDialog groupID={groupID} eventID={eventID} eventDetails={eventDetails} /> : null}
                 </Grid>
             </Container>
         </div>

@@ -23,6 +23,7 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
     const movieSwipeRoute = `/categories/movie/options/${groupID}&${eventID}&${adminPicks}`
 
     console.log("activ swpp ruteee   " + activitySwipeRoute)
+    console.log('formatee datee hessseerr   ' + eventTime)
 
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
@@ -44,7 +45,7 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
                     {"When: " + eventDate}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {"Time: " +eventTime}
+                    {"Time: " + eventTime}
                 </Typography>
             </CardContent>
             <CardActions>
