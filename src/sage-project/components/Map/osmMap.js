@@ -17,8 +17,6 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     //mapflyTo(e.latlng, map.getZoom())
        
 
- 
-
 useEffect( () => {
 
     const { current = {} } = mapRef;
@@ -41,7 +39,7 @@ const dragHandlers = useMemo(
             }
         },
     }),
-    []
+    [onDragMarker]
 );
 
 useEffect(() => {

@@ -16,10 +16,10 @@ export default function Home() {
     const [latitude, setLatitude] = useState("")
     const [longitude, setLongitude] = useState("")
     //const[loc2, setLoc] = useState({lng: 53.363392004396104, lat: -6.209536 });
-    const[location, setLocation] = useState({ lng: "", lat: ""});
+    const[location, setLocation] = useState({ lng: 53.363392004396104, lat: -6.209536 });
     
 
-
+    // ive tried changing the above hook to "", and then setting it in the function below, it works but it just doesn't load on the leaflet map for some reason
     
      navigator.geolocation.getCurrentPosition(function(position) {
          
@@ -27,7 +27,7 @@ export default function Home() {
          const loc3 = {lat: position.coords.latitude, lng:position.coords.longitude};
         // setLoc(loc3);
         
-         setLocation(loc3)
+         //setLocation(loc3)
          //setLatitude(position.coords.latitude );
          //setLongitude(position.coords.longitude);
      
