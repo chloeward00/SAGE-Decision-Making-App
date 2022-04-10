@@ -5,13 +5,14 @@ import PageLayout from "../../components/Layout/PageLayout";
 
 const groupName = "Groups";
 const buttonTitle = "Create a new group";
+const groupID = "";
 
 const GroupsPage = () => {
 
     return (
         <div>
             <PageLayout>
-                <GroupsBanner groupName={groupName} buttonTitle={buttonTitle}/>
+                <GroupsBanner groupID={groupID} groupName={groupName} buttonTitle={buttonTitle}/>
                 <Groups/>
             </PageLayout>
         </div>

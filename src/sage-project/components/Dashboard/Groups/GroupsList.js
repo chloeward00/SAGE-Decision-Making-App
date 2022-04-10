@@ -30,7 +30,7 @@ const Groups = () => {
             .orderBy('createdAt', 'desc')
             .onSnapshot(snapshot => {
                 if(isMounted){
-                    setGroupList(snapshot.docs.map( doc => doc.data()))
+                    setGroupList(snapshot.docs.map(doc => doc.data()))
                 }
             })
         }

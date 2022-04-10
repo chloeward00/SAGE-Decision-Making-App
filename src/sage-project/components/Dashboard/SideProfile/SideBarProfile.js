@@ -104,23 +104,23 @@ const SideProfile = () => {
     const [name, setName] = useState('');
     const [bio, setBio] = useState('');
 
-    const getUserInfo = async () => {
-        let currentUserUID = fire.auth().currentUser.uid
-        
-        let doc = await fire
-        .firestore()
-        .collection('UserProfile')
-        .doc(currentUserUID)
-        .get()
-    
-        if (!doc.exists){
-            console.log('no profile saved in the database. edit profile now')
-        } else {
-            let dataObj = doc.data();
-            setName(dataObj.Name)
-            setBio(dataObj.Bio)
+    useEffect(() => {
+        async function fetchData() {
+
+            //  calling firebase like this does not lag when updated
+            await fire.firestore().collection('UserProfile').doc(userID)
+            .get()
+            .then((querySnapshot) => {
+                setName(querySnapshot.data().Name)
+                setBio(querySnapshot.data().Bio)
+                console.log("hereeee " + querySnapshot.data().Bio)
+            })  
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
         }
-    }
+        fetchData()
+    });
 
     useEffect(() => {
         async function getNumberGroups() {
@@ -158,7 +158,6 @@ const SideProfile = () => {
 
         getNumberGroups();
         getNumberEvents();
-        getUserInfo();
     });
 
     const classes = useStyles();
