@@ -1,4 +1,5 @@
 
+
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -12,11 +13,12 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { makeStyles } from '@mui/styles';
 import { useState, useEffect } from 'react';
 import { TextField } from '@mui/material';
-import CategoriesCards from '../../Categories/CategoriesPage';
 import CloseIcon from '@mui/icons-material/Close';
+import EventIcon from '@mui/icons-material/Event';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
-
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import EventDatePicker from './EventDatePicker';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,11 +57,13 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-const CreateEventDialog = ({ groupID }) => {
+const EditEventDialog = ({ groupID }) => {
 
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const [maxWidth, setMaxWidth] = React.useState('md');
+    const [value, setValue] = React.useState(null);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -69,27 +73,67 @@ const CreateEventDialog = ({ groupID }) => {
         setOpen(false);
     };
 
-    
+    // useEffect(() => {
+    //     async function updateUserGroup() {
+
+    //         await fire.firestore().collection('users')
+    //         .doc(fire.auth().currentUser.uid)
+    //         .update({
+    //             userGroups: fire.firestore.FieldValue.arrayUnion(...userGroups)
+    //         })  
+    //         .catch((err) => {
+    //             alert(err)
+    //             console.log(err)
+    //         })
+    //     }
+
+    //     updateUserGroup();
+    //   }, [userGroups]);
+
 
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen} startIcon={<AddCircleIcon />}>
-                {"Create event"}
+                {"EDIT EVENT"}
             </Button>
             <Dialog
                 fullScreen={fullScreen}
+                // sx={{ maxWidth: '100%'}}
+                // maxWidth={maxWidth}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
             <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                {"Pick a category"}
+                {"Edit Event Details"}
             </BootstrapDialogTitle>
             <DialogContent>
                 <DialogContentText>
-                {"Start creating an event and choose one of the categories below."}
+                    {"Update the event details below."}
                 </DialogContentText>
-                <CategoriesCards groupID={groupID}/>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="group-name"
+                    label="Event Name"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    // className={classes.textField}
+                />
+                {/* <TextField
+                    autoFocus
+                    margin="dense"
+                    id="group-name"
+                    label="Event Date"
+                    type="email"
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    // className={classes.textField}
+                /> */}
+                <EventDatePicker/>
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={handleClose}>
@@ -101,4 +145,4 @@ const CreateEventDialog = ({ groupID }) => {
     );
 }
 
-export default CreateEventDialog;
+export default EditEventDialog;

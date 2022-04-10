@@ -15,16 +15,31 @@ export default function Home() {
     
     const [latitude, setLatitude] = useState("")
     const [longitude, setLongitude] = useState("")
+    //const[loc2, setLoc] = useState({lng: 53.363392004396104, lat: -6.209536 });
+    const[location, setLocation] = useState({ lng: "", lat: ""});
+    
 
-//     navigator.geolocation.getCurrentPosition(function(position) {
+
+    
+     navigator.geolocation.getCurrentPosition(function(position) {
+         
         
-//         //setLatitude(position.coords.latitude );
-//         //setLongitude(position.coords.longitude);
+         const loc3 = {lat: position.coords.latitude, lng:position.coords.longitude};
+        // setLoc(loc3);
+        
+         setLocation(loc3)
+         //setLatitude(position.coords.latitude );
+         //setLongitude(position.coords.longitude);
      
-//  }); 
+  }); 
 
+  
+  
+    //console.log(loc2)
 
-    const[location, setLocation] = useState({ lng: 53.363392004396104, lat: -6.209536});
+  
+
+    //console.log(location)
 
     const getData = async () => {
         let currentUserUID = fire.auth().currentUser.uid
@@ -47,6 +62,7 @@ export default function Home() {
                 if(!mounted){
                   
                    getData()
+                   
                 
                 }
                 

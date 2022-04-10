@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
         width: 20,
         height: 20,
         fontSize: 10,
-        // change these colours
-        // color: 'black',
         backgroundColor: theme.colours.pink,
         marginTop: 25,
         margin: 'auto',

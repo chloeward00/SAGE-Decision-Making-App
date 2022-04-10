@@ -1,6 +1,6 @@
 import React, { useState,useEffect,useRef, useMemo } from "react";
 import L from "leaflet";
-import {MapContainer, TitleLayer, Marker, Popup, TileLayer, useMapEvents} from "react-leaflet";
+import {MapContainer, TitleLayer, Marker, Popup, TileLayer, useMapEvents,} from "react-leaflet";
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css';
 import MarkerLogo from '../../assets/sage_1_cropped.png'
@@ -12,6 +12,10 @@ const OsmMap = ({ center, draggable, onDragMarker, location }) => {
     const markerRef = useRef(null);
 
     const mapRef = useRef();
+
+   
+    //mapflyTo(e.latlng, map.getZoom())
+       
 
  
 

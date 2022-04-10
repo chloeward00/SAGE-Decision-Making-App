@@ -8,7 +8,6 @@ import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import "../styles/style.scss";
 import "../styles/component.module.css";
-
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
 import { Spin } from "antd";
@@ -18,6 +17,8 @@ import "@fullcalendar/timegrid/main.css";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 //import "leaflet-defaulticon-compatibility";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

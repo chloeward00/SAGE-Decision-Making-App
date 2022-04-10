@@ -83,13 +83,17 @@ const CreateGroupDialog = ({ buttonTitle }) => {
     // this creates a new document in the groups collection. 
     // this represents each group created in the database.
     const createGroup = () => {
+        
+        let currentUserUID = fire.auth().currentUser.uid
+
         const docRef = fire.firestore().collection('groups').doc()
         docRef.set({
             groupName: groupName,
             groupDescription: groupDescription,
             groupMembers: groupMembers,
             groupID: docRef.id,
-            createdAt: new Date()
+            createdAt: new Date(),
+            groupAdmin: currentUserUID
         })
         .catch((err) => {
             alert(err)

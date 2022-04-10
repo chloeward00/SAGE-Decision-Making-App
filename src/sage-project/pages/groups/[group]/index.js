@@ -1,6 +1,6 @@
-import GroupsBanner from "../../components/Dashboard/Groups/GroupsBanner";
-import Layout from "../../components/Layout/Layout";
-import IndividualGroup from "../../components/Dashboard/Groups/IndividualGroup";
+import GroupsBanner from "../../../components/Dashboard/Groups/GroupsBanner";
+import Layout from "../../../components/Layout/Layout";
+import IndividualGroup from "../../../components/Dashboard/Groups/IndividualGroup";
 import { useRouter } from 'next/router'
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
@@ -9,7 +9,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from '@mui/styles';
-import PageLayout from "../../components/Layout/PageLayout";
+import PageLayout from "../../../components/Layout/PageLayout";
 
 
 const buttonTitle = "See members";
@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
         width: 20,
         height: 20,
         fontSize: 10,
-        // change these colours
-        // color: 'black',
         backgroundColor: theme.colours.pink,
         marginTop: 25,
         margin: 'auto',
@@ -105,6 +103,7 @@ const Group = () => {
         <div>
             <PageLayout>
                 <GroupsBanner groupName={groupName} buttonTitle={buttonTitle} groupID={groupID}/>
+                <h1> EVENTS FOR THIS GROUP ARE THE CARDS BELOW -- style this </h1>
                 <IndividualGroup groupID={groupID}/>
                 {/* NEEDS DESIGN FOR THE COMMENTS */}
                 <form className="post__commentBox">

@@ -1,11 +1,7 @@
-
 import ResponsiveDrawer from "../Dashboard/Drawer/SideDrawer";
 import { makeStyles, useTheme } from '@mui/styles';
 import { AppBar, Avatar, Toolbar, Typography, Button, ButtonBase, Grid, Paper, Chip, Container, ListItem } from "@mui/material";
-import 'firebase/auth';
-import fire from 'firebase/app'
-import { useRouter } from 'next/router'
-import { ActiveDialog } from "./ActivityDialog";
+import ActiveDialog from "./ActivityDialog";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,9 +27,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-// console.log(ActiveCats)
 
-const CategoriesLayout = ({ children }) => {
+const CategoriesLayout = () => {
     
     const classes = useStyles();
 
