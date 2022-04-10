@@ -17,7 +17,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import EventIcon from '@mui/icons-material/Event';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
-
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import EventDatePicker from './EventDatePicker';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,7 +63,7 @@ const EditEventDialog = ({ groupID }) => {
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [maxWidth, setMaxWidth] = React.useState('md');
-
+    const [value, setValue] = React.useState(null);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -121,7 +122,7 @@ const EditEventDialog = ({ groupID }) => {
                     onChange={(e) => setUserEmail(e.target.value)}
                     // className={classes.textField}
                 />
-                <TextField
+                {/* <TextField
                     autoFocus
                     margin="dense"
                     id="group-name"
@@ -131,7 +132,8 @@ const EditEventDialog = ({ groupID }) => {
                     variant="standard"
                     onChange={(e) => setUserEmail(e.target.value)}
                     // className={classes.textField}
-                />
+                /> */}
+                <EventDatePicker/>
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={handleClose}>
