@@ -148,19 +148,6 @@ const CustomizedDialogs = ({ buttonTitle, groupName }) => {
         }
     }
 
-    // WHEN ADDING A MEMBER, THE LIST SHOULD BE UPDATED TOO AND NOT NEED TO REFRESH (SMALL BUG)
-    // useEffect(() => {
-    //     let isMounted = true
-
-    //     if(isMounted){
-    //         getNames()
-    //     }
-        
-    //     return () => {
-    //         isMounted = false
-    //     };
-    // }, []);
-
     console.log("usernamessss    " + userNames)
     console.log("groupslist   " + groupsList) 
     

@@ -1,13 +1,13 @@
 import { Typography, Grid, Container, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import GroupsIcon from '@mui/icons-material/Groups';
-import CustomizedDialogs from './MembersDialog';
-import CreateGroupDialog from './GroupsDialog';
-import CreateEventDialog from './CreateEventDialog';
 import fire from 'firebase/app'
 import 'firebase/auth';
 import 'firebase/firestore';
 import { useState, useEffect } from 'react';
+import EditEventDialog from './EditEventDialog';
+import EventIcon from '@mui/icons-material/Event';
+
 
 const useStyles = makeStyles((theme) => ({
     page: {
@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const GroupsBanner = ({ groupName, buttonTitle, groupID }) => {
+const EventsBanner = ({ eventName, groupID }) => {
     
     const classes = useStyles();
 
     const userID = fire.auth().currentUser.uid;
 
-    const[groupCreator, setGroupCreator] = useState("");
+    const [groupCreator, setGroupCreator] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -50,23 +50,20 @@ const GroupsBanner = ({ groupName, buttonTitle, groupID }) => {
         fetchData()
     });
 
-    const adminPrivilege = buttonTitle != "Create a new group" && userID == groupCreator;
-
     return (
         <div>
             <Container className={classes.page}>
                 <Grid container direction="row" alignItems="center">
-                    <GroupsIcon fontSize="large" className={classes.groupTitle}/>
+                    <EventIcon fontSize="large" className={classes.groupTitle}/>
                     <Typography variant="h5" className={classes.groupLine}>
-                        {groupName}
+                        {eventName}
                     </Typography>
-                    {/* NEED ANOTHER DIALOG HERE FOR EVENT PAGE -- ONLY AVAILABLE FOR ADMINS TO EDIT */}
-                    {adminPrivilege == true ? <CreateEventDialog groupID={groupID}/> : null}
-                    {buttonTitle == "Create a new group" ? <CreateGroupDialog buttonTitle={buttonTitle}/> : <CustomizedDialogs buttonTitle={buttonTitle} groupName={groupName}/>}
+                    {/* only show thr edit event to group admin */}
+                    {userID == groupCreator ? <EditEventDialog /> : null}
                 </Grid>
             </Container>
         </div>
     );
 }
 
-export default GroupsBanner;
+export default EventsBanner;

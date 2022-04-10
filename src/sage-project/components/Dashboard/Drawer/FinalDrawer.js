@@ -167,7 +167,7 @@ function ResponsiveDrawer(props) {
         {
             text: "Groups",
             icon: <GroupsIcon/>,
-            path: router.pathname == '/groups' ? '/groups' : '/groups/[group]',
+            path: router.pathname == '/groups' ? '/groups' : router.pathname == '/groups/[group]' ? '/groups/[group]' : '/groups/[group]/event/[event]',
             onClick: () => router.push('/groups')
         },
         {
@@ -178,7 +178,6 @@ function ResponsiveDrawer(props) {
                 router.push('/login')}
         }
     ]
-
 
     const drawer = (
         <div>

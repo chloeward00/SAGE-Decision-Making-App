@@ -80,8 +80,9 @@ const SwipeOptions = () => {
 
     }
 
+        // show no more cards and a button when there's no more options!!!! CHECK WITH CHLOE
         function moveToNextCard() {
-            const isTimeToPrefetchData = tail.length <= REMAINING_PROFILES_THRESHOLD;
+            const isTimeToPrefetchData = tail.length <= REMAINING_PROFILES_THRESHOLD; 
             const isLoading = !tail.length;
             
             if (isTimeToPrefetchData) {

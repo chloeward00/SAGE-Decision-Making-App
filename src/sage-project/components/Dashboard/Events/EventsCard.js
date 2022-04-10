@@ -6,12 +6,15 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
+import Link from '../../Link/Link';
 
-export default function EventsCard({ events }) {
+export default function EventsCard({ events, groupID }) {
 
     // const { eventName, eventDetails, imageURL, groupName, altText } = events;
+
+    // IF THE EVENT IS ACTIVITY = BLUE, FOOD = PINK, MOVIE = PURPLE
     
-    const { eventName, eventDetails, eventDate, eventCategory, eventID, imageURL, groupName, altText } = events;
+    const { eventName, eventTime, eventDate, eventLocation, eventCategory, eventID, imageURL, groupName, altText } = events;
 
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
@@ -26,18 +29,20 @@ export default function EventsCard({ events }) {
                 subheader={groupName}
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    {"Where: " + eventDetails.where}
+            <Typography variant="body2" color="text.secondary">
+                    {"Where: " + eventLocation}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {"When: " + eventDetails.when}
+                    {"When: " + eventDate}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {"Time: " + eventDetails.time}
+                    {"Time: " + eventTime}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">SEE MORE</Button>
+                <Link href={`/groups/${groupID}/event/${eventID}`} underline="none">
+                    <Button size="small">OPEN</Button>
+                </Link>
             </CardActions>
         </Card>
     );

@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import fire from 'firebase/app'
 import 'firebase/firestore';
+import 'firebase/auth';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +38,7 @@ const ActiveDialog = ({ name, path }) => {
     const urlCategory = url[2]
   
     const groupID = router.query.activities
+    const groupAdmin = fire.auth().currentUser.uid
 
     console.log("url hereee " + urlCategory.toUpperCase())
 
@@ -45,7 +47,6 @@ const ActiveDialog = ({ name, path }) => {
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState(false);
     const [chipsSelected, setChipsSelected] = useState([])
-    const [eventKeyID, setEventKeyID] = useState("")
 
     const handleAddChip = (cat) => {
         if(!chipsSelected.includes(cat)){
@@ -82,19 +83,17 @@ const ActiveDialog = ({ name, path }) => {
         .doc()
 
         docRef.set({
-            groupEvent: '',             // this is the result after the matching
+            groupEvent: '',             // this is the result after the matching -- name of the event
             eventImage: '',             // this will be pulled from the matching result
             eventCategory: urlCategory,
             eventDate: '',
-            eventDetails: {
-                where: '',
-                when: '',
-                time: ''
-            },
+            eventTime: '',
+            eventLocation: '',
             eventName: 'add event name',    // this can be edited by the Admin only
             eventID: docRef.id,
-            eventLocation: '',          // this is for getting the location users want to check (TBD by Chloe)
+            chosenLocation: '',          // this is for getting the location users want to check (TBD by Chloe)
             adminPicks: chipsSelected,
+            eventAdmin: groupAdmin,
             createdAt: new Date()
         })
         .catch((err) => {

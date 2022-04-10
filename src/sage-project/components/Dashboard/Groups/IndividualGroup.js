@@ -18,38 +18,38 @@ const IndividualGroup = ({ groupID }) => {
 
     const classes = useStyles();
 
-    const eventsList = [
-        {
-            eventName: "Movie Night",
-            imageURL: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            eventDetails: {
-                when: 'Monday, 7th February',
-                where: 'The Grayson'
-            },
-            altText: "some photo",
-            onClick: () => router.push('/home')
-        },
-        {
-            eventName: "Harry Styles Concert with Amigas",
-            imageURL: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            eventDetails: {
-                when: 'Monday, 7th February',
-                where: 'The Grayson'
-            },            
-            altText: "some photo",
-            onClick: () => router.push('/groups')
-        },
-        {
-            eventName: "Eat out with Big Brains",
-            imageURL: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            eventDetails: {
-                when: 'Monday, 7th February',
-                where: 'The Grayson'
-            },
-            altText: "some photo",
-            onClick: () => router.push('/home/notifications')
-        }
-    ]
+    // const eventsList = [
+    //     {
+    //         eventName: "Movie Night",
+    //         imageURL: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    //         eventDetails: {
+    //             when: 'Monday, 7th February',
+    //             where: 'The Grayson'
+    //         },
+    //         altText: "some photo",
+    //         onClick: () => router.push('/home')
+    //     },
+    //     {
+    //         eventName: "Harry Styles Concert with Amigas",
+    //         imageURL: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    //         eventDetails: {
+    //             when: 'Monday, 7th February',
+    //             where: 'The Grayson'
+    //         },            
+    //         altText: "some photo",
+    //         onClick: () => router.push('/groups')
+    //     },
+    //     {
+    //         eventName: "Eat out with Big Brains",
+    //         imageURL: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    //         eventDetails: {
+    //             when: 'Monday, 7th February',
+    //             where: 'The Grayson'
+    //         },
+    //         altText: "some photo",
+    //         onClick: () => router.push('/home/notifications')
+    //     }
+    // ]
 
 
     const [groupsList, setGroupList] = useState([]);
@@ -87,7 +87,7 @@ const IndividualGroup = ({ groupID }) => {
             <Grid container spacing={3}>
                 {groupsList.map( event => (
                     <Grid key={event.eventID} item xs={12} md={6} lg={4}>
-                        <EventsCard events={event}/>
+                        <EventsCard events={event} groupID={groupID}/>
                     </Grid>
                 ))}
             </Grid>
