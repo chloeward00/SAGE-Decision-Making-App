@@ -8,22 +8,30 @@ import fire from 'firebase/app'
 import 'firebase/auth';
 import 'firebase/firestore';
 import { useState, useEffect } from 'react';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import IconButton from '@mui/material/IconButton';
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
     page: {
         padding: '50px'
     },
     groupTitle: {
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
+        color: theme.colours.gradient1
     },
     groupLine: {
         flexGrow: 1
+    },
+    backArrow: {
+        marginRight: theme.spacing(8)
     }
 }))
 
 const GroupsBanner = ({ groupName, buttonTitle, groupID }) => {
     
     const classes = useStyles();
+    const router = useRouter();
 
     const userID = fire.auth().currentUser.uid;
 
@@ -56,6 +64,14 @@ const GroupsBanner = ({ groupName, buttonTitle, groupID }) => {
         <div>
             <Container className={classes.page}>
                 <Grid container direction="row" alignItems="center">
+                    {router.pathname == '/groups' ? null 
+                    :
+                    <div className={classes.backArrow}>
+                        <IconButton size="medium" onClick={ () => { router.push('/groups')}}>
+                        <ArrowBackIosNewIcon fontSize="inherit"/>
+                        </IconButton>
+                    </div>
+                    }
                     <GroupsIcon fontSize="large" className={classes.groupTitle}/>
                     <Typography variant="h5" className={classes.groupLine}>
                         {groupName}
