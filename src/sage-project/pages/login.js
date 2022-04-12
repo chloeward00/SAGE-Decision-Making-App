@@ -3,7 +3,7 @@ import { Paper, TextField, Typography, Grid, Button, Divider, Container} from '@
 import Link from '../components/Link/Link';
 import firebase from "../firebase/firebase";
 import Router from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import LeftGrid from '../components/Authentication/LeftGrid';
 
@@ -70,6 +70,8 @@ const useStyles = makeStyles( theme => ({
 
 const Login = () => {
 
+    // const [errorMessage, setErrorMessage] = useState('')
+
     useEffect(() => {
         if (firebase.isLoggedIN()) {
             Router.push("/home");
@@ -90,6 +92,7 @@ const Login = () => {
             // key: "login",
             // content: error.message || "Ooops! Something went wrong!",
             // });
+            alert(error)
             console.log(error);
         }
     }
@@ -121,7 +124,7 @@ const Login = () => {
                                 {...register("email", {
                                     required: "Please enter your email address",
                                     pattern: {
-                                        value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                                        value: /^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                                         message: 'Invalid email address'}})}
                                 error={!!errors?.email}
                                 helperText={errors?.email ? errors.email.message : null}

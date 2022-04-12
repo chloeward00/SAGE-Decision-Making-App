@@ -63,7 +63,7 @@ class Firebase {
         }
     }
 
-    async updatePasswords(password,password2) {
+    async updatePasswords(password, password2) {
        
         //const credential = this.auth.EmailAuthProvider.credential(user.email, password)
        // user.reauthenticateWithCredential(credential)
@@ -71,13 +71,10 @@ class Firebase {
 
         const user = this.auth.currentUser;
     
-        const user2 = fire.auth().currentUser;
-
         try {
-        const credential = fire.auth.EmailAuthProvider.credential(user.email, password)
-        user.reauthenticateWithCredential(credential)
-        
-        user.updatePassword(password2)
+            const credential = fire.auth.EmailAuthProvider.credential(user.email, password)
+            user.reauthenticateWithCredential(credential)
+            user.updatePassword(password2)
        
         } catch (error) {
             return false
@@ -94,16 +91,11 @@ class Firebase {
 
     async updateUsersEmail(password,newemail) {
 
-
         const user = fire.auth().currentUser;
         const credential = fire.auth.EmailAuthProvider.credential(user.email, password)
 
-
         user.reauthenticateWithCredential(credential)
     
-
-
-      
         //const credential = fire.auth().EmailAuthProvider.credential(email, password)
 
         //var credentials = fire.auth().EmailAuthProvider.credential(email, password);
