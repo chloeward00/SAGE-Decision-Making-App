@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const IndividualEvent = ({ groupID, eventID }) => {
+const IndividualEvent = ({ groupID, eventID, eventDetails, eventName }) => {
 
     const classes = useStyles();
 
@@ -35,9 +35,6 @@ const IndividualEvent = ({ groupID, eventID }) => {
             .onSnapshot((querySnapshot) => {
                 if(isMounted){
                     setIndividualEvent(querySnapshot.data())
-                    // setEventAdmin(querySnapshot.data().eventAdmin)
-                    // console.log(' get the event admin hereee   ' + querySnapshot.data().eventAdmin)
-                    // setGroupList(querySnapshot.docs.map(doc => doc.data()))
                 }
             });
         }

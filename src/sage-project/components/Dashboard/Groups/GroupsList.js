@@ -40,7 +40,7 @@ const Groups = () => {
         return () => {
             isMounted = false
         }
-    });
+    },[]);
 
     return (
         <Container className={classes.page}>

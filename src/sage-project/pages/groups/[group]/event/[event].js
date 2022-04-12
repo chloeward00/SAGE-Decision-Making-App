@@ -31,6 +31,7 @@ const EventPage = () => {
     console.log("THIS IS THE EVENT ID  " + eventID)
 
     const [eventName, setEventName] = useState('')
+    const [individualEventData, setIndividualEventData] = useState([])
     
     useEffect(() => {
     // isMounted is added to prevent memory leaks
@@ -48,7 +49,7 @@ const EventPage = () => {
                 if(isMounted){
                     console.log("print indi event heree  " + querySnapshot.data().eventID)
                     setEventName(querySnapshot.data().eventName)
-                    // setIndividualEventDetails(querySnapshot.data())
+                    setIndividualEventData(querySnapshot.data())
                 }
                 // console.log("print indi event heree  " + querySnapshot.data().eventID)
                 // setEventName(querySnapshot.data().eventName)
@@ -66,10 +67,9 @@ const EventPage = () => {
     return (
         <div>
             <PageLayout>
-                <EventsBanner eventName={eventName} groupID={groupID}/>
+                <EventsBanner eventName={eventName} groupID={groupID} eventID={eventID} eventDetails={individualEventData} />
                 <h1>PUT THE EVENT DATA HERE AND LET THE MEMBERS DO THE SURVEY AND LET THE ADMIN EDIT STUFF</h1>
-                {/* <h1>LETS FIX THISS EVENT PAGE</h1> */}
-                <IndividualEvent eventID={eventID} groupID={groupID}/>
+                <IndividualEvent eventName={eventName} eventID={eventID} groupID={groupID} eventDetails={individualEventData}/>
             </PageLayout>
         </div>
     );
