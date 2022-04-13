@@ -1,10 +1,12 @@
 
 import { AppBar, Avatar, Toolbar, Typography, Button, ButtonBase, Container } from "@mui/material";
 import { makeStyles } from '@mui/styles';
-import 'firebase/auth';
 import fire from 'firebase/app'
+import 'firebase/firestore';
+import 'firebase/auth'
 import { useRouter } from 'next/router'
 import TodayIcon from '@mui/icons-material/Today';
+import { useState, useEffect } from "react";
 
 
 const getTime = () => {
@@ -77,13 +79,30 @@ const Banner = () => {
 
     const router = useRouter();
     
-    const currentUserName = fire.auth().currentUser.displayName;
+    const userID = fire.auth().currentUser.uid;
 
-    // const getUserFirstLetterName = currentUserName.charAt(0).toLocaleUpperCase()
+    const [userName, setUserName] = useState('')
 
     var today = new Date()
 
     var date = today.toDateString()
+
+    useEffect(() => {
+        async function fetchData() {
+
+            //  calling firebase like this does not lag when updated
+            await fire.firestore().collection('users').doc(userID)
+            .get()
+            .then((querySnapshot) => {
+                setUserName(querySnapshot.data().userName)
+                // console.log("hereeee " + querySnapshot.data().userName)
+            })  
+            .catch((error) => {
+                // console.log("Error getting documents: ", error);
+            });
+        }
+        fetchData()
+    });
 
     return (
         <Container className={classes.root}>
@@ -93,7 +112,7 @@ const Banner = () => {
                         {getTime()}
                     </Typography>
                     <Typography variant="h5" className={classes.userName}>
-                        {currentUserName + "!"}
+                        {userName + "!"}
                     </Typography>
                 </div>
 

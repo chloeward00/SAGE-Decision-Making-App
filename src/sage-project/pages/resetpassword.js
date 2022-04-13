@@ -121,7 +121,10 @@ const ResetPassword = () => {
                                 fullWidth 
                                 className={classes.textField}
                                 {...register("email", {
-                                    required: "Please enter your email"})}
+                                    required: "Please enter your email address",
+                                    pattern: {
+                                        value: /^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                                        message: 'Invalid email address'}})}
                                 error={!!errors?.email}
                                 helperText={errors?.email ? errors.email.message : null}
                                 
