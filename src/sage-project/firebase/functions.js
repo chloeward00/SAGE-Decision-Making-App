@@ -21,9 +21,10 @@ const createUserDocument = async (user, name) => {
                 userName: name,
                 userEmail: email,
                 userUID: user.uid,
+                userBio: '',
                 userEvents: [],
                 userGroups: [],
-                createdAt: new Date()
+                createdAt: new Date(),
             })
             console.log("added to the database")
         } catch(error) {
