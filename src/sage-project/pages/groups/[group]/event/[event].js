@@ -71,7 +71,7 @@ const EventPage = () => {
                     //console.log("print indi event heree  " + querySnapshot.data().eventID)
                   
                     setEventName(querySnapshot.data().eventName)
-                    // setIndividualEventDetails(querySnapshot.data())
+                    // setIndividualEventDetails(querySnapshot.data()) // JOANNA IM NOT SURE IF THIS IS SUPPOSED TO BE COMMENTED OUT OR NOT
                 }
                 // console.log("print indi event heree  " + querySnapshot.data().eventID)
                 // setEventName(querySnapshot.data().eventName)
@@ -88,16 +88,9 @@ const EventPage = () => {
  
     }, []); 
 
-  
-    const matchLikes = async () => {
-        const snapshot = await fire.firestore()
-        .collection("eventLikes")
-        .doc(eventID).get()
-
-    }
 
     // this gets all the likes into a single list
-     const fetchMatches = async () => {
+    const fetchMatches = async () => {
         const snapshot = await fire.firestore()
         .collection("groupsCategory")
         .doc(groupID)
@@ -116,18 +109,17 @@ const EventPage = () => {
         .set({
           ActivityLikes: likes
         })
-    }
-        
+    }    
       
-               useEffect(() => {
-                 let mounted = false
+    useEffect(() => {
+        let mounted = false
         
-                 if(!mounted){
-                     fetchMatches();
-                     topLikedData();
-                     getLikedInfo();
-                    // getUserInfo();
-                 }
+        if(!mounted){
+            fetchMatches();
+            topLikedData();
+            getLikedInfo();
+            // getUserInfo();
+            }
                 
                  return () => {
                      mounted = true
@@ -180,7 +172,7 @@ const EventPage = () => {
             }
 
                  
-  const getUserInfo = async () => {
+    const getUserInfo = async () => {
     
 
     // this makes a dictionary of like costa:5 , mcdonalds: 2
@@ -219,69 +211,46 @@ const EventPage = () => {
         const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === maxVari)
         setTopLikeDataInformation(likedData)
         console.log(likedData , "yahyah")
-        fire.firestore().collection("groupSolution")
+        fire.firestore().collection("groupTopMatch")
         .doc(eventID)
         .set({
-              solution:  likedData
-          
-            })      
-          
-            })
-        
-         
-
-       
-     
-        
+              solution:  likedData})      
+            })    
  
-      fire.firestore().collection("eventLikes")
-      .doc(eventID)
-      .collection("topPicks")
-      .doc(eventID)
-      .set({
+       fire.firestore().collection("eventLikes")
+       .doc(eventID)
+       .collection("topPicks")
+       .doc(eventID)
+       .set({
             nameCount: nameCounts,
             maxVal: maxVari
         })
 
-      console.log(likeCount,"ruprup")
-      const names = Object.keys(pickHighest(likeCount, 2))
+       console.log(likeCount,"ruprup")
+       const names = Object.keys(pickHighest(likeCount, 2))
 
     
 
       // this section is for the top 5, but right now I am just asking for 2 in the pickHighest function
-      const topDataList = []
+       const topDataList = []
       
-      for (let i = 0; i < names.length; i++) {
-        fire.firestore()
-        .collection("eventLikes")
-        .doc(eventID)
-        .onSnapshot((querySnapshot) => {
+       for (let i = 0; i < names.length; i++) {
+         fire.firestore()
+         .collection("eventLikes")
+         .doc(eventID)
+         .onSnapshot((querySnapshot) => {
          topDataList.push(querySnapshot.data().ActivityLikes.find(d => d.name === names[i]))
        
-        fire.firestore().collection("topFiveGroupSolution")
-        .doc(eventID)
-        .set({
-              solution:   topDataList
-          
-            })      
-          
+         fire.firestore().collection("groupTopFiveMatch")
+         .doc(eventID)
+         .set({
+              solution:   topDataList})
             })
-       
       }
-
-
-    
-    //   if (!doc.exists){
-    //     console.log('no profile saved in the database. Edit profile now')
-    // } else {
-       
- 
-   //}
     })
      
   }
   
-
     return (
         <div>
             <PageLayout>
