@@ -36,7 +36,7 @@ const EventPage = () => {
     const [groupLikes, setLikes] = useState([])
     const [likeCount, setCount] = useState([]);
     const [highestLikeName, setHighestLikeName] = useState();
-    const [topLikedDataInformation, setTopLikeDataInformation] = useState([]);
+    const [topLikedDataInformation, setTopLikeDataInformation] = useState();
     
 
    // alert(likes)
@@ -65,6 +65,7 @@ const EventPage = () => {
         }
 
         fetchData(); 
+        getUserInfo();
        
 
         return () => {
@@ -109,9 +110,9 @@ const EventPage = () => {
         
                  if(!mounted){
                      fetchMatches();
-                     getUserInfo();
                      topLikedData();
                      getLikedInfo();
+                    // getUserInfo();
                  }
                 
                  return () => {
@@ -121,29 +122,28 @@ const EventPage = () => {
             }, [])
 
     const topLikedData = async () => {
-    
-                                  
         
-        
+      
         await fire.firestore()
         .collection("eventLikes")
         .doc(eventID)
         .onSnapshot((querySnapshot) => {
             const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === highestLikeName)
-            setTopLikeDataInformation(likedData)
+
+          
+            })
             
-          // setTopLikeDataInformation(likedData)
-
-        })
         //setTopLikeDataInformation(likedData)
-        
-            }
+      
 
-            const getLikedInfo = async () => {
-                let currentUserUID = fire.auth().currentUser.uid
-                 
-                
-                let doc = await fire
+     
+        }
+
+         
+    const getLikedInfo = async () => {
+            
+            
+                const doc =  fire
                 .firestore()
                 .collection('eventLikes')
                 .doc(eventID)
@@ -151,22 +151,25 @@ const EventPage = () => {
                 .doc(eventID)
                 .get()
              
-                const dataObj = doc.data();
+               
 
                 if (!doc.exists){
                     console.log('no profile saved in the database. Edit profile now')
                 } else {
-                    setHighestLikeName(dataObj.topLikes) 
+                     const dataObj = doc.data();
+                    setHighestLikeName(dataObj.maxVal) 
+                    
                   
               
                 }
-               
-                
+                  
             }
 
                  
   const getUserInfo = async () => {
     
+
+    // this makes a dictionary of like costa:5 , mcdonalds: 2
   
     fire.firestore()
     .collection("eventLikes")
@@ -180,28 +183,53 @@ const EventPage = () => {
       // counting how many time each activity appears in the list and adding it to a hook
       setCount(nameCounts);
 
-      let max = 0;
-      let maxKey = "";
+      const max = 0;
+      const maxVari = "";
     
-      
-      for(let char in  likeCount){
-        if( likeCount[char]> max){
-            max =  likeCount[char];
-            maxKey = char
+      // to get the the number 1 liked activity
+      for(let char in  nameCounts){
+        if( nameCounts[char]> max){
+            max =  nameCounts[char];
+            maxVari = char
         }
     }
+
+
+      //const maxVari = Object.keys(likeCount).reduce((a, b) => likeCount[a] > likeCount[b] ? a : b);
+
+
+        fire.firestore()
+        .collection("eventLikes")
+        .doc(eventID)
+        .onSnapshot((querySnapshot) => {
+        const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === maxVari)
+        setTopLikeDataInformation(likedData)
+        console.log(likedData , "yahyah")
+        fire.firestore().collection("groupSolution")
+        .doc(eventID)
+        .set({
+              solution:  likedData
+          
+            })      
+          
+            })
+        
+         
+
+       
+     
         
  
-       fire.firestore().collection("eventLikes")
+      fire.firestore().collection("eventLikes")
       .doc(eventID)
       .collection("topPicks")
       .doc(eventID)
-      .set({topLikes: maxKey,
-            nameCounts: likeCount,
-            solution: topLikedDataInformation
+      .set({
+            nameCount: nameCounts,
+            maxVal: maxVari
         })
 
-      console.log(nameCounts,"ruprup")
+      console.log(likeCount,"ruprup")
     
     //   if (!doc.exists){
     //     console.log('no profile saved in the database. Edit profile now')
@@ -211,15 +239,8 @@ const EventPage = () => {
    //}
     })
      
-        
-  
-
-
-
-  
   }
   
-
 
     return (
         <div>
