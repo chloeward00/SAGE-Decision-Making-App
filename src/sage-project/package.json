@@ -47,6 +47,7 @@
     "react-dom": "17.0.2",
     "react-hook-form": "^7.25.2",
     "react-leaflet": "^3.2.5",
+    "react-open-weather": "^1.2.0",
     "react-tinder-card": "^1.4.5",
     "reactstrap": "^9.0.1",
     "sass": "^1.45.1",
