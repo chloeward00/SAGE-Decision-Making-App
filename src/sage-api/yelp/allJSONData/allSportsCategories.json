@@ -1,0 +1,314 @@
+[
+    {
+        "alias": "airsoft",
+        "title": "Airsoft",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "amateursportsteams",
+        "title": "Amateur Sports Teams",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "CZ"
+        ]
+    },
+    {
+        "alias": "archery",
+        "title": "Archery",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "badminton",
+        "title": "Badminton",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "BR",
+            "PL",
+            "SG",
+            "NZ"
+        ]
+    },
+    {
+        "alias": "baseballfields",
+        "title": "Baseball Fields",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "FR"
+        ]
+    },
+    {
+        "alias": "basketballcourts",
+        "title": "Basketball Courts",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "GB",
+            "CA",
+            "BR",
+            "PL",
+            "IE",
+            "SE",
+            "NL"
+        ]
+    },
+    {
+        "alias": "beachvolleyball",
+        "title": "Beach Volleyball",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "HK",
+            "GB",
+            "IT",
+            "PH",
+            "BE",
+            "MY",
+            "TR",
+            "US",
+            "FR",
+            "CH",
+            "IE",
+            "NL",
+            "CA",
+            "PL",
+            "TW",
+            "NZ"
+        ]
+    },
+    {
+        "alias": "fencing",
+        "title": "Fencing Clubs",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "football",
+        "title": "Soccer",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "golf",
+        "title": "Golf",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "gymnastics",
+        "title": "Gymnastics",
+        "parents": [
+            "active"
+        ],
+        "country_whitelist": [
+            "CA",
+            "BR",
+            "NO",
+            "MX",
+            "PT",
+            "US",
+            "CZ",
+            "NZ",
+            "DK"
+        ]
+    },
+    {
+        "alias": "handball",
+        "title": "Handball",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "HK",
+            "GB",
+            "DE",
+            "SG",
+            "AU",
+            "PH",
+            "MY",
+            "TR",
+            "PT",
+            "US",
+            "IE",
+            "CA",
+            "MX",
+            "TW",
+            "NZ",
+            "CZ"
+        ]
+    },
+    {
+        "alias": "horsebackriding",
+        "title": "Horseback Riding",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "horseracing",
+        "title": "Horse Racing",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "GB",
+            "FR",
+            "IT",
+            "SG",
+            "PH",
+            "IE",
+            "MY",
+            "CA",
+            "BR",
+            "NZ"
+        ]
+    },
+    {
+        "alias": "mountainbiking",
+        "title": "Mountain Biking",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "paddleboarding",
+        "title": "Paddleboarding",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "HK",
+            "IT",
+            "PH",
+            "SE",
+            "MY",
+            "TR",
+            "JP",
+            "TW"
+        ]
+    },
+    {
+        "alias": "races",
+        "title": "Races & Competitions",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "HK",
+            "IT",
+            "PH",
+            "IE",
+            "CL",
+            "ES",
+            "MY",
+            "CA",
+            "TR",
+            "AR",
+            "MX",
+            "FI",
+            "PT",
+            "TW",
+            "JP"
+        ]
+    },
+    {
+        "alias": "racingexperience",
+        "title": "Racing Experience",
+        "parents": [
+            "active"
+        ],
+        "country_whitelist": [
+            "FR",
+            "US",
+            "SE"
+        ]
+    },
+    {
+        "alias": "rafting",
+        "title": "Rafting/Kayaking",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "sport_equipment_hire",
+        "title": "Sport Equipment Hire",
+        "parents": [
+            "active"
+        ],
+        "country_whitelist": [
+            "AU",
+            "CL",
+            "ES",
+            "NO",
+            "AR",
+            "MX",
+            "PT",
+            "CZ",
+            "DK"
+        ]
+    },
+    {
+        "alias": "sports_clubs",
+        "title": "Sports Clubs",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "squash",
+        "title": "Squash",
+        "parents": [
+            "active"
+        ],
+        "country_blacklist": [
+            "PT",
+            "BR",
+            "SG",
+            "NZ"
+        ]
+    },
+    {
+        "alias": "tennis",
+        "title": "Tennis",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "volleyball",
+        "title": "Volleyball",
+        "parents": [
+            "active"
+        ],
+        "country_whitelist": [
+            "FR",
+            "SG",
+            "AU",
+            "DK",
+            "SE",
+            "BR",
+            "NO",
+            "FI",
+            "AT",
+            "JP",
+            "CZ",
+            "NZ",
+            "DE"
+        ]
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "alias": "arts",
+        "title": "Arts & Entertainment",
+        "parents": []
+    },
+    {
+        "alias": "beautysvc",
+        "title": "Beauty & Spas",
+        "parents": []
+    },
+    {
+        "alias": "movietheaters",
+        "title": "Cinema",
+        "parents": [
+            "arts"
+        ]
+    },
+    {
+        "alias": "museums",
+        "title": "Museums",
+        "parents": [
+            "arts"
+        ]
+    },
+    {
+        "alias": "shopping",
+        "title": "Shopping",
+        "parents": []
+    },
+    {
+        "alias": "wineries",
+        "title": "Wineries",
+        "parents": [
+            "food",
+            "arts"
+        ],
+        "country_blacklist": [
+            "FI"
+        ]
+    }
+]

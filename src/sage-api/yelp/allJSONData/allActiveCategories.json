@@ -1,0 +1,33 @@
+[
+    {
+        "alias": "active",
+        "title": "Active Life",
+        "parents": []
+    },
+    {
+        "alias": "festivals",
+        "title": "Festivals",
+        "parents": [
+            "arts"
+        ]
+    },
+    {
+        "alias": "fitness",
+        "title": "Fitness & Instruction",
+        "parents": [
+            "active"
+        ]
+    },
+    {
+        "alias": "nightlife",
+        "title": "Nightlife",
+        "parents": []
+    },
+    {
+        "alias": "zoos",
+        "title": "Zoos",
+        "parents": [
+            "active"
+        ]
+    }
+]
