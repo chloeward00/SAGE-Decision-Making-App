@@ -14,29 +14,21 @@ import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth';
 
-var allActiveCategories = require('../../../sage-api/yelp/allJSONData/allActiveCategories.json');
-var allChillCategories = require('../../../sage-api/yelp/allJSONData/allChillCategories.json');
-var allSportsCategories = require('../../../sage-api/yelp/allJSONData/allSportsCategories.json');
-
 const useStyles = makeStyles((theme) => ({
+    chipGrid: {
+    },
     chip: {
-        padding: theme.spacing(),
-        width: '75%',
+        padding: theme.spacing(1),
     },
     multiCol: {
         float: 'left',
-        width: '50%', 
+        width: '50%',
     },
-    buttonDialog: {
-        '& .MuiButton-root': {
-            width: theme.spacing(3)
-        }
-    }
 }))
 
-const ActiveDialog = ({ name, path }) => {
+const MovieDialog = ({ name }) => {
 
-    const classes = useStyles();    
+    const classes = useStyles();
     const theme = useTheme();
     const router = useRouter();
 
@@ -60,13 +52,16 @@ const ActiveDialog = ({ name, path }) => {
         }
     };
 
+    console.log("PRINTING CHIPS SELECTED HEREEE " + chipsSelected);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleSubmit = (eventID) => {
+        // router.push(`/categories/activity/options/group=${groupID}&event=${eventID}&categories=${chipsSelected}`)
         router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected)
-        // console.log("lets seeee if event id is here " + eventID)
+        console.log("lets seeee if event id is here " + eventID)
     }
 
     const handleClose = () => {
@@ -109,9 +104,15 @@ const ActiveDialog = ({ name, path }) => {
 
     }
 
+    var allFoodCategories = require('../../../sage-api/yelp/textfiles/allFoodCategories.json');
+    console.log(allFoodCategories)
+
+    var allRestoCategories = require('../../../sage-api/yelp/textfiles/allRestoCategories.json');
+    console.log(allRestoCategories)
+
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen} size="large" sx={{ minWidth: theme.spacing(24)}}>
+            <Button variant="outlined" onClick={handleClickOpen}>
                 {name}
             </Button>
             <Dialog
@@ -121,12 +122,12 @@ const ActiveDialog = ({ name, path }) => {
                 aria-labelledby="responsive-dialog-title"
             >
             <DialogTitle id="responsive-dialog-title">
-                {name == 'active' ? "Active" : name == 'chill' ? "Chill" : "Sports"}
+                {name == 'food' ? "Food" : "Restaurants"}
             </DialogTitle>
             <DialogContent>
                 <Grid container spacing={1}>
-                {name == 'active' ? 
-                    allActiveCategories.map((data) => {
+                {name == 'food' ? 
+                    allFoodCategories.map((data) => {
                         return (
                             <Grid item className={classes.multiCol}>
                                 <Chip
@@ -141,23 +142,7 @@ const ActiveDialog = ({ name, path }) => {
                             </Grid>
                         )
                     })
-                :   name == 'chill' ?
-                    allChillCategories.map((data) => {
-                        return (
-                            <Grid item className={classes.multiCol}>
-                                <Chip
-                                    variant="outline"
-                                    color={chipsSelected.includes(data.alias) ? "success" : "default"}
-                                    label={data.title}
-                                    onClick={() => {
-                                        handleAddChip(data.alias)
-                                    }}
-                                    className={classes.chip}
-                                />
-                            </Grid>
-                        )
-                    })
-                :   allSportsCategories.map((data) => {
+                :   allRestoCategories.map((data) => {
                         return (
                             <Grid item className={classes.multiCol}>
                                 <Chip
@@ -176,12 +161,12 @@ const ActiveDialog = ({ name, path }) => {
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={handleUndo}>
-                    {"Undo"}
+                {"Undo"}
                 </Button>
                 <Button onClick={ () => {
                     adminCategoryPick()
                 }} autoFocus>
-                    {"Proceed"}
+                {"Proceed"}
                 </Button>
             </DialogActions>
             </Dialog>
@@ -189,4 +174,4 @@ const ActiveDialog = ({ name, path }) => {
     );
 }
 
-export default ActiveDialog;
+export default MovieDialog;

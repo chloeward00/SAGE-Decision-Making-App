@@ -1,11 +1,10 @@
 
-import CategoriesLayout from "../../../components/Categories/CategoriesLayout";
+import FoodLayout from "../../../components/Categories/FoodLayout";
 
 const RestaurantCategory = () => {
     return (  
         <>
-            <h1>FOOD CATEGORY</h1>
-            <CategoriesLayout/>
+            <FoodLayout/>
         </>
     );
 }
