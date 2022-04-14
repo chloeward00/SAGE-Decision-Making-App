@@ -39,7 +39,21 @@ const EventPage = () => {
     const [topLikedDataInformation, setTopLikeDataInformation] = useState();
     
 
-   // alert(likes)
+    const pickHighest = (obj, num = 1) => {
+        const requiredObj = {};
+        if(num > Object.keys(obj).length){
+           return false;
+        };
+        Object.keys(obj).sort((a, b) => obj[b] - obj[a]).forEach((key, ind) =>
+        {
+           if(ind < num){
+              requiredObj[key] = obj[key];
+           }
+        });
+        return requiredObj;
+     };
+
+
     useEffect(() => {
     // isMounted is added to prevent memory leaks
 
@@ -230,6 +244,32 @@ const EventPage = () => {
         })
 
       console.log(likeCount,"ruprup")
+      const names = Object.keys(pickHighest(likeCount, 2))
+
+    
+
+      // this section is for the top 5, but right now I am just asking for 2 in the pickHighest function
+      const topDataList = []
+      
+      for (let i = 0; i < names.length; i++) {
+        fire.firestore()
+        .collection("eventLikes")
+        .doc(eventID)
+        .onSnapshot((querySnapshot) => {
+         topDataList.push(querySnapshot.data().ActivityLikes.find(d => d.name === names[i]))
+       
+        fire.firestore().collection("topFiveGroupSolution")
+        .doc(eventID)
+        .set({
+              solution:   topDataList
+          
+            })      
+          
+            })
+       
+      }
+
+
     
     //   if (!doc.exists){
     //     console.log('no profile saved in the database. Edit profile now')
