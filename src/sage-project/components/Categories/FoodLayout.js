@@ -1,7 +1,8 @@
 
+import ResponsiveDrawer from "../Dashboard/Drawer/SideDrawer";
 import { makeStyles, useTheme } from '@mui/styles';
 import { AppBar, Avatar, Toolbar, Typography, Button, ButtonBase, Grid, Paper, Chip, Container, ListItem } from "@mui/material";
-import ActiveDialog from "./ActivityDialog";
+import FoodDialog from "./FoodDialog";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,20 +24,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-
-const CategoriesLayout = () => {
+const FoodLayout = () => {
     
     const classes = useStyles();
 
     const activitiesCategories = [
         {
-            name: "active"
+            name: "food"
         },
         {
-            name: "chill"
-        },
-        {
-            name: 'sports'
+            name: "restaurants"
         }
     ]
 
@@ -46,7 +43,7 @@ const CategoriesLayout = () => {
                 {activitiesCategories.map((data) => {
                     return (
                         <div className={classes.button}>
-                            <ActiveDialog name={data.name}/>
+                            <FoodDialog name={data.name}/>
                         </div>
                     )
                 })}
@@ -55,4 +52,4 @@ const CategoriesLayout = () => {
     );
 }
     
-export default CategoriesLayout;
+export default FoodLayout;

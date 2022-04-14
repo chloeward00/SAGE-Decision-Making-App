@@ -105,8 +105,8 @@ const Group = () => {
                 <GroupsBanner groupName={groupName} buttonTitle={buttonTitle} groupID={groupID}/>
                 <h1> EVENTS FOR THIS GROUP ARE THE CARDS BELOW -- style this </h1>
                 <IndividualGroup groupID={groupID}/>
-                {/* NEEDS DESIGN FOR THE COMMENTS */}
-                <form className="post__commentBox">
+                {/* NEEDS DESIGN FOR THE COMMENTS - MAKE A COMPONENT FOR THIS */}
+                {/* <form className="post__commentBox">
                     <input
                         className="post__input"
                         type="text"
@@ -134,7 +134,7 @@ const Group = () => {
                             {comment.text}
                         </p>
                     ))}
-                </div>  
+                </div>   */}
             </PageLayout>    
         </div>
         

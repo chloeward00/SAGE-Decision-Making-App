@@ -8,7 +8,7 @@ asianfusion
 asturian
 australian
 austrian
-baguettes
+baguettes --
 bangladeshi
 basque
 bavarian
@@ -27,7 +27,7 @@ buffets
 bulgarian
 burgers
 burmese
-cafes
+cafes --
 cafeteria
 cajun
 cambodian
@@ -41,14 +41,14 @@ chilean
 chinese
 comfortfood
 corsican
-creperies
+creperies --
 cuban
 currysausage
 cypriot
 czech
 czechslovakian
 danish
-delis
+delis --
 diners
 dinnertheater
 dumplings
@@ -186,7 +186,7 @@ vegan
 vegetarian
 venison
 vietnamese
-waffles
+waffles --
 wok
 wraps
 yugoslav

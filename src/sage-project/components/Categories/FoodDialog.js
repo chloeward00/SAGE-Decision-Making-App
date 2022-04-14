@@ -14,9 +14,9 @@ import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth';
 
-var allActiveCategories = require('../../../sage-api/yelp/allJSONData/allActiveCategories.json');
-var allChillCategories = require('../../../sage-api/yelp/allJSONData/allChillCategories.json');
-var allSportsCategories = require('../../../sage-api/yelp/allJSONData/allSportsCategories.json');
+
+var allFoodCategories = require('../../../sage-api/yelp/allJSONData/allFoodCategories.json');
+var allRestoCategories = require('../../../sage-api/yelp/allJSONData/allRestoCategories.json');
 
 const useStyles = makeStyles((theme) => ({
     chip: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const ActiveDialog = ({ name, path }) => {
+const FoodDialog = ({ name, path }) => {
 
     const classes = useStyles();    
     const theme = useTheme();
@@ -121,12 +121,12 @@ const ActiveDialog = ({ name, path }) => {
                 aria-labelledby="responsive-dialog-title"
             >
             <DialogTitle id="responsive-dialog-title">
-                {name == 'active' ? "Active" : name == 'chill' ? "Chill" : "Sports"}
+                {name == 'food' ? "Food" : "Restaurants"}
             </DialogTitle>
             <DialogContent>
                 <Grid container spacing={1}>
-                {name == 'active' ? 
-                    allActiveCategories.map((data) => {
+                {name == 'food' ? 
+                    allFoodCategories.map((data) => {
                         return (
                             <Grid item className={classes.multiCol}>
                                 <Chip
@@ -141,23 +141,7 @@ const ActiveDialog = ({ name, path }) => {
                             </Grid>
                         )
                     })
-                :   name == 'chill' ?
-                    allChillCategories.map((data) => {
-                        return (
-                            <Grid item className={classes.multiCol}>
-                                <Chip
-                                    variant="outline"
-                                    color={chipsSelected.includes(data.alias) ? "success" : "default"}
-                                    label={data.title}
-                                    onClick={() => {
-                                        handleAddChip(data.alias)
-                                    }}
-                                    className={classes.chip}
-                                />
-                            </Grid>
-                        )
-                    })
-                :   allSportsCategories.map((data) => {
+                :   allRestoCategories.map((data) => {
                         return (
                             <Grid item className={classes.multiCol}>
                                 <Chip
@@ -189,4 +173,4 @@ const ActiveDialog = ({ name, path }) => {
     );
 }
 
-export default ActiveDialog;
+export default FoodDialog;

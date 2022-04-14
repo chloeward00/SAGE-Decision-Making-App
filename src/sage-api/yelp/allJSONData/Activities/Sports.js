@@ -23,4 +23,5 @@ export const Sports = ["airsoft",
                 "sports_clubs",
                 "squash",
                 "tennis",
-                "volleyball"]
+                "volleyball"
+            ]
