@@ -6,6 +6,7 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import LeftGrid from '../components/Authentication/LeftGrid';
+import { useRouter } from 'next/router'
 
 const caption = "Enter your personal details and start planning with us!";
 const createAccount = "Create account";
@@ -65,24 +66,26 @@ const useStyles = makeStyles( theme => ({
 
 const SignUp = () => {
 
+    const classes = useStyles()
+    const router  = useRouter();
+
     useEffect(() => { 
         if (firebase.isLoggedIN()) {
-          Router.push("/home");
+          router.push("/home");
         }
     });
     
     async function doSignup(values) {
         try {
             await firebase.register(values);
-            Router.push("/home");
+            router.push("/home");
+            console.log(values)
         } catch (error) {
             console.log(error);
         }
     }
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    
-    const classes = useStyles()
 
     return (
         <div>
@@ -118,7 +121,7 @@ const SignUp = () => {
                                 {...register("email", {
                                     required: "Please enter your email address",
                                     pattern: {
-                                        value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                                        value: /^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                                         message: 'Invalid email address'}})}
                                 error={!!errors?.email}
                                 helperText={errors?.email ? errors.email.message : null}

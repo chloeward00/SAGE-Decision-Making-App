@@ -1,5 +1,4 @@
 
-
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -17,8 +16,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import EventIcon from '@mui/icons-material/Event';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import EventDatePicker from './EventDatePicker';
+import Stack from '@mui/material/Stack';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import fire from 'firebase/app'
+import 'firebase/firestore';
+import 'firebase/auth'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,13 +63,21 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-const EditEventDialog = ({ groupID }) => {
+const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
+
+    const { eventName, eventTime, eventDate } = eventDetails;
 
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     const [maxWidth, setMaxWidth] = React.useState('md');
-    const [value, setValue] = React.useState(null);
+
+    const [selectedDate, setSelectedDate] = useState(eventDate)
+    const [selectedTime, setSelectedTime] = useState(eventTime)
+    const [updatedEventName, setUpdatedEventName] = useState(eventName)
+
+    console.log({ selectedDate: selectedDate && selectedDate.toLocaleDateString() })
+    console.log({ selectedTime: selectedTime && selectedTime.toLocaleTimeString() })
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -73,23 +87,26 @@ const EditEventDialog = ({ groupID }) => {
         setOpen(false);
     };
 
-    // useEffect(() => {
-    //     async function updateUserGroup() {
+    const updateEvent = () => {
 
-    //         await fire.firestore().collection('users')
-    //         .doc(fire.auth().currentUser.uid)
-    //         .update({
-    //             userGroups: fire.firestore.FieldValue.arrayUnion(...userGroups)
-    //         })  
-    //         .catch((err) => {
-    //             alert(err)
-    //             console.log(err)
-    //         })
-    //     }
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    //     updateUserGroup();
-    //   }, [userGroups]);
-
+        fire.firestore()
+        .collection('groupsCategory')
+        .doc(groupID)
+        .collection('events')
+        .doc(eventID)
+        .update({
+            eventName: updatedEventName,
+            eventDate: selectedDate && selectedDate.toLocaleDateString(undefined, options),
+            eventTime: selectedTime && selectedTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+            calendarDate: selectedDate
+        })  
+        .catch((err) => {
+            alert(err)
+            console.log(err)
+        })
+    }
 
     return (
         <div>
@@ -98,8 +115,8 @@ const EditEventDialog = ({ groupID }) => {
             </Button>
             <Dialog
                 fullScreen={fullScreen}
-                // sx={{ maxWidth: '100%'}}
-                // maxWidth={maxWidth}
+                fullWidth={true}
+                maxWidth={'xs'}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="responsive-dialog-title"
@@ -111,33 +128,45 @@ const EditEventDialog = ({ groupID }) => {
                 <DialogContentText>
                     {"Update the event details below."}
                 </DialogContentText>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="group-name"
-                    label="Event Name"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    onChange={(e) => setUserEmail(e.target.value)}
-                    // className={classes.textField}
-                />
-                {/* <TextField
-                    autoFocus
-                    margin="dense"
-                    id="group-name"
-                    label="Event Date"
-                    type="email"
-                    fullWidth
-                    variant="standard"
-                    onChange={(e) => setUserEmail(e.target.value)}
-                    // className={classes.textField}
-                /> */}
-                <EventDatePicker/>
+                {/* <EventDatePicker/> */}
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <Stack spacing={3}>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="group-name"
+                            label="Event Name"
+                            type="email"
+                            fullWidth
+                            variant="standard"
+                            onChange={(e) => setUpdatedEventName(e.target.value)}
+                            // className={classes.textField}
+                        />
+                        <DatePicker
+                            label="Event Date"
+                            value={selectedDate}
+                            onChange={(newValue) => {
+                                setSelectedDate(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                        <TimePicker
+                            label="Event Time"
+                            value={selectedTime}
+                            onChange={(newValue) => {
+                                setSelectedTime(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </Stack>
+                </LocalizationProvider>
             </DialogContent>
             <DialogActions>
-                <Button autoFocus onClick={handleClose}>
-                {"Cancel"} 
+                <Button autoFocus onClick={ () => {
+                    updateEvent()
+                    handleClose()
+                }}>
+                {"Submit"} 
                 </Button>
             </DialogActions>
             </Dialog>

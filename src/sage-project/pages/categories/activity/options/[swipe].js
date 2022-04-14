@@ -53,7 +53,6 @@ const SwipeOptions = () => {
             // adds all the data that the user liked to firebase
             const likedData = viewedProfiles.filter(({ liked }) =>
             viewSelected === "favorites" ? liked: liked
-
         );
 
         setViewedProfiles(updatedViewedProfiles);
@@ -79,7 +78,6 @@ const SwipeOptions = () => {
         })
 
     }
-
         // show no more cards and a button when there's no more options!!!! CHECK WITH CHLOE
         function moveToNextCard() {
             const endofSurvey = tail.length == 0; 

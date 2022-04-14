@@ -7,6 +7,9 @@ import 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import EditEventDialog from './EditEventDialog';
 import EventIcon from '@mui/icons-material/Event';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import IconButton from '@mui/material/IconButton';
+import { useRouter } from 'next/router'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -14,16 +17,21 @@ const useStyles = makeStyles((theme) => ({
         padding: '50px'
     },
     groupTitle: {
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
+        color: theme.colours.gradient1
     },
     groupLine: {
         flexGrow: 1
+    },
+    backArrow: {
+        marginRight: theme.spacing(8)
     }
 }))
 
-const EventsBanner = ({ eventName, groupID }) => {
+const EventsBanner = ({ eventID, eventName, groupID, eventDetails }) => {
     
     const classes = useStyles();
+    const router = useRouter();
 
     const userID = fire.auth().currentUser.uid;
 
@@ -54,12 +62,17 @@ const EventsBanner = ({ eventName, groupID }) => {
         <div>
             <Container className={classes.page}>
                 <Grid container direction="row" alignItems="center">
+                    <div className={classes.backArrow}>
+                        <IconButton size="medium" onClick={ () => { router.push(`/groups/${groupID}`)}}>
+                        <ArrowBackIosNewIcon fontSize="inherit"/>
+                        </IconButton>
+                    </div>
                     <EventIcon fontSize="large" className={classes.groupTitle}/>
                     <Typography variant="h5" className={classes.groupLine}>
                         {eventName}
                     </Typography>
                     {/* only show thr edit event to group admin */}
-                    {userID == groupCreator ? <EditEventDialog /> : null}
+                    {userID == groupCreator ? <EditEventDialog groupID={groupID} eventID={eventID} eventDetails={eventDetails} /> : null}
                 </Grid>
             </Container>
         </div>

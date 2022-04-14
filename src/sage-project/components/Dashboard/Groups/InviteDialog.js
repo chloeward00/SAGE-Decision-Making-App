@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import 'firebase/auth'
 import fire from 'firebase/app'
+import { useForm } from 'react-hook-form';
 
 
 const InviteDialog = ({ groupName }) => {
@@ -33,7 +34,8 @@ const InviteDialog = ({ groupName }) => {
     const [groupDocRef, setGroupDocRef] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [members, setMembers] = useState('');
-
+    const [emailError, setEmailError] = useState('')
+  
     // this should update the group collection -> group's members update
     const updateGroupMembers = () => {
 
@@ -101,7 +103,89 @@ const InviteDialog = ({ groupName }) => {
         getUserDocRef();
     }, [userEmail]);
 
+
+    // const checkUserExistence = () => {
+    //     fire.firestore()
+    //     .collection('users').where("userEmail", "==", userEmail)
+    //     .get()
+    //     .then((querySnapshot) => {
+    //         querySnapshot.forEach((doc) => {
+    //             setEmailError(doc.id)
+    //             console.log('added to the databse  ' + doc.id)
+    //         });
+    //     })
+    //     .catch((error) => {
+    //         console.log("Error getting documents: ", error);
+    //     });    
+
+    //     console.log("anunaaaa ")
+    // }
+
     return (
+    //     <div>
+    //         <Button variant="outlined" onClick={handleClickOpen} startIcon={<AddCircleIcon />}>
+    //             {"Add a member"}
+    //         </Button>
+    //         <Dialog
+    //             fullScreen={fullScreen}
+    //             open={open}
+    //             onClose={handleClose}
+    //             aria-labelledby="responsive-dialog-title"
+    //         >
+    //         <DialogTitle id="responsive-dialog-title">
+    //             {"Add a member"}
+    //         </DialogTitle>
+    //         <form onSubmit={handleSubmit(checkUserExistence)}>
+    //         {/* <form noValidate autoComplete='off' onSubmit={handleAddMember}> */}
+    //         <DialogContent>
+    //             <DialogContentText>
+    //                 {"Add a member to your group by adding their email address below."}
+    //             </DialogContentText>
+    //             <TextField
+    //                 autofocus
+    //                 margin="dense"
+    //                 id="email" 
+    //                 label="Email" 
+    //                 variant="standard"
+    //                 fullWidth
+    //                 required
+    //                 {...register("email", {
+    //                     required: "Please enter a valid email address",
+    //                     pattern: {
+    //                         value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+    //                         message: 'Invalid email address'
+    //                     }})}
+    //                 error={!!errors?.email}
+    //                 helperText={errors?.email ? errors.email.message : null}
+    //             />            
+    //             {/* <TextField
+    //                 autoFocus
+    //                 margin="dense"
+    //                 id="group-name"
+    //                 label="Email"
+    //                 type="email"
+    //                 fullWidth
+    //                 variant="standard"
+    //                 onChange={(e) => setUserEmail(e.target.value)}
+    //                 // className={classes.textField}
+    //             /> */}
+    //         </DialogContent>
+    //         <DialogActions>
+    //             <Button autoFocus onClick={handleClose}>
+    //                 {"Cancel"}
+    //             </Button>
+    //             {/* <Button autoFocus onClick={() => {
+    //                 updateGroupMembers()
+    //                 updateUserGroup()
+    //                 handleClose()
+    //             }}>                     */}
+    //             <Button autoFocus type='submit'>       
+    //             {"Add"}
+    //             </Button>
+    //         </DialogActions>
+    //         </form>
+    //         </Dialog>
+    // </div>
         <div>
             <Button variant="outlined" onClick={handleClickOpen} startIcon={<AddCircleIcon />}>
                 {"Add a member"}
@@ -118,7 +202,7 @@ const InviteDialog = ({ groupName }) => {
             <DialogContent>
                 <DialogContentText>
                     {"Add a member to your group by adding their email address below."}
-                </DialogContentText>
+                </DialogContentText>    
                 <TextField
                     autoFocus
                     margin="dense"
@@ -140,6 +224,7 @@ const InviteDialog = ({ groupName }) => {
                     updateUserGroup()
                     handleClose()
                 }}>                    
+                {/* <Button autoFocus type='submit'>        */}
                 {"Add"}
                 </Button>
             </DialogActions>

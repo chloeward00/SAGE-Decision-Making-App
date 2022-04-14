@@ -8,7 +8,6 @@ const config = {
     },
 };
 
-
 export function getYELPData({groupID, eventID, categoriesAdmin}) {
 
     // need to pass location here TBD CHLOE
@@ -17,11 +16,13 @@ export function getYELPData({groupID, eventID, categoriesAdmin}) {
     console.log('PRINTING IN YELP API THE GR ID AND EID   ' + groupID, eventID, categoriesAdmin)
     console.log("TO STRING LISTSS HERE WE GO   " + listCategories)
     
-    return axios.get(`https://sage-app-decision.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=${listCategories}&location=ireland&limit=3`, config)
-    .then(response => 
-        response.data.businesses.map(({name, image_url, id}) => ({
+    return axios.get(`https://sage-app-decision.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=${listCategories}&location=ireland`, config)
+        .then(response => 
+        response.data.businesses.map(({ id, name, image_url, rating, review_count, location }) => ({
             name: `${name}`,
-            imgUrl:  `${image_url}`,
-            //ID:  `${id}`,
-    })))
+            imgUrl: `${image_url}`,
+            rating: `${rating}`,
+            reviewCount: `${review_count}`,
+            location: `${location}`,
+        })))
 }

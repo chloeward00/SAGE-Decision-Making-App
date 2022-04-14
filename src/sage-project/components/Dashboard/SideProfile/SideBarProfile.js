@@ -108,12 +108,12 @@ const SideProfile = () => {
         async function fetchData() {
 
             //  calling firebase like this does not lag when updated
-            await fire.firestore().collection('UserProfile').doc(userID)
+            await fire.firestore().collection('users').doc(userID)
             .get()
             .then((querySnapshot) => {
-                setName(querySnapshot.data().Name)
-                setBio(querySnapshot.data().Bio)
-                console.log("hereeee " + querySnapshot.data().Bio)
+                setName(querySnapshot.data().userName)
+                setBio(querySnapshot.data().userBio)
+                console.log("hereeee " + querySnapshot.data().userBio)
             })  
             .catch((error) => {
                 console.log("Error getting documents: ", error);
@@ -164,9 +164,7 @@ const SideProfile = () => {
 
     const router = useRouter();
 
-    const currentUserName = fire.auth().currentUser.displayName;
-
-    const getUserFirstLetterName = currentUserName.charAt(0).toLocaleUpperCase()
+    const getUserFirstLetterName = name.charAt(0).toLocaleUpperCase()
 
     return (
         <Container className={classes.root}>
@@ -189,22 +187,15 @@ const SideProfile = () => {
                 <Avatar className={classes.avatar}>{getUserFirstLetterName}</Avatar>
             </div>
 
-            {/* EDIT THIS AND MOVE UNDER THE USERNAME */}
-            {/* <div className={classes.editIcon}>
-                <ButtonBase onClick={ () => { router.push('/profile/editprofile')}}>
-                    <EditIcon/>
-                </ButtonBase>
-            </div> */}
-
             {/* EDIT PROFILE BUTTON HERE */}
             <div className={classes.editIcon}>
-                <EditProfileDialog/>
+                <EditProfileDialog userName={name} userBio={bio}/>
             </div>
 
             {/* USER NAME */}
             <div className={classes.userNameContainer}>
                 <Typography variant="h5" align="center" className={classes.userName}>
-                    {currentUserName}
+                    {name}
                 </Typography>
             </div>
 

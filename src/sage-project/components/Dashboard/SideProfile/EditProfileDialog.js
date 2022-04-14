@@ -89,7 +89,8 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-const EditProfileDialog = () => {
+const EditProfileDialog = ({ userName, userBio }) => {
+    
     const classes = useStyles();
     const router = useRouter()
 
@@ -105,31 +106,28 @@ const EditProfileDialog = () => {
         setOpen(false);
     };
 
-    const profile = firebase.getProfile();
-    const [name, setName] = useState("");
-    const [bio, setBio] = useState("");
+    const [name, setName] = useState(userName);
+    const [bio, setBio] = useState(userBio);
+
+    let currentUserUID = fire.auth().currentUser.uid
 
     const handlePress = async () => {
-        
-        let currentUserUID = fire.auth().currentUser.uid
-        
+                
         const db = fire.firestore();
-        db.collection("UserProfile")
+        db.collection("users")
         .doc(currentUserUID)
-        .set({
-            Name: name,
-            Bio: bio
+        .update({
+            userName: name,
+            userBio: bio
         })
         router.push("/home")
     }
 
     const getUserInfo = async () => {
         
-        let currentUserUID = fire.auth().currentUser.uid
-
         let doc = await fire
         .firestore()
-        .collection('UserProfile')
+        .collection('users')
         .doc(currentUserUID)
         .get()
     
@@ -137,8 +135,8 @@ const EditProfileDialog = () => {
             console.log('no profile saved in the database. edit profile now')
         } else {
             let dataObj = doc.data();
-            setName(dataObj.Name)
-            setBio(dataObj.Bio)
+            setName(dataObj.userName)
+            setBio(dataObj.userBio)
         }
     }
 
@@ -209,7 +207,8 @@ const EditProfileDialog = () => {
                     </DialogContentText>
                     <List sx={{ marginTop: '10px'}}>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={ () => router.push('/profile/changeemail')}>
+                            {/* CHANGE THIS */}
+                            <ListItemButton onClick={ () => router.push(`/profile/changeemail/${currentUserUID}`)}>
                                 <ListItemIcon>
                                     <EmailIcon className={classes.iconColor} />
                                 </ListItemIcon>
@@ -217,7 +216,7 @@ const EditProfileDialog = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={ () => router.push('/profile/changepassword')}>
+                            <ListItemButton onClick={ () => router.push(`/profile/changepassword/${currentUserUID}`)}>
                                 <ListItemIcon>
                                     <LockIcon className={classes.iconColor} />
                                 </ListItemIcon>
@@ -225,7 +224,7 @@ const EditProfileDialog = () => {
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={ () => router.push(`/profile/deleteaccount/${currentUserUID}`)}>
                                 <ListItemIcon>
                                     <DeleteIcon className={classes.iconColor} />
                                 </ListItemIcon>

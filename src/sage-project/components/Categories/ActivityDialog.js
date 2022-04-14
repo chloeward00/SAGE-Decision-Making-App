@@ -94,7 +94,8 @@ const ActiveDialog = ({ name, path }) => {
             chosenLocation: '',          // this is for getting the location users want to check (TBD by Chloe)
             adminPicks: chipsSelected,
             eventAdmin: groupAdmin,
-            createdAt: new Date()
+            createdAt: new Date(),
+            calendarDate: ''
         })
         .catch((err) => {
             alert(err)
