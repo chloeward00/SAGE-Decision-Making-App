@@ -19,7 +19,6 @@ export function getYELPData({groupID, eventID, categoriesAdmin}) {
     return axios.get(`https://sage-app-decision.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=${listCategories}&location=ireland`, config)
         .then(response => 
         response.data.businesses.map(({ id, name, image_url, rating, review_count, location }) => ({
-            id: `${id}`,
             name: `${name}`,
             imgUrl: `${image_url}`,
             rating: `${rating}`,
