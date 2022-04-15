@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Row, Button, Space, Typography } from "antd";
+import { Row, Button, Modal, Space, Typography } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import css from "../../../styles/component.module.css";
 // import { Modal } from "react-bootstrap";
+import Box from '@mui/material/Box';
 
 const { Text } = Typography;
 
@@ -10,14 +11,30 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+
+    // ant design
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+      };
+    
+      const handleOk = () => {
+        setIsModalVisible(false);
+      };
+    
+      const handleCancel = () => {
+        setIsModalVisible(false);
+      };
   return (
     <div className={css.swipingList}>
       {profiles
         .slice()
         .reverse()
-        .map(({ imgUrl, name}, index) => {
+        .map(({ imgUrl, name,reviewCount,rating,location}, index) => {
+
+         
           return (
             <SwipableWrapper
               key={name}
@@ -36,6 +53,8 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                   >{`${name}`}</Text>
                  
                 </div>
+
+    
               </div>
               <span className={`${css.swipingMessage} ${css.likeMessage}`}>
                 LIKE
@@ -43,6 +62,20 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
               <span className={`${css.swipingMessage} ${css.skipMessage}`}>
                 SKIP
               </span>
+
+              
+              <Button type="default"  style={{ marginTop :9}}  onClick={showModal}>
+                        Details
+                    </Button>
+                    <Modal title="Details" visible={isModalVisible} closable={false} bodyStyle={{height: '200px'}} cancelButtonProps={{ style: { display: 'none' } }} onOk={handleCancel} >
+                
+                        <p>Name:  {name}</p>
+                        <p>Rating: {rating}</p>
+                        <p>Review Count: {reviewCount}</p>
+                        <p>Location: {location}</p>
+                        
+                    
+                    </Modal>
             </SwipableWrapper>
           );
         })}
@@ -64,6 +97,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
           />
         </Space>
       </Row>
+
 
             {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal

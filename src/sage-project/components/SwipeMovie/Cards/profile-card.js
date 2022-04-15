@@ -18,7 +18,8 @@ const ProfileCard = ({ name, overView, handleSwipe, isShow }) => {
       ]}
     >
       
-      <Card.Meta title={`${name} ${overView}`} description={overView} />
+      <Card.Meta title={`${name} ${overView}`}  description={overView} />
+    
     </Card>
   );
 };
