@@ -17,8 +17,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '50px 50px',
-        width: 600,
+        padding: theme.spacing(12),
     },
     button: {
         padding: theme.spacing(2),
@@ -32,22 +31,28 @@ const MovieLayout = () => {
     
     const classes = useStyles();
 
-    const activitiesCategories = [
+    const moviesCategories = [
         {
-            name: "food"
+            name: "Popular",
+            alias: "popular"
         },
         {
-            name: "restaurants"
-        }
+            name: "Latest",
+            alias: "latest"
+        },
+        {
+            name: "Top Rated",
+            alias: "top_rated"
+        },
     ]
 
     return (
         <div className={classes.root}>
             <Paper elevation={10} className={classes.paper}>
-                {activitiesCategories.map((data) => {
+                {moviesCategories.map((data) => {
                     return (
                         <div className={classes.button}>
-                            <MovieDialog name={data.name}/>
+                            <MovieDialog name={data.name} alias={data.alias}/>
                         </div>
                     )
                 })}

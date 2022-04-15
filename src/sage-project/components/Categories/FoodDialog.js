@@ -65,7 +65,7 @@ const FoodDialog = ({ name, path }) => {
     };
 
     const handleSubmit = (eventID) => {
-        router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected)
+        router.push('/categories/food/options/' + groupID + "&" + eventID + "&" + chipsSelected)
         // console.log("lets seeee if event id is here " + eventID)
     }
 

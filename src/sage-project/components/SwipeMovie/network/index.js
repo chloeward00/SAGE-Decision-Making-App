@@ -21,6 +21,7 @@ const Mystery = 9648;
 const Romance = 10749;
 const ScienceFiction = 878;
 
+const api_key = "637ebc34a12fc235b39c60d6e3889d59";
 // const genre_API = "https://api.themoviedb.org/3/discover/movie?api_key=637ebc34a12fc235b39c60d6e3889d59&language=en-US&sort_by=popularity.desc&include_adult=false&with_genres="
 // function App() {
 

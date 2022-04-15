@@ -1,15 +1,15 @@
 import "antd/dist/antd.css";
 import { useEffect, useState } from "react";
 import { notification, Spin, Layout } from "antd";
-import { getProfilesData } from "../../components/Swipecards/network/index";
-import SideBar from "../../components/Swipecards/components2/Sidebar";
+import { getProfilesData } from "../../components/SwipeMovie/network/index";
+import SideBar from "../../components/SwipeMovie/Cards/Sidebar";
 
 import {
   debounce,
   getLocalViewedProfiles,
   setLocalViewedProfiles,
-} from "../../components/Swipecards/utilities";
-import ProfileCards from "../../components/Swipecards/components2/profile-cards";
+} from "../../components/SwipeMovie/utilities";
+import ProfileCards from "../../components/SwipeMovie/Cards/profile-cards";
 
 import fire from 'firebase/app'
 import 'firebase/firestore';
