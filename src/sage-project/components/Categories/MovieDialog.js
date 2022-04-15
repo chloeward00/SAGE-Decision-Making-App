@@ -15,18 +15,16 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const useStyles = makeStyles((theme) => ({
-    chipGrid: {
-    },
     chip: {
-        padding: theme.spacing(1),
-    },
+        padding: theme.spacing(),
+        width: '75%',    },
     multiCol: {
         float: 'left',
         width: '50%',
     },
 }))
 
-const MovieDialog = ({ name }) => {
+const MovieDialog = ({ name, alias }) => {
 
     const classes = useStyles();
     const theme = useTheme();
@@ -38,12 +36,12 @@ const MovieDialog = ({ name }) => {
     const groupID = router.query.activities
     const groupAdmin = fire.auth().currentUser.uid
 
-    console.log("url hereee " + urlCategory.toUpperCase())
+    // console.log("url hereee " + urlCategory.toUpperCase())
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const [open, setOpen] = useState(false)
-    const [selected, setSelected] = useState(false);
+    const [selectedType, setSelectedType] = useState('');
     const [chipsSelected, setChipsSelected] = useState([])
 
     const handleAddChip = (cat) => {
@@ -52,6 +50,12 @@ const MovieDialog = ({ name }) => {
         }
     };
 
+    const handleMovieType = (type) => {
+        setSelectedType(type)
+    };
+
+    console.log('moviee typee heree  ' + selectedType)
+
     console.log("PRINTING CHIPS SELECTED HEREEE " + chipsSelected);
 
     const handleClickOpen = () => {
@@ -59,9 +63,8 @@ const MovieDialog = ({ name }) => {
     };
 
     const handleSubmit = (eventID) => {
-        // router.push(`/categories/activity/options/group=${groupID}&event=${eventID}&categories=${chipsSelected}`)
-        router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected)
-        console.log("lets seeee if event id is here " + eventID)
+        router.push('/categories/movie/options/' + groupID + "&" + eventID +  "&" + selectedType + "&" + chipsSelected)
+        // console.log("lets seeee if event id is here " + eventID)
     }
 
     const handleClose = () => {
@@ -104,15 +107,12 @@ const MovieDialog = ({ name }) => {
 
     }
 
-    var allFoodCategories = require('../../../sage-api/yelp/textfiles/allFoodCategories.json');
-    console.log(allFoodCategories)
-
-    var allRestoCategories = require('../../../sage-api/yelp/textfiles/allRestoCategories.json');
-    console.log(allRestoCategories)
+    var allGenresList = require('../../../sage-api/tmbd/allGenresList.json');
+    const genresList = allGenresList.genres
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant="outlined" onClick={handleClickOpen} size="large" sx={{ minWidth: theme.spacing(24)}}>
                 {name}
             </Button>
             <Dialog
@@ -122,41 +122,26 @@ const MovieDialog = ({ name }) => {
                 aria-labelledby="responsive-dialog-title"
             >
             <DialogTitle id="responsive-dialog-title">
-                {name == 'food' ? "Food" : "Restaurants"}
+                {"Genres"}
             </DialogTitle>
             <DialogContent>
                 <Grid container spacing={1}>
-                {name == 'food' ? 
-                    allFoodCategories.map((data) => {
+                {genresList.map((data) => {
                         return (
                             <Grid item className={classes.multiCol}>
                                 <Chip
                                     variant="outline"
-                                    color={chipsSelected.includes(data.alias) ? "success" : "default"}
-                                    label={data.title}
+                                    color={chipsSelected.includes(data.id) ? "success" : "default"}
+                                    label={data.name}
                                     onClick={() => {
-                                        handleAddChip(data.alias)
+                                        handleAddChip(data.id)
+                                        handleMovieType(alias)
                                     }}
                                     className={classes.chip}
                                 />
                             </Grid>
                         )
-                    })
-                :   allRestoCategories.map((data) => {
-                        return (
-                            <Grid item className={classes.multiCol}>
-                                <Chip
-                                    variant="outline"
-                                    color={chipsSelected.includes(data.alias) ? "success" : "default"}
-                                    label={data.title}
-                                    onClick={() => {
-                                        handleAddChip(data.alias)
-                                    }}
-                                    className={classes.chip}
-                                />
-                            </Grid>
-                        )
-                    })}
+                })}
                 </Grid>
             </DialogContent>
             <DialogActions>

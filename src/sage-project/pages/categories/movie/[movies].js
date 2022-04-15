@@ -1,12 +1,11 @@
 
-import CategoriesLayout from "../../../components/Categories/CategoriesLayout";
+import MovieLayout from "../../../components/Categories/MovieLayout";
 
 
 const MovieCategory = () => {
     return (
         <>
-            <h1>MOVIES CATEGORY</h1>
-            <CategoriesLayout/>
+            <MovieLayout/>
         </>  
     );
 }

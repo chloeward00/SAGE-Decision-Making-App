@@ -1,9 +1,9 @@
 import "antd/dist/antd.css";
 import { useEffect, useState } from "react";
 import { notification, Spin, Layout } from "antd";
-import SideBar from "../../../../components/SwipeActivity/components2/Sidebar";
+import SideBar from "../../../../components/SwipeActivity/Cards/Sidebar";
 import { debounce, getLocalViewedProfiles, setLocalViewedProfiles } from "../../../../components/SwipeActivity/utilities"
-import ProfileCards from "../../../../components/SwipeActivity/components2/profile-cards";
+import ProfileCards from "../../../../components/SwipeActivity/Cards/profile-cards";
 import { getYELPData } from "../../../../hooks/yelp-api/useCategoriesSearch";
 import { useRouter } from "next/router";
 import fire from 'firebase/app'

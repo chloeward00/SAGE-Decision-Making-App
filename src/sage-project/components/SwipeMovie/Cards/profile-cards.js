@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Row, Button, Space, Typography } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { Modal } from "react-bootstrap";
-
-//import css from "./component.module.css";
 import css from "../../../styles/component.module.css";
 
 const { Text } = Typography;
@@ -14,7 +11,6 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  
   return (
     <div className={css.swipingList}>
       {profiles
@@ -37,8 +33,6 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                     className={css.profileCardDescriptionTitle}
                     strong
                   >{`${name}`}</Text>
-                  
-                  
                   <Text
                     className={css.overViewCardDescriptionTitle}
                     strong
@@ -73,9 +67,6 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
           />
         </Space>
       </Row>
-
-    
-
     </div>
     
   );
