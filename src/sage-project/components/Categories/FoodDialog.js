@@ -42,11 +42,16 @@ const FoodDialog = ({ name, path }) => {
 
     const url = router.asPath.split('/')
     const urlCategory = url[2]
-  
-    const groupID = router.query.activities
+    const params = url[3].split('&')
+    const latitude = params[1].split('=')[1]
+    const longitude = params[2].split('=')[1]
+
+    const groupID = router.query.restaurants
     const groupAdmin = fire.auth().currentUser.uid
 
-    console.log("url hereee " + urlCategory.toUpperCase())
+    console.log(longitude)
+
+    // console.log("url hereee " + urlCategory.toUpperCase())
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -65,7 +70,7 @@ const FoodDialog = ({ name, path }) => {
     };
 
     const handleSubmit = (eventID) => {
-        router.push('/categories/food/options/' + groupID + "&" + eventID + "&" + chipsSelected)
+        router.push('/categories/food/options/' + groupID + "&" + eventID + "&" + chipsSelected + "&lat=" + latitude + "&long=" + longitude )
         // console.log("lets seeee if event id is here " + eventID)
     }
 
@@ -98,7 +103,9 @@ const FoodDialog = ({ name, path }) => {
             adminPicks: chipsSelected,
             eventAdmin: groupAdmin,
             createdAt: new Date(),
-            calendarDate: ''
+            calendarDate: '',
+            groupID: groupID
+
         })
         .catch((err) => {
             alert(err)

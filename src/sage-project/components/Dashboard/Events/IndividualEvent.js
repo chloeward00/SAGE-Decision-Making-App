@@ -50,6 +50,7 @@ const IndividualEvent = ({ groupID, eventID, eventDetails, eventName }) => {
             .onSnapshot((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     if(isMounted){
+                        // if current user not in the membersPicked list, then add it there -- meaning they already did the survey
                         if(!membersPicked.includes(doc.id)){
                             setMembersPicked( arr => [...arr, doc.id])
                             // console.log('get the member pickss doc ref heree   '  + doc)

@@ -98,7 +98,8 @@ const ActiveDialog = ({ name, path }) => {
             adminPicks: chipsSelected,
             eventAdmin: groupAdmin,
             createdAt: new Date(),
-            calendarDate: ''
+            calendarDate: '',
+            groupID: groupID
         })
         .catch((err) => {
             alert(err)

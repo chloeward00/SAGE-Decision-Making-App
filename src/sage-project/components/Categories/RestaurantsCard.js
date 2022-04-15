@@ -16,10 +16,11 @@ const category = 'food';
 
 const RestaurantCard = ({ groupID }) => {
 
-    const link = '/categories/food/' + groupID
+    // const link = '/categories/activity/' + groupID
+    const link = `/map/${category}` + '&' + groupID
 
-    return (  
-        <DialogCards imageURL={url} title={title} caption={caption} alt={alt} link={link}/>
+    return (
+        <DialogCards imageURL={url} title={title} caption={caption} alt={alt} link={link} category={category}/>
     );
 }
  

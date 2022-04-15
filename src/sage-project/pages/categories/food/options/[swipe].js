@@ -19,10 +19,17 @@ const SwipeOptions = () => {
     const router = useRouter()
 
     const groupID = router.query.swipe.split('&')[0]
-    const eventID = router.query.swipe.split('&')[1]
-    const categoriesAdmin = router.query.swipe.split('&')[2]
+    const latitudeList = router.query.swipe.split('&')[1]
+    const longitudeList = router.query.swipe.split('&')[2]
+    const eventID = router.query.swipe.split('&')[3]
+    const categoriesAdmin = router.query.swipe.split('&')[4]
 
-    console.log("swipe page params here  " + groupID, eventID, categoriesAdmin)
+    const latitudeValue = latitudeList.split('=')[1]
+    const longitudeValue = longitudeList.split('=')[1]
+
+    // console.log(latitudeValue, longitudeValue)
+
+    console.log("swipe page params here  " + groupID, eventID, categoriesAdmin, latitudeList, longitudeList)
     console.log('categories admin picksss hereeeee  ' + categoriesAdmin)
 
     const [profiles, setProfiles] = useState([]);
@@ -32,7 +39,7 @@ const SwipeOptions = () => {
     useEffect(() => {
         (async function getData() {
             // setViewedProfiles(getLocalViewedProfiles());
-            const fetchedProfiles = await getYELPData({groupID, eventID, categoriesAdmin});
+            const fetchedProfiles = await getYELPData({groupID, eventID, categoriesAdmin, latitudeValue, longitudeValue});
             setProfiles([...fetchedProfiles]);
         })();
     }, []);
@@ -80,28 +87,22 @@ const SwipeOptions = () => {
     }
         // show no more cards and a button when there's no more options!!!! CHECK WITH CHLOE
         function moveToNextCard() {
-            const isTimeToPrefetchData = tail.length <= REMAINING_PROFILES_THRESHOLD; 
-            const isLoading = !tail.length;
+            const endofSurvey = tail.length == 0; 
+            //const isLoading = !tail.length;
             
-            if (isTimeToPrefetchData) {
+            if (endofSurvey) {
                 notification.success({
-                    message: "Prefetch 5 more cards",
-                    duration: 1,
+                    message: "End of survey!",
+                    duration: 10,
+                    // put a button here that will show up when the condition above is met 
                 });
                 (async function getData() {
-                    const fetchedProfiles = await getYELPData({groupID, eventID, categoriesAdmin});
-                    setProfiles([...tail, ...fetchedProfiles]);
+                   // need a blank one in here
+                    setProfiles([]);
                 })();
 
             } else {
                 setProfiles([...tail]);
-            }
-
-            if (isLoading) {
-                notification.warning({
-                    message: "Oops! Seems like the internet connection is slow",
-                    duration: 1,
-                });
             }
         }
     }, 300);
