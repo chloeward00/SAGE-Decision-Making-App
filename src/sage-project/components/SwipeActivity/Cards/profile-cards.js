@@ -67,7 +67,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
               <Button type="default"  style={{ marginTop :9}}  onClick={showModal}>
                         Details
                     </Button>
-                    <Modal title="Details" visible={isModalVisible} bodyStyle={{height: '200px'}} cancelButtonProps={{ style: { display: 'none' } }} onOk={handleCancel} >
+                    <Modal title="Details" visible={isModalVisible} closable={false} bodyStyle={{height: '200px'}} cancelButtonProps={{ style: { display: 'none' } }} onOk={handleCancel} >
                 
                         <p>Name:  {name}</p>
                         <p>Rating: {rating}</p>

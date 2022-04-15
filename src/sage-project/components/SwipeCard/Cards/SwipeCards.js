@@ -86,7 +86,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                     {/* When I use marginTop it moves it away, marginBottom doesn't, but the more you move the button away the less responsive it becomes? 
                         Details
                    / > */}
-                    <Modal title="Details" visible={isModalVisible} bodyStyle={{height: '200px'}} cancelButtonProps={{ style: { display: 'none' } }} onOk={handleCancel} >
+                    <Modal title="Details" visible={isModalVisible} closable={false} bodyStyle={{height: '200px'}} cancelButtonProps={{ style: { display: 'none' } }} onOk={handleCancel} >
                          
                       <p>{releaseDate}</p>
                       <br></br>
