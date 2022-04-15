@@ -33,7 +33,7 @@ const MovieDialog = ({ name, alias }) => {
     const url = router.asPath.split('/')
     const urlCategory = url[2]
   
-    const groupID = router.query.activities
+    const groupID = router.query.movies
     const groupAdmin = fire.auth().currentUser.uid
 
     // console.log("url hereee " + urlCategory.toUpperCase())
@@ -97,6 +97,19 @@ const MovieDialog = ({ name, alias }) => {
             eventAdmin: groupAdmin,
             createdAt: new Date(),
             calendarDate: ''
+        })
+        .catch((err) => {
+            alert(err)
+            console.log(err)
+        })
+
+        // this adds the every events the user is part of in every group
+        const userRef = fire.firestore()
+        .collection('users')
+        .doc(groupAdmin)
+
+        userRef.update({
+            userEvents: fire.firestore.FieldValue.arrayUnion(docRef.id)
         })
         .catch((err) => {
             alert(err)

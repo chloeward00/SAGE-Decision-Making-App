@@ -81,26 +81,24 @@ const SwipeMovie = () => {
         })
     }
 
-    function moveToNextCard() {
-            const isTimeToPrefetchData = tail.length <= REMAINING_PROFILES_THRESHOLD;
-            const isLoading = !tail.length;
-            if (isTimeToPrefetchData) {
+        // show no more cards and a button when there's no more options!!!! CHECK WITH CHLOE
+        function moveToNextCard() {
+            const endofSurvey = tail.length == 0; 
+            //const isLoading = !tail.length;
+            
+            if (endofSurvey) {
                 notification.success({
-                    message: "Prefetch 5 more cards",
-                    duration: 1,
+                    message: "End of survey!",
+                    duration: 10,
+                    // put a button here that will show up when the condition above is met 
                 });
                 (async function getData() {
-                    const fetchedProfiles = await getMovieData({movieType, genres});
-                    setProfiles([...tail, ...fetchedProfiles]);
+                   // need a blank one in here
+                    setProfiles([]);
                 })();
+
             } else {
                 setProfiles([...tail]);
-            }
-            if (isLoading) {
-                notification.warning({
-                    message: "Oops! Seems like the internet connection is slow",
-                    duration: 1,
-                });
             }
         }
     }, 300);
