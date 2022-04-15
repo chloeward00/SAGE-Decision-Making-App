@@ -7,24 +7,9 @@ import Box from '@mui/material/Box';
 
 const { Text } = Typography;
 
-                  
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
 const ProfileCards = ({ profiles, handleSwipe }) => {
 
   const [show, setShow] = useState(false);
-
- 
 
 
     // ant design
@@ -79,7 +64,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
               </span>
 
               
-              <Button type="primary" onClick={showModal}>
+              <Button type="default"  style={{ marginTop :9}}  onClick={showModal}>
                         Details
                     </Button>
                     <Modal title="Details" visible={isModalVisible} bodyStyle={{height: '200px'}} cancelButtonProps={{ style: { display: 'none' } }} onOk={handleCancel} >

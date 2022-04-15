@@ -7,26 +7,11 @@ import {  InfoCircleOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
 
-const style = {
-     
-    height:200,
-    width:500,
-    display:"flex",
-    justifyContent:"center",
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 5,
-    p: 4,
-  };
-
 
 const ProfileCards = ({ profiles, handleSwipe }) => {
     
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
 
     // ant design
 
@@ -49,10 +34,6 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
 
         
         <div className={css.swipingList}>
-
-            
-            
-
 
             {profiles
                 .slice()
