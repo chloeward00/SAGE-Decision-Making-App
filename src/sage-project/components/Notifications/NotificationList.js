@@ -32,6 +32,8 @@ const NotificationList = () => {
     const userID = fire.auth().currentUser.uid;
 
     const [groupsList, setGroupList] = useState([]);
+    const [allUserEvents, setAllUserEvents] = useState([])
+    const [membersPicked, setMembersPicked] = useState([])
 
     useEffect(() => {
 
@@ -39,25 +41,65 @@ const NotificationList = () => {
 
         async function fetchData() {
 
-            await fire.firestore().collection('groups').where("groupMembers", "array-contains", userID)
-            .orderBy('createdAt', 'desc')
+            await fire.firestore().collection('users').doc(userID)
             .onSnapshot(snapshot => {
                 if(isMounted){
-                    setGroupList(snapshot.docs.map(doc => doc.data()))
-                    // setGroupList(snapshot.docs.map(doc => console.log(doc.data())))
+                    setAllUserEvents( arr => [...arr, snapshot.data().userEvents])
                 }
             })
         }
 
         fetchData();
-
+        
         return () => {
             isMounted = false
         }
     }, []);
-    
-    console.log("all groupss hereee " + groupsList)
 
+
+    // useEffect(() => {
+    //     console.log('USE EFTTOOEOK HEREEE')
+    //     for (let groupID of groupsList) {
+    //         fire.firestore()
+    //         .collection("groupsCategory")
+    //         .doc(groupID)
+    //         .collection('events')
+    //         .onSnapshot((querySnapshot) => {
+    //             querySnapshot.forEach((doc) => {
+    //                 setAllUserEvents( arr => [...arr, doc.id])
+    //             })
+    //         });
+    //     }
+    // }, [groupsList]);
+
+
+    // useEffect(() => {
+    //     console.log('MEMBERPICKS HEREEE')
+        
+    //     for (const groupID of groupsList) {
+    //         for(const eventID of allUserEvents){
+    //             fire.firestore()
+    //             .collection("groupsCategory")
+    //             .doc(groupID)
+    //             .collection('events')
+    //             .doc(eventID)
+    //             .collection('memberPicks')
+    //             .onSnapshot((querySnapshot) => {
+    //                 querySnapshot.forEach((doc) => {
+    //                     // console.log('haaaaaaaaaaaaaaaaaaaaaaaaaa')
+    //                     if(!membersPicked.includes(doc.id)){
+    //                         setMembersPicked([...membersPicked, doc.id])
+    //                     }                    
+    //                 })
+    //             });
+    //         }
+    //     }
+    // }, [allUserEvents]);
+
+
+    // fetchMemPick()
+    console.log(allUserEvents)
+    
     return (  
         <h1>
             NOTIFS PAGE HERE

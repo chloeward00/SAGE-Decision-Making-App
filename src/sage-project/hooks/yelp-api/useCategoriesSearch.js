@@ -8,7 +8,7 @@ const config = {
     },
 };
 
-export function getYELPData({groupID, eventID, categoriesAdmin}) {
+export function getYELPData({groupID, eventID, categoriesAdmin, latitudeValue, longitudeValue}) {
 
     // need to pass location here TBD CHLOE
     let listCategories = categoriesAdmin.toString()
@@ -16,7 +16,7 @@ export function getYELPData({groupID, eventID, categoriesAdmin}) {
     console.log('PRINTING IN YELP API THE GR ID AND EID   ' + groupID, eventID, categoriesAdmin)
     console.log("TO STRING LISTSS HERE WE GO   " + listCategories)
     
-    return axios.get(`https://sage-app-decision.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=${listCategories}&location=ireland`, config)
+    return axios.get(`https://sage-app-decision.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=${listCategories}&longitude=${latitudeValue}&latitude=${longitudeValue}`, config)
         .then(response => 
         response.data.businesses.map(({ id, name, image_url, rating, review_count, location }) => ({
             name: `${name}`,

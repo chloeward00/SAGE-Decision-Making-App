@@ -16,10 +16,11 @@ const category = 'activity';
 
 const ActivityCard = ({ groupID }) => {
 
-    const link = '/categories/activity/' + groupID
+    // const link = '/categories/activity/' + groupID
+    const link = '/map/activity' + '&' + groupID
 
     return (
-        <DialogCards imageURL={url} title={title} caption={caption} alt={alt} link={link}/>
+        <DialogCards imageURL={url} title={title} caption={caption} alt={alt} link={link} category={category}/>
     );
 }
 

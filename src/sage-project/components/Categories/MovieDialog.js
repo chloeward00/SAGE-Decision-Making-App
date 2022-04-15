@@ -96,20 +96,9 @@ const MovieDialog = ({ name, alias }) => {
             adminPicks: chipsSelected,
             eventAdmin: groupAdmin,
             createdAt: new Date(),
-            calendarDate: ''
-        })
-        .catch((err) => {
-            alert(err)
-            console.log(err)
-        })
+            calendarDate: '',
+            groupID: groupID
 
-        // this adds the every events the user is part of in every group
-        const userRef = fire.firestore()
-        .collection('users')
-        .doc(groupAdmin)
-
-        userRef.update({
-            userEvents: fire.firestore.FieldValue.arrayUnion(docRef.id)
         })
         .catch((err) => {
             alert(err)
