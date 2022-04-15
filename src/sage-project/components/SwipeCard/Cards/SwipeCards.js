@@ -1,50 +1,122 @@
 import { useState } from "react";
-import { Row, Button, Space, Typography } from "antd";
+import { Row, Button, Modal, Space, Typography } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import css from "../../../styles/component.module.css";
 import SwipingCards from "./CardMedia";
+import {  InfoCircleOutlined } from '@ant-design/icons';
 
 const { Text } = Typography;
+
+const style = {
+     
+    height:200,
+    width:500,
+    display:"flex",
+    justifyContent:"center",
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 5,
+    p: 4,
+  };
+
 
 const ProfileCards = ({ profiles, handleSwipe }) => {
     
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+
+    // ant design
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+      };
+    
+      const handleOk = () => {
+        setIsModalVisible(false);
+      };
+    
+      const handleCancel = () => {
+        setIsModalVisible(false);
+      };
+
 
     return (
+
+        
         <div className={css.swipingList}>
+
+            
+            
+
+
             {profiles
                 .slice()
                 .reverse()
-                .map(({ imgUrl, name,overView}, index) => {
+                .map(({ imgUrl, name,overView,releaseDate}, index) => {
+
+                    
+                  console.log(releaseDate,"mum")            
                     return (
+                    
                         <SwipableWrapper
+                        
                             key={name}
                             className={css.swipingWrapper}
                             onSwipeLeft={() => handleSwipe("skip")}
                             onSwipeRight={() => handleSwipe("like")}
+
+                            
                         >
+
                             <div className={css.profileCard} style={{ backgroundImage: `url(${imgUrl})` }}>
+
                                 <div className={css.profileCardDescription}>
                                     <Text
                                         className={css.profileCardDescriptionTitle}
                                         strong
                                     >{`${name}`}</Text>
-                                    <Text
-                                        className={css.overViewCardDescriptionTitle}
-                                        strong
-                                    >{`${overView}`}</Text>
+
                                 </div>
+
+                                
                             </div>
                                 <span className={`${css.swipingMessage} ${css.likeMessage}`}>
                                     LIKE
                                 </span>
+
+                                
                                 <span className={`${css.swipingMessage} ${css.skipMessage}`}>
                                     SKIP
+
                                 </span>
-                        </SwipableWrapper>
+
+                
+               
+               
+                <Button type="default"  style={{ marginTop :9}}  onClick={showModal}>
+                        Details
+                    </Button>
+
+                    {/* When I use marginTop it moves it away, marginBottom doesn't, but the more you move the button away the less responsive it becomes? 
+                        Details
+                   / > */}
+                    <Modal title="Details" visible={isModalVisible} bodyStyle={{height: '200px'}} cancelButtonProps={{ style: { display: 'none' } }} onOk={handleCancel} >
+                         
+                      <p>{releaseDate}</p>
+                      <br></br>
+                      <p>{overView}</p>
+                        
+                    </Modal>
+                                
+                        </SwipableWrapper>                    
+
                     );
+
             })}
 
             <Row justify="center" className={css.toolbar}>
