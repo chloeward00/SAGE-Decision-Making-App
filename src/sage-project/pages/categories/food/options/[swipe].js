@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
+import Button from '@mui/material/Button';
 
 
 const { Footer, Content } = Layout;
@@ -125,6 +126,7 @@ const SwipeOptions = () => {
                 <ProfileCards profiles={profiles} handleSwipe={debouncedSwipe} />
                 </Spin>
             </Content>
+            
             </Layout>
         </Layout>
     );
