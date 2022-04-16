@@ -40,13 +40,18 @@ const ActiveDialog = ({ name, path }) => {
     const theme = useTheme();
     const router = useRouter();
 
-    const url = router.asPath.split('/')
+    const url = router.asPath.split('/')    
+    // categories/activity/GNT8S40KnF3OQIU1rcpX&lat=-6.260404586791993&long=53.34260431162625
+    // GNT8S40KnF3OQIU1rcpX&lat=-6.260404586791993&long=53.34260431162625 this is the router.query.activities -- so we need to get the first one only which is the ID
     const urlCategory = url[2]
+    const params = url[3].split('&')
+    const latitude = params[1].split('=')[1]
+    const longitude = params[2].split('=')[1]
   
-    const groupID = router.query.activities
+    const groupID = params[0]
     const groupAdmin = fire.auth().currentUser.uid
 
-    console.log("url hereee " + urlCategory.toUpperCase())
+    console.log('group IDD   ' + groupID)
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -65,8 +70,8 @@ const ActiveDialog = ({ name, path }) => {
     };
 
     const handleSubmit = (eventID) => {
-        router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected)
-        // console.log("lets seeee if event id is here " + eventID)
+        // router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected)
+        router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected + "&lat=" + latitude + "&long=" + longitude)
     }
 
     const handleClose = () => {
@@ -92,7 +97,7 @@ const ActiveDialog = ({ name, path }) => {
             eventDate: '',
             eventTime: '',
             eventLocation: '',
-            eventName: 'add event name',    // this can be edited by the Admin only
+            eventName: docRef.id,    // this can be edited by the Admin only
             eventID: docRef.id,
             chosenLocation: '',          // this is for getting the location users want to check (TBD by Chloe)
             adminPicks: chipsSelected,

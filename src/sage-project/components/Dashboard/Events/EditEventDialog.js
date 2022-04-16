@@ -79,6 +79,8 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
     console.log({ selectedDate: selectedDate && selectedDate.toLocaleDateString() })
     console.log({ selectedTime: selectedTime && selectedTime.toLocaleTimeString() })
 
+    console.log('ev deeetss  ' + eventDetails.eventName)
+
     const handleClickOpen = () => {
         setOpen(true);
     };
