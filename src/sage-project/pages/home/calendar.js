@@ -51,6 +51,8 @@ const Calendar = () => {
       if(DateClickArg){
           const title = prompt("Enter title",DateClickArg.dateStr); // allows user to put a title in
           // making object
+
+          
           const event = {
               title: title ? title : DateClickArg.dateStr,
               start: DateClickArg.date,
@@ -58,6 +60,7 @@ const Calendar = () => {
               
           }
 
+         
           allEvents.push(event)
 
           const db = fire.firestore();
@@ -87,7 +90,7 @@ const Calendar = () => {
       const getUserInfo = async () => {
           let currentUserUID = fire.auth().currentUser.uid
       
-
+              console.log(currentUserUID, "DIE")
               const qSnap = await fire
                .firestore()
                .collection('userCal')
@@ -96,18 +99,44 @@ const Calendar = () => {
                .get()
             
             const data = []
-            data = (qSnap.docs.map(d => ({ id: d.id, title: d.data().event.title, start: d.data().event.start.toDate(), allDay: d.data().event.allDay,...d.data() })));
+            data = (qSnap.docs.map(d => ({ id: d.id, title: d.data().event.title, start: d.data().event.start, allDay: d.data().event.allDay,...d.data() })));
             
             //setData(data)
-            console.log(data);
+            console.log(data,"agh");
             setData([...data])
   
 }
+
+const getUserInfo2 = async () => {
+  let currentUserUID = fire.auth().currentUser.uid
+
+      console.log(currentUserUID)
+      const qSnap = await fire
+       .firestore()
+       .collection('userEventsCal')
+       .doc(currentUserUID)
+       .collection("activities")
+       .get()
+    
+    const data = []
+    data = (qSnap.docs.map(d => ({ 
+      id: d.id, 
+      title: d.data().event.title, 
+      start: d.data().event.start.toDate(),
+      allDay: d.data().event.allDay,...d.data() })));
+    
+    
+    console.log(data,"killme");
+    setData([...data])
+
+}
+
            useEffect(() => {
              let mounted = false
     
              if(!mounted){
-              getUserInfo()
+              getUserInfo();
+             //getUserInfo2();
              }
              
              return () => {

@@ -49,6 +49,8 @@ const EventPage = () => {
     useEffect(() => {
         // isMounted is added to prevent memory leaks
 
+
+
         let isMounted = true;
 
         async function fetchData() {
@@ -101,6 +103,8 @@ const EventPage = () => {
           ActivityLikes: likes
         })
     }    
+
+
       
     useEffect(() => {
         let mounted = false
@@ -109,7 +113,7 @@ const EventPage = () => {
             fetchMatches();
             topLikedData();
             getLikedInfo();
-            // getUserInfo();
+           
             }
                 
                  return () => {

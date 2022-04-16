@@ -18,6 +18,7 @@ const Groups = () => {
     const classes = useStyles();
 
     const [groupsList, setGroupList] = useState([]);
+    const [groupsListID, setGroupListID] = useState([]);
     
     // isMounted is added to prevent memory leaks
     useEffect(() => {
@@ -31,8 +32,13 @@ const Groups = () => {
             .onSnapshot(snapshot => {
                 if(isMounted){
                     setGroupList(snapshot.docs.map(doc => doc.data()))
+                    setGroupListID(snapshot.docs.map(doc => doc.data()).groupsListID)
+                   
                 }
             })
+
+
+
         }
 
         fetchData();
@@ -41,6 +47,40 @@ const Groups = () => {
             isMounted = false
         }
     },[]);
+
+    const arr = []
+    const fetchGroupData = async () => {
+        fire.firestore().collection('userEvents2').doc(fire.auth().currentUser.uid).set({
+            groups: groupsList
+        })
+
+        
+        for (let i = 0; i < groupsList.length; i++) {
+            const key = "";
+            for (key in groupsList[i]) {
+                console.log(key.groupID, "LITTLE")
+              }
+            
+          }
+    }    
+
+
+      
+    useEffect(() => {
+        let mounted = false
+        
+        if(!mounted){
+            fetchGroupData();
+           
+            }
+                
+                 return () => {
+                     mounted = true
+                 }
+            
+            }, [])
+
+    console.log(groupsList, "fml")
 
     return (
         <Container className={classes.page}>

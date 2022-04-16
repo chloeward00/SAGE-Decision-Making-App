@@ -7,7 +7,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import Link from '../../Link/Link';
+import { useEffect, useState } from 'react';
+import 'firebase/firestore';
+import fire from 'firebase/app';
+import * as firebase from 'firebase/app'
 
+const allEvents = [];
 export default function IndividualEventCard({ event, groupID, membersPicked, currentUserUID }) {
 
     // const { eventName, eventDetails, imageURL, groupName, altText } = events;
@@ -24,6 +29,106 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
 
     console.log("activ swpp ruteee   " + activitySwipeRoute)
     console.log('formatee datee hessseerr   ' + eventTime)
+
+    
+    const fetchGroupData = async () => {
+
+        if (typeof eventTime === 'undefined'){
+             eventTime = eventTime ?? 'no input';
+        }
+
+        if(typeof eventDate ===  'undefined'){
+             eventDate = eventDate ?? 'Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)';
+        }
+
+        if(typeof eventName ===  'undefined'){
+            eventName= eventName ?? 'no input';
+       }
+        
+//29 March 2022 at 00:00:00 UTC+1
+//
+        // console.log(eventDate,"rahrah")
+        // const dateArray = eventDate.split(",");
+        // console.log(dateArray, "idk")
+        // const monthDays = dateArray[1]
+
+        // const monthDay = monthDays.split(" ");
+
+        // console.log(monthDay, "crying")
+
+        if (eventDate != "Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)"){
+        const dateArray = eventDate.split(",");
+        const day1 = dateArray[0];
+        const day = day1.substring(0,3)
+        const month1 = dateArray[1];
+        const month2 = month1.split(" ");
+        
+        // final month
+        const month3 = month2[1];
+        const month = month3.substring(0,3);
+        const year = dateArray[2];
+
+        const newEventString = day + " " + month + year + " GMT+0100 (Irish Standard Time)"
+        //Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)
+        console.log(newEventString, "niall")
+
+        
+        //need to change to this
+
+       // i have this 
+
+        //Friday, April 15, 2022
+        //const myTimestamp = fire.firestore().Timestamp.fromDate(newEventString);
+        // const created = firebase.firestore.Timestamp.fromDate(newEventString).toDate();
+        // console.log(created,"harry");
+
+        const javaScriptRelease = Date.parse("Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)");
+        console.log(javaScriptRelease,"java");
+
+        console.log(javaScriptRelease,"pls")
+
+       console.log(newEventString,"rahrah")
+        const event = {
+            Time: eventTime,
+            start: newEventString.date,
+            title: eventName,
+            allDay: true
+            
+        }
+        allEvents.push(event)
+
+        
+
+        const db = fire.firestore();
+        db.collection("userEventsCal/"+currentUserUID+"/activities").add({event})
+    }else{
+        const event = {
+            Time: eventTime,
+            start: eventDate,
+            title: eventName,
+            allDay: true
+            
+        }
+        allEvents.push(event)
+
+    }
+        
+    }    
+      
+    useEffect(() => {
+        let mounted = false
+        
+        if(!mounted){
+            fetchGroupData();
+           
+            }
+                
+                 return () => {
+                     mounted = true
+                 }
+            
+            }, [])
+
 
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
