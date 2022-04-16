@@ -39,6 +39,9 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
+                    {"Category: " + eventCategory}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
                     {"Where: " + eventLocation}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

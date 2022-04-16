@@ -26,6 +26,11 @@ import { useRouter } from 'next/router'
 import { makeStyles, useTheme } from '@mui/styles';
 import Image from 'next/image'
 import sageLogo from '../../../assets/sage_1_cropped.png'
+import finalSageLogo from '../../../assets/sage2_logo.png'
+import highres from '../../../assets/highres_sage_logo.png'
+import { Container } from "@mui/material";
+
+
 import 'firebase/auth';
 import fire from 'firebase/app'
 import firebase from "../../../firebase/firebase";
@@ -153,12 +158,6 @@ function ResponsiveDrawer(props) {
             onClick: () => router.push('/home')
         },
         {
-            text: "Notifications",
-            icon: <NotificationsIcon/>,
-            path: '/home/notifications',
-            onClick: () => router.push('/home/notifications')
-        },
-        {
             text: "Calendar",
             icon: <CalendarTodayIcon/>,
             path: '/home/calendar',
@@ -180,19 +179,22 @@ function ResponsiveDrawer(props) {
     ]
 
     const drawer = (
-        <div>
+        <Container>
         {/* THIS TOOLBAR HERE WILL BE ADDED WITH THE SAGE LOGO OR JUST SAGE TEXT */}
         <Toolbar className={classes.logo}>
             {/* <Typography align="center" variant="h3">
                 {"SAGE"}
             </Typography> */}
-            <Image 
-            src={sageLogo}
-            alt="sage logo"
-            // layout="fill"
-            // width="350px"
-            // height="300px"
-            />
+            <div className={classes.logoDiv}>
+                <Image 
+                    src={finalSageLogo}
+                    alt="sage logo"
+                    // layout="fill"
+                    width='600'
+                    height='200'
+                />
+            </div>
+
         </Toolbar>
         <List className={classes.listContainer}>
             {itemsList.map((item, index) => {
@@ -202,7 +204,6 @@ function ResponsiveDrawer(props) {
                 component={ButtonBase}
                 key={text} 
                 onClick={onClick}
-                // className={router.pathname == path ? classes.activeRoute : null}
                 >
                     <ListItemAvatar className={router.pathname == path? classes.activeAvatar : classes.avatar}>
                         <Avatar>
@@ -233,7 +234,7 @@ function ResponsiveDrawer(props) {
             )})}
         </List>
         </div> */}
-        </div>
+        </Container>
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;

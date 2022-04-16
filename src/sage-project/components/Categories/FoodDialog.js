@@ -46,10 +46,10 @@ const FoodDialog = ({ name, path }) => {
     const latitude = params[1].split('=')[1]
     const longitude = params[2].split('=')[1]
 
-    const groupID = router.query.restaurants
+    const groupID = params[0]
     const groupAdmin = fire.auth().currentUser.uid
 
-    console.log(longitude)
+    console.log('group ID here  '+ groupID)
 
     // console.log("url hereee " + urlCategory.toUpperCase())
 
@@ -70,7 +70,7 @@ const FoodDialog = ({ name, path }) => {
     };
 
     const handleSubmit = (eventID) => {
-        router.push('/categories/food/options/' + groupID + "&" + eventID + "&" + chipsSelected + "&lat=" + latitude + "&long=" + longitude )
+        router.push('/categories/food/options/' + groupID + "&" + eventID + "&" + chipsSelected + "&lat=" + latitude + "&long=" + longitude)
         // console.log("lets seeee if event id is here " + eventID)
     }
 
@@ -97,7 +97,7 @@ const FoodDialog = ({ name, path }) => {
             eventDate: '',
             eventTime: '',
             eventLocation: '',
-            eventName: 'add event name',    // this can be edited by the Admin only
+            eventName: docRef.id,       // this can be edited by the Admin only
             eventID: docRef.id,
             chosenLocation: '',          // this is for getting the location users want to check (TBD by Chloe)
             adminPicks: chipsSelected,

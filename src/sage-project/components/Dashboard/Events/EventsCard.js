@@ -9,27 +9,24 @@ import CardHeader from '@mui/material/CardHeader';
 import Link from '../../Link/Link';
 
 export default function EventsCard({ events, groupID }) {
-
-    // const { eventName, eventDetails, imageURL, groupName, altText } = events;
-
-    // IF THE EVENT IS ACTIVITY = BLUE, FOOD = PINK, MOVIE = PURPLE
     
     const { eventName, eventTime, eventDate, eventLocation, eventCategory, eventID, imageURL, groupName, altText } = events;
 
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
+        
             <CardMedia
                 component="img"
                 height="140"
-                image={imageURL}        // this will be the result of the matching algorithm
+                image={imageURL}
                 alt={altText}
             />
             <CardHeader
                 title={eventName}
-                subheader={groupName}
+                subheader={eventCategory}
             />
             <CardContent>
-            <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary">
                     {"Where: " + eventLocation}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

@@ -6,7 +6,6 @@ import fire from 'firebase/app'
 import { makeStyles, useTheme } from '@mui/styles';
 import { Button, Stack, Typography } from "@mui/material";
 import { useRouter } from 'next/router'
-import MapLeaflet from "../../components/Map/MapLeaflet.js";
 
 const MapLeafletDynamic = dynamic(() => import("../../components/Map/MapLeaflet.js"),{
     ssr: false,
@@ -35,10 +34,6 @@ export default function Home() {
 
     const activitySwipeURL = '/categories/activity/' + groupID + '&' + 'lat=' + location.lat + '&' +'long=' + location.lng
     const foodSwipeURL = '/categories/food/' + groupID + '&' + 'lat=' + location.lat + '&' + 'long=' + location.lng
-
-    // const activitySwipeURL = '/categories/activity/' + groupID + '&' + 'loc=' + location.lat + '&' + location.lng
-    // const foodSwipeURL = '/categories/food/' + groupID + '&' + 'loc=' + location.lat + '&' + location.lng
-    // console.log(urlCategory, groupID)
 
     const getData = async () => {
 
