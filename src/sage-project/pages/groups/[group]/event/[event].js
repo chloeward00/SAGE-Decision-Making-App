@@ -107,7 +107,6 @@ const EventPage = () => {
         
         if(!mounted){
             fetchMatches();
-            topLikedData();
             getLikedInfo();
             // getUserInfo();
             }
@@ -118,23 +117,7 @@ const EventPage = () => {
             
             }, [])
 
-    const topLikedData = async () => {
-        
-      
-        await fire.firestore()
-        .collection("eventLikes")
-        .doc(eventID)
-        .onSnapshot((querySnapshot) => {
-            const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === highestLikeName)
-
-          
-            })
-            
-        //setTopLikeDataInformation(likedData)
-      
-
-     
-        }
+    
 
          
     const getLikedInfo = async () => {
@@ -170,15 +153,22 @@ const EventPage = () => {
   
     fire.firestore()
     .collection("eventLikes")
-    .doc(eventID).onSnapshot((docSnapshot) => {
-      const nameCounts = docSnapshot.data().ActivityLikes.reduce((acc, cur) => {
-        acc[cur.name] = (acc[cur.name] || 0) + 1;
-        return acc;
-      }, {});
+    .doc(eventID)
+    .onSnapshot((docSnapshot) => {
 
+        if (docSnapshot.exists) {
+          
+          //}
+        // if(docSnapshot.data().ActivityLikes.length === 0) {
+            const nameCounts = docSnapshot.data().ActivityLikes.reduce((acc, cur) => {
+                acc[cur.name] = (acc[cur.name] || 0) + 1;
+            return acc;
+    }, {});
+
+     setCount(nameCounts)
 
       // counting how many time each activity appears in the list and adding it to a hook
-      setCount(nameCounts);
+     
 
       const max = 0;
       const maxVari = "";
@@ -238,8 +228,14 @@ const EventPage = () => {
               solution:   topDataList})
             })
       }
-    })
-     
+    }else{
+        console.log("error")
+    }
+
+}
+    
+    )
+  
   }
   
     return (

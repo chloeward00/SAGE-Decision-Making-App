@@ -137,8 +137,9 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
                             autoFocus
                             margin="dense"
                             id="group-name"
-                            label="Event Name"
+                            //label="Event Name"
                             type="email"
+                            //value={eventName}
                             fullWidth
                             variant="standard"
                             onChange={(e) => setUpdatedEventName(e.target.value)}
@@ -146,7 +147,7 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
                         />
                         <DatePicker
                             label="Event Date"
-                            value={selectedDate}
+                           // value={selectedDate}
                             onChange={(newValue) => {
                                 setSelectedDate(newValue);
                             }}
@@ -154,7 +155,7 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
                         />
                         <TimePicker
                             label="Event Time"
-                            value={selectedTime}
+                            //value={selectedTime}
                             onChange={(newValue) => {
                                 setSelectedTime(newValue);
                             }}
