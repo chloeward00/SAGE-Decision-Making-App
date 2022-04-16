@@ -19,6 +19,7 @@ const IndividualEvent = ({ groupID, eventID, eventDetails, eventName }) => {
 
     const [individualEvent, setIndividualEvent] = useState([]);
     const [membersPicked, setMembersPicked] = useState([])
+    const [groupMembers, setGroupMembersList] = useState([])
     const currentUserUID = fire.auth().currentUser.uid
 
     // isMounted is added to prevent memory leaks
@@ -53,21 +54,27 @@ const IndividualEvent = ({ groupID, eventID, eventDetails, eventName }) => {
                         // if current user not in the membersPicked list, then add it there -- meaning they already did the survey
                         if(!membersPicked.includes(doc.id)){
                             setMembersPicked( arr => [...arr, doc.id])
-                            // console.log('get the member pickss doc ref heree   '  + doc)
-
                         }
                     }
-                    // console.log('get the member pickss doc ref heree   '  + doc.id)
                 })
-                // if(isMounted){
-                //     setIndividualEvent(querySnapshot.data())
-                //     // setGroupList(querySnapshot.docs.map(doc => doc.data()))
-                // }
+            });
+        }
+
+        async function fetchGroup() {
+
+            await fire.firestore()
+            .collection("groups")
+            .doc(groupID)
+            .onSnapshot((querySnapshot) => {
+                if(isMounted){
+                    setGroupMembersList([querySnapshot.data().groupMembers])
+                }
             });
         }
 
         fetchData();
         fetchMembersDoc()
+        fetchGroup()
 
         return () => {
             isMounted = false
@@ -75,14 +82,9 @@ const IndividualEvent = ({ groupID, eventID, eventDetails, eventName }) => {
 
     }, []);
 
-    console.log("events listt deets here " + individualEvent.eventName)
-    console.log('get the member pickss doc ref heree listttt  '  + membersPicked)
-    console.log('print event admin hereee gooo kekekek   ' + individualEvent.eventAdmin)
-
-
     return (
         <Container className={classes.page}>
-            <IndividualEventCard event={individualEvent} membersPicked={membersPicked} groupID={groupID} currentUserUID={currentUserUID}/>
+            <IndividualEventCard event={individualEvent} membersPicked={membersPicked} groupID={groupID} currentUserUID={currentUserUID} groupMembersList={groupMembers}/>
         </Container>
     );
 }

@@ -113,7 +113,7 @@ const SideProfile = () => {
             .then((querySnapshot) => {
                 setName(querySnapshot.data().userName)
                 setBio(querySnapshot.data().userBio)
-                console.log("hereeee " + querySnapshot.data().userBio)
+                // console.log("hereeee " + querySnapshot.data().userBio)
             })  
             .catch((error) => {
                 console.log("Error getting documents: ", error);

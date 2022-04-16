@@ -74,12 +74,12 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
 
     const [selectedDate, setSelectedDate] = useState(eventDate)
     const [selectedTime, setSelectedTime] = useState(eventTime)
-    const [updatedEventName, setUpdatedEventName] = useState(eventName)
+    const [updatedEventName, setUpdatedEventName] = useState('')
 
     console.log({ selectedDate: selectedDate && selectedDate.toLocaleDateString() })
     console.log({ selectedTime: selectedTime && selectedTime.toLocaleTimeString() })
 
-    console.log('ev deeetss  ' + eventDetails.eventName)
+    console.log('ev deeetss  ' + eventDate)
 
     const handleClickOpen = () => {
         setOpen(true);
