@@ -97,7 +97,8 @@ const MovieDialog = ({ name, alias }) => {
             eventAdmin: groupAdmin,
             createdAt: new Date(),
             calendarDate: '',
-            groupID: groupID
+            groupID: groupID,
+            movieType: selectedType
 
         })
         .catch((err) => {

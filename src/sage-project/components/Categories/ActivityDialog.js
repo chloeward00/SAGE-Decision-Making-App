@@ -41,23 +41,20 @@ const ActiveDialog = ({ name, path }) => {
     const router = useRouter();
 
     const url = router.asPath.split('/')    
-    // categories/activity/GNT8S40KnF3OQIU1rcpX&lat=-6.260404586791993&long=53.34260431162625
-    // GNT8S40KnF3OQIU1rcpX&lat=-6.260404586791993&long=53.34260431162625 this is the router.query.activities -- so we need to get the first one only which is the ID
     const urlCategory = url[2]
     const params = url[3].split('&')
-    const latitude = params[1].split('=')[1]
-    const longitude = params[2].split('=')[1]
-  
     const groupID = params[0]
-    const groupAdmin = fire.auth().currentUser.uid
+    const eventID = params[1]
 
-    console.log('group IDD   ' + groupID)
+    console.log(eventID)
 
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const [open, setOpen] = useState(false)
     const [selected, setSelected] = useState(false);
     const [chipsSelected, setChipsSelected] = useState([])
+    const [longitudeVal, setLongitudeVal] = useState('')
+    const [latitudeVal, setLatitudeVal] = useState('')
 
     const handleAddChip = (cat) => {
         if(!chipsSelected.includes(cat)){
@@ -69,9 +66,9 @@ const ActiveDialog = ({ name, path }) => {
         setOpen(true);
     };
 
-    const handleSubmit = (eventID) => {
+    const handleSubmit = (latitudeVal, longitudeVal) => {
         // router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected)
-        router.push('/categories/activity/options/' + groupID + "&" + eventID + "&" + chipsSelected + "&lat=" + latitude + "&long=" + longitude)
+        router.push('/categories/activity/options/' + groupID + "&" + eventID + '&' + chipsSelected + "&lat=" + latitudeVal + "&long=" + longitudeVal)
     }
 
     const handleClose = () => {
@@ -82,37 +79,46 @@ const ActiveDialog = ({ name, path }) => {
         setChipsSelected([])
     }
 
+    useEffect(() => {
+        let isMounted = true;
+        async function fetchData() {
+
+            await fire.firestore()
+            .collection("groupsCategory")
+            .doc(groupID)
+            .collection('events')
+            .doc(eventID)
+            .onSnapshot((querySnapshot) => {
+                if(isMounted){
+                    setLongitudeVal(querySnapshot.data().longitude)
+                    setLatitudeVal(querySnapshot.data().latitude)
+                }
+            });
+        }
+
+        fetchData();
+        return () => {
+            isMounted = false
+        }
+
+    }, []);
+
     const adminCategoryPick = () => {
         
-        const docRef = fire.firestore()
+        fire.firestore()
         .collection('groupsCategory')
         .doc(groupID)
         .collection('events')
-        .doc()
-
-        docRef.set({
-            groupEvent: '',             // this is the result after the matching -- name of the event
-            eventImage: '',             // this will be pulled from the matching result
-            eventCategory: urlCategory,
-            eventDate: '',
-            eventTime: '',
-            eventLocation: '',
-            eventName: docRef.id,    // this can be edited by the Admin only
-            eventID: docRef.id,
-            chosenLocation: '',          // this is for getting the location users want to check (TBD by Chloe)
+        .doc(eventID)
+        .update({
             adminPicks: chipsSelected,
-            eventAdmin: groupAdmin,
-            createdAt: new Date(),
-            calendarDate: '',
-            groupID: groupID
         })
         .catch((err) => {
             alert(err)
             console.log(err)
         })
 
-        handleSubmit(docRef.id)
-
+        handleSubmit(latitudeVal, longitudeVal)
     }
 
     return (
