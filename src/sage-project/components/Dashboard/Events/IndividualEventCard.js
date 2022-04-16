@@ -9,21 +9,21 @@ import CardHeader from '@mui/material/CardHeader';
 import Link from '../../Link/Link';
 
 export default function IndividualEventCard({ event, groupID, membersPicked, currentUserUID }) {
-
-    // const { eventName, eventDetails, imageURL, groupName, altText } = events;
-
-    // IF THE EVENT IS ACTIVITY = BLUE, FOOD = PINK, MOVIE = PURPLE
     
-    const { eventName, eventTime, eventDate, eventLocation, eventAdmin, eventCategory, eventID, imageURL, groupName, altText, adminPicks } = event;
+    const { eventName, eventTime, eventDate, eventLocation, eventAdmin, eventCategory, eventID, imageURL, groupName, altText, adminPicks, movieType, longitude, latitude } = event;
 
     console.log("event details here   " + eventName)
 
-    const activitySwipeRoute = `/categories/activity/options/${groupID}&${eventID}&${adminPicks}`
-    const foodSwipeRoute = `/categories/food/options/${groupID}&${eventID}&${adminPicks}`
-    const movieSwipeRoute = `/categories/movie/options/${groupID}&${eventID}&${adminPicks}`
+    const activitySwipeRoute = `/categories/activity/options/${groupID}&${eventID}&${adminPicks}&lat=${latitude}&long=${longitude}`
+    
+    const foodSwipeRoute = `/categories/food/options/${groupID}&${eventID}&${adminPicks}&lat=${latitude}&long=${longitude}`
+
+    const movieSwipeRoute = `/categories/movie/options/${groupID}&${eventID}&${movieType}&${adminPicks}`
 
     console.log("activ swpp ruteee   " + activitySwipeRoute)
     console.log('formatee datee hessseerr   ' + eventTime)
+
+    const surveySwipe = eventCategory == 'activity' ? activitySwipeRoute : eventCategory == 'food' ? foodSwipeRoute : movieSwipeRoute
 
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
@@ -55,7 +55,7 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
                 {/* ADD THE ACTION HERE -- IF THE USER ID DOES NOT EXIST IN THE MEMBERPICKS COLLECTION, SHOW THE SURVEY */}
                 {/* <Link href={`/groups/${groupID}/event/${eventID}`} underline="none"> */}
                 {!membersPicked.includes(currentUserUID) ? 
-                    <Link href={activitySwipeRoute} underline="none">
+                    <Link href={surveySwipe} underline="none">
                         <Button size="small">DO SURVEY NOW</Button>
                     {/* <Button size="small">START MATCHING</Button> */}
                     </Link>

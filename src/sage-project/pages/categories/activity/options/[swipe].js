@@ -27,17 +27,19 @@ const SwipeOptions = () => {
     const latitudeValue = latitudeList.split('=')[1]
     const longitudeValue = longitudeList.split('=')[1]
 
-    console.log("swipe page params here  " + groupID, eventID, categoriesAdmin, latitudeList, longitudeList)
+    console.log(longitudeValue)
+    console.log("swipe page params here  " + categoriesAdmin, longitudeValue, latitudeValue)
     console.log('categories admin picksss hereeeee  ' + categoriesAdmin)
+    console.log(router.query.swipe)
 
     const [profiles, setProfiles] = useState([]);
     const [viewedProfiles, setViewedProfiles] = useState([]);
     const [viewSelected, setViewSelected] = useState([]);
-
+    
     useEffect(() => {
         (async function getData() {
             // setViewedProfiles(getLocalViewedProfiles());
-            const fetchedProfiles = await getYELPData({groupID, eventID, categoriesAdmin, latitudeValue, longitudeValue});
+            const fetchedProfiles = await getYELPData({ categoriesAdmin, longitudeValue, latitudeValue });
             setProfiles([...fetchedProfiles]);
         })();
     }, []);

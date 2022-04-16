@@ -29,19 +29,20 @@ export default function Home() {
     const urlParams = router.query.index
     const urlCategory = urlParams.split('&')[0]
     const groupID = urlParams.split('&')[1]
+    const groupAdmin = fire.auth().currentUser.uid
+
+    const [eventID, setEventID] = useState('')
 
     const[location, setLocation] = useState({ lng: 53.38332887514035, lat: -6.255555152893067 });       // DCU LOCATION
 
-    const activitySwipeURL = '/categories/activity/' + groupID + '&' + 'lat=' + location.lat + '&' +'long=' + location.lng
-    const foodSwipeURL = '/categories/food/' + groupID + '&' + 'lat=' + location.lat + '&' + 'long=' + location.lng
+    // const activitySwipeURL = '/categories/activity/' + groupID + '&' + eventID
+    // const foodSwipeURL = '/categories/food/' + groupID + '&' + eventID
 
     const getData = async () => {
-
-        let currentUserUID = fire.auth().currentUser.uid
       
         const db = fire.firestore();
         db.collection("LocationChoice")
-        .doc(currentUserUID)
+        .doc(groupAdmin)
         .set({
             lat: location.lat,
             long: location.lng,
@@ -60,6 +61,47 @@ export default function Home() {
         }
 
     }, [location])
+
+
+    const createEvent = () => {
+        const docRef = fire.firestore()
+        .collection('groupsCategory')
+        .doc(groupID)
+        .collection('events')
+        .doc()
+
+        docRef.set({
+            groupEvent: '',             // this is the result after the matching -- name of the event
+            eventImage: '',             // this will be pulled from the matching result
+            eventCategory: urlCategory,
+            eventDate: '',
+            eventTime: '',
+            eventLocation: '',
+            eventName: docRef.id,    // this can be edited by the Admin only
+            eventID: docRef.id,
+            adminPicks: [],
+            eventAdmin: groupAdmin,
+            createdAt: new Date(),
+            calendarDate: '',
+            groupID: groupID,
+            longitude: location.lng,
+            latitude: location.lat,
+        })
+        .catch((err) => {
+            alert(err)
+            console.log(err)
+        })
+
+
+        urlCategory == 'activity' ? router.push('/categories/activity/' + groupID + '&' + docRef.id) : router.push('/categories/food/' + groupID + '&' + docRef.id)
+    }
+
+    // const changeRoute = () => {
+    //     const activitySwipeURL = '/categories/activity/' + groupID + '&' + eventID
+    //     const foodSwipeURL = '/categories/food/' + groupID + '&' + eventID
+
+    //     urlCategory == 'activity' ? router.push(activitySwipeURL) : router.push(foodSwipeURL)
+    // }
 
     console.log(location)
 
@@ -80,7 +122,9 @@ export default function Home() {
                         setLocation(loc);
                     }}
                 />
-                <Button size="large" onClick={() => { urlCategory == 'activity' ? router.push(activitySwipeURL) : router.push(foodSwipeURL) }}>
+                <Button size="large" onClick={() => { 
+                    createEvent()
+                    }}>
                     {"Submit Location"}
                 </Button>   
             </Stack> 
