@@ -31,103 +31,109 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
     console.log('formatee datee hessseerr   ' + eventTime)
 
     
-    const fetchGroupData = async () => {
+//     const fetchGroupData = async () => {
 
-        if (typeof eventTime === 'undefined'){
-             eventTime = eventTime ?? 'no input';
-        }
+//         if (typeof eventTime === 'undefined'){
+//              eventTime = eventTime ?? 'no input';
+//         }
 
-        if(typeof eventDate ===  'undefined'){
-             eventDate = eventDate ?? 'Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)';
-        }
+//         if(typeof eventDate ===  'undefined'){
+//              eventDate = eventDate ?? 'Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)';
+//         }
 
-        if(typeof eventName ===  'undefined'){
-            eventName= eventName ?? 'no input';
-       }
+//         if(typeof eventName ===  'undefined'){
+//             eventName= eventName ?? 'no input';
+//        }
         
-//29 March 2022 at 00:00:00 UTC+1
-//
-        // console.log(eventDate,"rahrah")
-        // const dateArray = eventDate.split(",");
-        // console.log(dateArray, "idk")
-        // const monthDays = dateArray[1]
+// //29 March 2022 at 00:00:00 UTC+1
+// //
+//         // console.log(eventDate,"rahrah")
+//         // const dateArray = eventDate.split(",");
+//         // console.log(dateArray, "idk")
+//         // const monthDays = dateArray[1]
 
-        // const monthDay = monthDays.split(" ");
+//         // const monthDay = monthDays.split(" ");
 
-        // console.log(monthDay, "crying")
+//         // console.log(monthDay, "crying")
 
-        if (eventDate != "Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)"){
-        const dateArray = eventDate.split(",");
-        const day1 = dateArray[0];
-        const day = day1.substring(0,3)
-        const month1 = dateArray[1];
-        const month2 = month1.split(" ");
+//         if (eventDate != "Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)"){
+//         const dateArray = eventDate.split(",");
+//         const day1 = dateArray[0];
+//         const day = day1.substring(0,3)
+//         const month1 = dateArray[1];
+//         const month2 = month1.split(" ");
         
-        // final month
-        const month3 = month2[1];
-        const month = month3.substring(0,3);
-        const year = dateArray[2];
+//         // final month
+//         const month3 = month2[1];
+//         const month = month3.substring(0,3);
+//         const year = dateArray[2];
 
-        const newEventString = day + " " + month + year + " GMT+0100 (Irish Standard Time)"
-        //Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)
-        console.log(newEventString, "niall")
+//         const newEventString = day + " " + month + year + " GMT+0100 (Irish Standard Time)"
+//         //Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)
+//         console.log(newEventString, "niall")
 
         
-        //need to change to this
+//         //need to change to this
 
-       // i have this 
+//         const eventTimeDate = new Date(newEventString);
 
-        //Friday, April 15, 2022
-        //const myTimestamp = fire.firestore().Timestamp.fromDate(newEventString);
-        // const created = firebase.firestore.Timestamp.fromDate(newEventString).toDate();
-        // console.log(created,"harry");
+//         console.log(eventTimeDate, "lawl");
+//        // i have this 
 
-        const javaScriptRelease = Date.parse("Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)");
-        console.log(javaScriptRelease,"java");
+//         //Friday, April 15, 2022
+//         //const myTimestamp = fire.firestore().Timestamp.fromDate(newEventString);
+//         // const created = firebase.firestore.Timestamp.fromDate(newEventString).toDate();
+//         // console.log(created,"harry");
 
-        console.log(javaScriptRelease,"pls")
+//         const javaScriptRelease = Date.parse("Thu Apr 14 2022 00:00:00 GMT+0100 (Irish Standard Time)");
+//         console.log(javaScriptRelease,"java");
 
-       console.log(newEventString,"rahrah")
-        const event = {
-            Time: eventTime,
-            start: newEventString.date,
-            title: eventName,
-            allDay: true
+//         console.log(javaScriptRelease,"pls")
+
+//        console.log(newEventString,"rahrah")
+//         const event = {
+//             Time: eventTime,
+//             start: eventTimeDate,
+//             title: eventName,
+//             allDay: true
             
-        }
-        allEvents.push(event)
+//         }
+//         allEvents.push(event)
 
         
 
-        const db = fire.firestore();
-        db.collection("userEventsCal/"+currentUserUID+"/activities").add({event})
-    }else{
-        const event = {
-            Time: eventTime,
-            start: eventDate,
-            title: eventName,
-            allDay: true
+//         const db = fire.firestore();
+//         db.collection("userEventsCal/"+currentUserUID+"/activities").add({event})
+        
+//     }else{
+
+//         const eventTimeDate = new Date(eventDate);
+//         const event = {
+//             Time: eventTime,
+//             start: eventTimeDate,
+//             title: eventName,
+//             allDay: true
             
-        }
-        allEvents.push(event)
+//         }
+//         allEvents.push(event)
 
-    }
+//     }
         
-    }    
+//     }    
       
-    useEffect(() => {
-        let mounted = false
+//     useEffect(() => {
+//         let mounted = false
         
-        if(!mounted){
-            fetchGroupData();
+//         if(!mounted){
+//             fetchGroupData();
            
-            }
+//             }
                 
-                 return () => {
-                     mounted = true
-                 }
+//                  return () => {
+//                      mounted = true
+//                  }
             
-            }, [])
+//             }, [])
 
 
     return (

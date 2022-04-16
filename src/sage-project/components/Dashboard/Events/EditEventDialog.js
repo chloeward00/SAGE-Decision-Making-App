@@ -98,7 +98,7 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
         .doc(eventID)
         .update({
             eventName: updatedEventName,
-            eventDate: selectedDate && selectedDate,
+            eventDate: selectedDate && selectedDate.toLocaleDateString(undefined, options),
             eventTime: selectedTime && selectedTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
             calendarDate: selectedDate
         })  

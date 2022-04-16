@@ -35,7 +35,9 @@ export const StyleWrapper2 = styled.div`
 
 const Calendar = () => {
   const calendarRef = useRef(null);
-  const [date, setData] = useState([]);
+  // const [date, setData] = useState([]);
+
+  const date = [];
 
 
    const kkk = (index) => {
@@ -45,8 +47,9 @@ const Calendar = () => {
 
    
    
+   console.log(date,"plslads")
   const handleDateClick = async (DateClickArg) => {
-
+   
 
       if(DateClickArg){
           const title = prompt("Enter title",DateClickArg.dateStr); // allows user to put a title in
@@ -102,32 +105,69 @@ const Calendar = () => {
             data = (qSnap.docs.map(d => ({ id: d.id, title: d.data().event.title, start: d.data().event.start, allDay: d.data().event.allDay,...d.data() })));
             
             //setData(data)
-            console.log(data,"agh");
-            setData([...data])
+            //console.log(data,"agh");
+            //setData([...data])
   
 }
 
+
+console.log(date)
 const getUserInfo2 = async () => {
   let currentUserUID = fire.auth().currentUser.uid
 
-      console.log(currentUserUID)
+      //console.log(currentUserUID)
       const qSnap = await fire
        .firestore()
        .collection('userEventsCal')
        .doc(currentUserUID)
        .collection("activities")
        .get()
+
+
+       //db.collection("userEventsCal6").doc(currentUserUID).collection("events").doc(currentUserUID).set({event: allEvents})
+       const docRef = await fire
+       .firestore()
+       .collection('userEventsCal6')
+       .doc(currentUserUID)
+       .collection("events")
+       .doc(currentUserUID)
+          
+       docRef.get().then((doc) => {
+
+        const data = []
+           if (doc.exists) {
+               // console.log("Document data:", doc.data().userEvents.length);
+               console.log([...doc.data().event], "dafuq")
+
+               for (let i = 0; i < doc.data().event.length; i++) {
+                 console.log(doc.data().event[i], "cryingpls")
+              
+
+                 
+                data = ({ 
+                  id: doc.data().event[i].id, 
+                  title: doc.data().event[i].title, 
+                  start: doc.data().event[i].start.toDate(),
+                  allDay: doc.data().event[i].allDay });
+               
+               
+                 console.log(data,"killme");
+
+              //  console.log(data,"idk")
+              console.log("idktbh")
+               date.push(data);
+
+                }
+
+           } else {
+               console.log("No such document!");
+           }
+       }).catch((error) => {
+           console.log("Error getting document:", error);
+       });
+console.log(date,"plsb")
     
-    const data = []
-    data = (qSnap.docs.map(d => ({ 
-      id: d.id, 
-      title: d.data().event.title, 
-      start: d.data().event.start.toDate(),
-      allDay: d.data().event.allDay,...d.data() })));
-    
-    
-    console.log(data,"killme");
-    setData([...data])
+console.log(date,"eventugh")
 
 }
 
@@ -135,8 +175,8 @@ const getUserInfo2 = async () => {
              let mounted = false
     
              if(!mounted){
-              getUserInfo();
-             //getUserInfo2();
+    //         getUserInfo();
+             getUserInfo2();
              }
              
              return () => {
