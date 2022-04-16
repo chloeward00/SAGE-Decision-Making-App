@@ -1,11 +1,12 @@
 
-import { Grid, Container } from '@mui/material';
+import { Grid, Container, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import IndividualEventCard from './IndividualEventCard';
 import { useState, useEffect } from 'react';
 import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
+import MatchedAPDialog from './MatchedActivityPlace';
 
 const useStyles = makeStyles((theme) => ({
     page: {
@@ -67,7 +68,10 @@ const IndividualEvent = ({ groupID, eventID, eventDetails, eventName }) => {
             .doc(groupID)
             .onSnapshot((querySnapshot) => {
                 if(isMounted){
-                    setGroupMembersList([querySnapshot.data().groupMembers])
+                    for (const group of querySnapshot.data().groupMembers){
+                        setGroupMembersList( arr => [...arr, group])
+                    }
+                    // setGroupMembersList([querySnapshot.data().groupMembers])
                 }
             });
         }
@@ -85,6 +89,10 @@ const IndividualEvent = ({ groupID, eventID, eventDetails, eventName }) => {
     return (
         <Container className={classes.page}>
             <IndividualEventCard event={individualEvent} membersPicked={membersPicked} groupID={groupID} currentUserUID={currentUserUID} groupMembersList={groupMembers}/>
+            {/* DO THE LOGIC FROM THE THING */}
+            <Button> SEE MATCHED EVENT </Button>
+            {/* <MatchedAPDialog eventName={eventName} eventID={eventID} eventCategory={eventCategory}/>  */}
+
         </Container>
     );
 }

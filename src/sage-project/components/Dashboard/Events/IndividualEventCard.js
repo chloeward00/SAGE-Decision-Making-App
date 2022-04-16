@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import Link from '../../Link/Link';
+import MatchedAPDialog from './MatchedActivityPlace';
 
 export default function IndividualEventCard({ event, groupID, membersPicked, currentUserUID, groupMembersList }) {
     
@@ -37,8 +38,14 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
 
     const surveySwipe = eventCategory == 'activity' ? activitySwipeRoute : eventCategory == 'food' ? foodSwipeRoute : movieSwipeRoute
 
+    const handleSubmit = () => {
+        // getMatch({ groupID, eventID })
+        // router push here
+        // collection groupTopMatch should show
+    }
+
     return (
-        <Card sx={{ maxWidth: 340 }} elevation={3}>
+        <Card sx={{ maxWidth: 600 }} elevation={3}>
             <CardMedia
                 component="img"
                 height="140"
@@ -70,8 +77,8 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
                     </Link>
                 : null
                 }
-                {showMatchingButton == true ? 
-                    <Button size="small">START MATCHING</Button>
+                {showMatchingButton == true ?
+                    <MatchedAPDialog eventName={eventName} eventID={eventID} eventCategory={eventCategory}/> 
                 : null
                 }
             </CardActions>

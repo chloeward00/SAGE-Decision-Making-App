@@ -1,27 +1,11 @@
 
-import PageLayout from "../../../../components/Layout/PageLayout";
 import { useState, useEffect } from 'react';
 import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
 import { useRouter } from "next/router";
-import IndividualEvent from "../../../../components/Dashboard/Events/IndividualEvent";
-import EventsBanner from "../../../../components/Dashboard/Events/EventsBanner";
-import Comments from "../../../../components/Dashboard/Comments/Comments";
 
-const EventPage = () => {
-
-    const router = useRouter();
-    const url = router.asPath.split('/')
-    const urlCategory = url[2]
-  
-    const groupID = router.query.group
-    const eventID = router.query.event
-
-    const likes = [];
-
-    //console.log("THIS IS THE GROUP ID  " + groupID)
-    //console.log("THIS IS THE EVENT ID  " + eventID)
+export function getMatch() {
 
     const [eventName, setEventName] = useState('')
     const [individualEventData, setIndividualEventData] = useState([])
@@ -30,7 +14,6 @@ const EventPage = () => {
     const [highestLikeName, setHighestLikeName] = useState();
     const [topLikedDataInformation, setTopLikeDataInformation] = useState();
     
-
     const pickHighest = (obj, num = 1) => {
         const requiredObj = {};
         
@@ -45,36 +28,6 @@ const EventPage = () => {
             });
         return requiredObj;
     };
-
-    useEffect(() => {
-        // isMounted is added to prevent memory leaks
-
-        let isMounted = true;
-
-        async function fetchData() {
-                                                                                                                           
-            await fire.firestore()
-            .collection("groupsCategory")
-            .doc(groupID)
-            .collection('events')
-            .doc(eventID)
-            .onSnapshot((querySnapshot) => {
-                if(isMounted){                  
-                    setEventName(querySnapshot.data().eventName)
-                    setIndividualEventData(querySnapshot.data())
-                }
-            });
-        }
-
-        fetchData(); 
-        getUserInfo();
-
-        return () => {
-            isMounted = false
-        }
- 
-    }, []); 
-
 
     // this gets all the likes into a single list
     const fetchMatches = async () => {
@@ -96,21 +49,6 @@ const EventPage = () => {
           ActivityLikes: likes
         })
     }    
-
-    useEffect(() => {
-        let mounted = false
-        
-        if(!mounted){
-            fetchMatches();
-            getLikedInfo();
-            getUserInfo();
-        }
-                
-        return () => {
-            mounted = true
-        }
-    
-    }, [])
          
     const getLikedInfo = async () => {
             
@@ -202,16 +140,23 @@ const EventPage = () => {
             }
         })
     }
-  
-    return (
-        <div>
-            <PageLayout>
-                <EventsBanner eventName={eventName} groupID={groupID} eventID={eventID} eventDetails={individualEventData} />
-                <IndividualEvent eventName={eventName} eventID={eventID} groupID={groupID} eventDetails={individualEventData}/>
-                <Comments/>
-            </PageLayout>
-        </div>
-    );
-}
 
-export default EventPage;
+
+    useEffect(() => {
+        let mounted = false
+        
+        if(!mounted){
+            fetchMatches();
+            getLikedInfo();
+            getUserInfo();
+        }
+                
+        return () => {
+            mounted = true
+        }
+    
+    }, [])
+
+}
+ 
+// export default getMatch;
