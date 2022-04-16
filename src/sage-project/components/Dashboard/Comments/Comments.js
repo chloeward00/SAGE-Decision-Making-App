@@ -145,7 +145,7 @@ const Comments = () => {
                         <React.Fragment key={comment.commentID}>
                             <ListItem key={comment.commentID} alignItems="flex-start">
                                 <ListItemAvatar>
-                                    <Avatar className={classes.avatar}>{userAvatarName}</Avatar>
+                                    <Avatar className={classes.avatar}>{comment.userName.charAt(0).toLocaleUpperCase()}</Avatar>
                                 </ListItemAvatar>
                                 <ListItemText
                                     primary={

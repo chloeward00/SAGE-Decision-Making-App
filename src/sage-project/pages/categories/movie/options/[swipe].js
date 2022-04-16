@@ -11,6 +11,8 @@ import 'firebase/firestore';
 import 'firebase/auth'
 import { useRouter } from "next/router";
 import { getMovieData } from "../../../../hooks/tmbd-api/useGenreSearch";
+import { Row, Button, Modal, Space, Typography } from "antd";
+import Router from "next/router";
 
 const { Footer, Content } = Layout;
 const REMAINING_PROFILES_THRESHOLD = 2;
@@ -87,6 +89,7 @@ const SwipeMovie = () => {
             //const isLoading = !tail.length;
             
             if (endofSurvey) {
+                Router.push("/home")
                 notification.success({
                     message: "End of survey!",
                     duration: 10,
@@ -105,6 +108,8 @@ const SwipeMovie = () => {
 
     return (
         <Layout style={{ minHeight: "100vh" }}>
+
+
             <SideBar
             viewSelected={viewSelected}
             selectView={setViewSelected}
@@ -123,7 +128,12 @@ const SwipeMovie = () => {
                     </Spin>
                 </Content>
             </Layout>
+
+            
         </Layout>
+        
+
+        
     );
 }
 

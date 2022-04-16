@@ -5,6 +5,7 @@ import css from "../../../styles/component.module.css";
 import SwipingCards from "./CardMedia";
 import {  InfoCircleOutlined } from '@ant-design/icons';
 
+
 const { Text } = Typography;
 
 
@@ -34,14 +35,13 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
 
         
         <div className={css.swipingList}>
-
+      
             {profiles
                 .slice()
                 .reverse()
                 .map(({ imgUrl, name,overView,releaseDate}, index) => {
-
-                    
-                  console.log(releaseDate,"mum")            
+                       
+                           
                     return (
                     
                         <SwipableWrapper
@@ -70,6 +70,7 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                                     LIKE
                                 </span>
 
+
                                 
                                 <span className={`${css.swipingMessage} ${css.skipMessage}`}>
                                     SKIP
@@ -83,6 +84,8 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                         Details
                     </Button>
 
+                    
+
                     {/* When I use marginTop it moves it away, marginBottom doesn't, but the more you move the button away the less responsive it becomes? 
                         Details
                    / > */}
@@ -93,12 +96,17 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                       <p>{overView}</p>
                         
                     </Modal>
+
+                    
                                 
                         </SwipableWrapper>                    
 
                     );
 
+                    
+
             })}
+
 
             <Row justify="center" className={css.toolbar}>
             <Space size={64}>
@@ -118,7 +126,11 @@ const ProfileCards = ({ profiles, handleSwipe }) => {
                 />
             </Space>
             </Row>
+
+           
         </div>
+
+        
     );
 };
 
@@ -192,6 +204,7 @@ const SwipableWrapper = ({ children, style, onSwipeLeft, onSwipeRight, ...otherP
 
     return (
         <div
+        
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -199,7 +212,9 @@ const SwipableWrapper = ({ children, style, onSwipeLeft, onSwipeRight, ...otherP
             {...otherProps}
         >
             {children}
+          
         </div>
+        
     );
 };
 
