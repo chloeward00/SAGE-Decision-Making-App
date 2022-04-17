@@ -32,12 +32,13 @@ const Groups = () => {
             .onSnapshot(snapshot => {
                 if(isMounted){
                     setGroupList(snapshot.docs.map(doc => doc.data()))
+                    
                     setGroupListID(snapshot.docs.map(doc => doc.data()).groupsListID)
                    
                 }
             })
 
-
+console.log(groupsList,"please")
 
         }
 
@@ -58,7 +59,7 @@ const Groups = () => {
         for (let i = 0; i < groupsList.length; i++) {
             const key = "";
             for (key in groupsList[i]) {
-                console.log(key.groupID, "LITTLE")
+                console.log(key.groupID)
               }
             
           }

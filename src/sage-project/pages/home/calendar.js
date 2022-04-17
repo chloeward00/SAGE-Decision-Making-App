@@ -85,7 +85,9 @@ const Calendar = () => {
                       //  }
                       // )
 
-                      db.collection("userCal/"+currentUserUID+"/activities").add({event}) // add event object to activites doc
+                      db.collection("userCal/"+currentUserUID+"/activities").set({
+                        
+                        events: firebase.firestore().FieldValue.arrayUnion(event)}) // add event object to activites doc
                                          
       }
      

@@ -1,13 +1,19 @@
 import Events from "../../components/Dashboard/Events/Events";
 import Layout from "../../components/Layout/Layout";
 import DashboardLayout from "../../components/Layout/DashboardLayout"
+import { useEffect, useState } from 'react';
+import 'firebase/firestore';
+import fire from 'firebase/app';
+import * as firebase from 'firebase/app'
 
 const HomeDashboard = () => {
+
+    const [userGroups, setUserGroups] = useState([])
 
     return (
         <div>
             <DashboardLayout>
-                <Events/>
+                
             </DashboardLayout>
         </div>
     

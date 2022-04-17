@@ -111,7 +111,6 @@ const EventPage = () => {
         
         if(!mounted){
             fetchMatches();
-            topLikedData();
             getLikedInfo();
            
             }
@@ -122,23 +121,13 @@ const EventPage = () => {
             
             }, [])
 
-    const topLikedData = async () => {
-        
-      
-        await fire.firestore()
-        .collection("eventLikes")
-        .doc(eventID)
-        .onSnapshot((querySnapshot) => {
-            const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === highestLikeName)
 
-          
-            })
             
         //setTopLikeDataInformation(likedData)
       
 
      
-        }
+    
 
          
     const getLikedInfo = async () => {

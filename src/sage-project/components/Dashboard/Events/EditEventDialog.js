@@ -106,6 +106,14 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
             alert(err)
             console.log(err)
         })
+
+        fire.firestore().collection("usersEventsDashboard").doc(fire.auth().currentUser.uid).collection("events").add({
+            eventName: updatedEventName,
+            eventID:  eventID,
+            eventDate: selectedDate && selectedDate.toLocaleDateString(undefined, options),
+            eventTime: selectedTime && selectedTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+            calendarDate: selectedDate
+        })
     }
 
     return (
