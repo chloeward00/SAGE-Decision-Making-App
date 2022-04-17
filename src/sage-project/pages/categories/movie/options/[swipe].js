@@ -13,7 +13,6 @@ import 'firebase/auth'
 import { useRouter } from "next/router";
 import { getMovieData } from "../../../../hooks/tmbd-api/useGenreSearch";
 import { Row, Button, Modal, Space, Typography } from "antd";
-import Router from "next/router";
 import { makeStyles } from '@mui/styles';
 
 
@@ -56,9 +55,11 @@ const SwipeMovie = () => {
                 notification.error({
                     message: "No Data for this genre available!",
                     duration: 5,
-                    // put a button here that will show up when the condition above is met
+                    
                 })
-                //router.push(`/groups/${groupID}`)
+
+                router.push(`/groups/${groupID}`)
+                
             }
             setProfiles([...fetchedProfiles]);
         })();
@@ -117,13 +118,13 @@ const SwipeMovie = () => {
             //const isLoading = !tail.length;
             
             if (endofSurvey) {
-                
+                router.push(`/groups/${groupID}`)
                 notification.success({
                     message: "End of survey!",
                     duration: 10,
                     // put a button here that will show up when the condition above is met
                 });
-                router.push(`/groups/${groupID}`)
+                
                 (async function getData() {
                    // need a blank one in here
                     setProfiles([]);
