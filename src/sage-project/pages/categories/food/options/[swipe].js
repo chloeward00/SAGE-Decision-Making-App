@@ -107,7 +107,7 @@ const SwipeOptions = () => {
                 router.push(`/groups/${groupID}`)
                 notification.success({
                     message: "End of survey!",
-                    duration: 10,
+                    duration: 1,
                     // put a button here that will show up when the condition above is met 
                 });
                 (async function getData() {

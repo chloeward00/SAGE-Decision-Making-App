@@ -4,8 +4,9 @@ import { notification, Spin, Layout } from "antd";
 import { getProfilesData } from "../../../../components/SwipeMovie/network/index";
 import SideBar from "../../../../components/SwipeMovie/Cards/Sidebar";
 import { debounce, getLocalViewedProfiles, setLocalViewedProfiles } from "../../../../components/SwipeMovie/utilities";
-import ProfileCards from "../../../../components/SwipeMovie/Cards/profile-cards";
-import SwipeCards from '../../../../components/SwipeCard/Cards/SwipeCards'
+// import ProfileCards from "../../../../components/SwipeMovie/Cards/profile-cards";
+// import SwipeCards from '../../../../components/SwipeCard/Cards/SwipeCards'
+import ProfileCards from "../../../../components/SwipeCard/Cards/SwipeCards";
 import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
@@ -51,9 +52,18 @@ const SwipeMovie = () => {
         (async function getData() {
             // setViewedProfiles(getLocalViewedProfiles());
             const fetchedProfiles = await getMovieData({movieType, genres});
+            // if(fetchedProfiles.length == 0){
+            //     console.log('THERE ARE NO RESULTSSSS FOR THIS TYPE OF GENREEEE')
+            // }
             setProfiles([...fetchedProfiles]);
         })();
     }, []);
+
+    // if(profiles.length == 0){
+    //     console.log('THERE ARE NO RESULTSSSS FOR THIS TYPE OF GENREEEE')
+    // }
+
+    console.log('lnegthh of resultsss    heree   ', profiles)
 
     const debouncedSwipe = debounce(function handleSwipe(type) {
         const [head, ...tail] = profiles;
@@ -105,7 +115,7 @@ const SwipeMovie = () => {
                 router.push(`/groups/${groupID}`)
                 notification.success({
                     message: "End of survey!",
-                    duration: 10,
+                    duration: 1,
                     // put a button here that will show up when the condition above is met
                 });
                 (async function getData() {
