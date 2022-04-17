@@ -174,7 +174,8 @@ const EditProfileDialog = ({ userName, userBio }) => {
                     <Box sx={{ display: 'flex', alignItems: 'flex-end', marginBottom: '20px', marginTop: '10px'}}>
                         <AccountCircle sx={{ mr: 1, my: 0.5 }} className={classes.iconColor} />
                         <TextField 
-                            id="change-username" 
+                            id="change-username"
+                            defaultValue={name} 
                             label="Name" 
                             variant="standard"
                             onChange={(e) => setName(e.target.value)}
@@ -184,6 +185,7 @@ const EditProfileDialog = ({ userName, userBio }) => {
                         <InfoIcon sx={{ mr: 1, my: 0.5 }} className={classes.iconColor} />
                         <TextField 
                             id="change-bio" 
+                            defaultValue={bio}
                             label="Bio" 
                             variant="standard"
                             onChange={(e) => setBio(e.target.value)}

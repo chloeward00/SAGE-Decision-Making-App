@@ -4,8 +4,9 @@ import { notification, Spin, Layout } from "antd";
 import { getProfilesData } from "../../../../components/SwipeMovie/network/index";
 import SideBar from "../../../../components/SwipeMovie/Cards/Sidebar";
 import { debounce, getLocalViewedProfiles, setLocalViewedProfiles } from "../../../../components/SwipeMovie/utilities";
-import ProfileCards from "../../../../components/SwipeMovie/Cards/profile-cards";
-import SwipeCards from '../../../../components/SwipeCard/Cards/SwipeCards'
+// import ProfileCards from "../../../../components/SwipeMovie/Cards/profile-cards";
+// import SwipeCards from '../../../../components/SwipeCard/Cards/SwipeCards'
+import ProfileCards from "../../../../components/SwipeCard/Cards/SwipeCards";
 import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
@@ -13,13 +14,26 @@ import { useRouter } from "next/router";
 import { getMovieData } from "../../../../hooks/tmbd-api/useGenreSearch";
 import { Row, Button, Modal, Space, Typography } from "antd";
 import Router from "next/router";
+import { makeStyles } from '@mui/styles';
+
 
 const { Footer, Content } = Layout;
 const REMAINING_PROFILES_THRESHOLD = 2;
 
+const useStyles = makeStyles( theme => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#A9B5DD', 
+        minHeight: "100vh"
+    },
+}))
+
 const SwipeMovie = () => {
 
     const router = useRouter()
+    const classes = useStyles()
 
     const groupID = router.query.swipe.split('&')[0]
     const eventID = router.query.swipe.split('&')[1]
@@ -38,9 +52,18 @@ const SwipeMovie = () => {
         (async function getData() {
             // setViewedProfiles(getLocalViewedProfiles());
             const fetchedProfiles = await getMovieData({movieType, genres});
+            // if(fetchedProfiles.length == 0){
+            //     console.log('THERE ARE NO RESULTSSSS FOR THIS TYPE OF GENREEEE')
+            // }
             setProfiles([...fetchedProfiles]);
         })();
     }, []);
+
+    // if(profiles.length == 0){
+    //     console.log('THERE ARE NO RESULTSSSS FOR THIS TYPE OF GENREEEE')
+    // }
+
+    console.log('lnegthh of resultsss    heree   ', profiles)
 
     const debouncedSwipe = debounce(function handleSwipe(type) {
         const [head, ...tail] = profiles;
@@ -89,11 +112,11 @@ const SwipeMovie = () => {
             //const isLoading = !tail.length;
             
             if (endofSurvey) {
-                Router.push("/home")
+                router.push(`/groups/${groupID}`)
                 notification.success({
                     message: "End of survey!",
-                    duration: 10,
-                    // put a button here that will show up when the condition above is met 
+                    duration: 1,
+                    // put a button here that will show up when the condition above is met
                 });
                 (async function getData() {
                    // need a blank one in here
@@ -107,33 +130,24 @@ const SwipeMovie = () => {
     }, 300);
 
     return (
-        <Layout style={{ minHeight: "100vh" }}>
-
-
-            <SideBar
-            viewSelected={viewSelected}
-            selectView={setViewSelected}
-            viewedProfiles={viewedProfiles}
-            />
-            <Layout>
-                <Content
-                    style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    }}
-                >
-                    <Spin spinning={!profiles.length}>
-                        <SwipeCards profiles={profiles} handleSwipe={debouncedSwipe} />
-                    </Spin>
-                </Content>
-            </Layout>
-
-            
-        </Layout>
-        
-
-        
+        <div className={classes.root}>
+            {/* <SideBar
+             viewSelected={viewSelected}
+             selectView={setViewSelected}
+             viewedProfiles={viewedProfiles}
+             /> */}
+            <Content
+                style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                }}
+            >
+                <Spin spinning={!profiles.length}>
+                <ProfileCards profiles={profiles} handleSwipe={debouncedSwipe} />
+                </Spin>
+            </Content>
+        </div>
     );
 }
 

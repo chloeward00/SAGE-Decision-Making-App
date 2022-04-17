@@ -90,7 +90,7 @@ const MovieDialog = ({ name, alias }) => {
             eventDate: '',
             eventTime: '',
             eventLocation: '',
-            eventName: 'add event name',    // this can be edited by the Admin only
+            eventName: docRef.id,    // this can be edited by the Admin only
             eventID: docRef.id,
             chosenLocation: '',          // this is for getting the location users want to check (TBD by Chloe)
             adminPicks: chipsSelected,

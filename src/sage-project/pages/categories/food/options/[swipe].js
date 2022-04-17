@@ -10,14 +10,26 @@ import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
 import Button from '@mui/material/Button';
+import { makeStyles } from '@mui/styles';
 
 
 const { Footer, Content } = Layout;
 const REMAINING_PROFILES_THRESHOLD = 2;
 
+const useStyles = makeStyles( theme => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#A9B5DD', 
+        minHeight: "100vh"
+    },
+}))
+
 const SwipeOptions = () => {
 
     const router = useRouter()
+    const classes = useStyles()
 
     const groupID = router.query.swipe.split('&')[0]
     const eventID = router.query.swipe.split('&')[1]
@@ -92,9 +104,10 @@ const SwipeOptions = () => {
             //const isLoading = !tail.length;
             
             if (endofSurvey) {
+                router.push(`/groups/${groupID}`)
                 notification.success({
                     message: "End of survey!",
-                    duration: 10,
+                    duration: 1,
                     // put a button here that will show up when the condition above is met 
                 });
                 (async function getData() {
@@ -109,13 +122,12 @@ const SwipeOptions = () => {
     }, 300);
 
     return (
-        <Layout style={{ minHeight: "100vh" }}>
-            <SideBar
-            viewSelected={viewSelected}
-            selectView={setViewSelected}
-            viewedProfiles={viewedProfiles}
-            />
-            <Layout>
+        <div className={classes.root}>
+            {/* <SideBar
+             viewSelected={viewSelected}
+             selectView={setViewSelected}
+             viewedProfiles={viewedProfiles}
+             /> */}
             <Content
                 style={{
                 display: "flex",
@@ -127,9 +139,7 @@ const SwipeOptions = () => {
                 <ProfileCards profiles={profiles} handleSwipe={debouncedSwipe} />
                 </Spin>
             </Content>
-            
-            </Layout>
-        </Layout>
+        </div>
     );
 }
 

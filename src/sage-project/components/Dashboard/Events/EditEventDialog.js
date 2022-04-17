@@ -79,7 +79,7 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
     console.log({ selectedDate: selectedDate && selectedDate.toLocaleDateString() })
     console.log({ selectedTime: selectedTime && selectedTime.toLocaleTimeString() })
 
-    console.log('ev deeetss  ' + eventDetails.eventName)
+    console.log('ev deeetss  ' + eventDate)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -136,13 +136,13 @@ const EditEventDialog = ({ groupID, eventID, eventDetails }) => {
                         <TextField
                             autoFocus
                             margin="dense"
+                            defaultValue={eventName}
                             id="group-name"
                             label="Event Name"
                             type="email"
                             fullWidth
                             variant="standard"
                             onChange={(e) => setUpdatedEventName(e.target.value)}
-                            // className={classes.textField}
                         />
                         <DatePicker
                             label="Event Date"

@@ -1,4 +1,3 @@
-
 import PageLayout from "../../../../components/Layout/PageLayout";
 import { useState, useEffect } from 'react';
 import fire from 'firebase/app'
@@ -108,81 +107,67 @@ const EventPage = () => {
         if(!mounted){
             fetchMatches();
             getLikedInfo();
-            // getUserInfo();
-            }
+        }
                 
-                 return () => {
-                     mounted = true
-                 }
-            
-            }, [])
+        return () => {
+            mounted = true
+        }
+    
+    }, [])      
 
-            
-        //setTopLikeDataInformation(likedData)
-      
-
-         
     const getLikedInfo = async () => {
             
-            
-                const doc =  fire
-                .firestore()
-                .collection('eventLikes')
-                .doc(eventID)
-                .collection("topPicks")
-                .doc(eventID)
-                .get()
-             
-               
-
-                if (!doc.exists){
-                    console.log('no profile saved in the database. Edit profile now')
-                } else {
-                     const dataObj = doc.data();
-                    setHighestLikeName(dataObj.maxVal) 
-                    
+        const doc =  fire
+        .firestore()
+        .collection('eventLikes')
+        .doc(eventID)
+        .collection("topPicks")
+        .doc(eventID)
+        .get()
+        
+        if (!doc.exists){
+            console.log('no profile saved in the database. Edit profile now')
+        } else {
+            const dataObj = doc.data();
+            setHighestLikeName(dataObj.maxVal) 
+        }
                   
-              
-                }
-                  
-            }
+    }
 
                  
     const getUserInfo = async () => {
-    
 
     // this makes a dictionary of like costa:5 , mcdonalds: 2
   
-    fire.firestore()
-    .collection("eventLikes")
-    .doc(eventID).onSnapshot((docSnapshot) => {
+        fire.firestore()
+        .collection("eventLikes")
+        .doc(eventID).onSnapshot((docSnapshot) => {
 
-        if (docSnapshot.exists) {
-            // process data
-          
-      const nameCounts = docSnapshot.data().ActivityLikes.reduce((acc, cur) => {
-        acc[cur.name] = (acc[cur.name] || 0) + 1;
-        return acc;
-      }, {});
-    
+            if (docSnapshot.exists) {
+                // process data
+            
+        const nameCounts = docSnapshot.data().ActivityLikes.reduce((acc, cur) => {
+            acc[cur.name] = (acc[cur.name] || 0) + 1;
+            return acc;
+        }, {});
+        
 
-      // counting how many time each activity appears in the list and adding it to a hook
-      setCount(nameCounts);
+        // counting how many time each activity appears in the list and adding it to a hook
+        setCount(nameCounts);
 
-      const max = 0;
-      const maxVari = "";
-    
-      // to get the the number 1 liked activity
-      for(let char in  nameCounts){
-        if( nameCounts[char]> max){
-            max =  nameCounts[char];
-            maxVari = char
+        const max = 0;
+        const maxVari = "";
+        
+        // to get the the number 1 liked activity
+        for(let char in  nameCounts){
+            if( nameCounts[char]> max){
+                max =  nameCounts[char];
+                maxVari = char
+            }
         }
-    }
 
 
       //const maxVari = Object.keys(likeCount).reduce((a, b) => likeCount[a] > likeCount[b] ? a : b);
-
 
         fire.firestore()
         .collection("eventLikes")
@@ -227,7 +212,7 @@ const EventPage = () => {
               solution:   topDataList})
             })
       }
-    }else {
+    }   else {
         console.log("Document does not exists")
       }
 
