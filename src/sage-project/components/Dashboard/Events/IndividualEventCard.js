@@ -34,39 +34,35 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
     }
 
     // checks if the current user is an admin and all members in the group have done the survey
-    const showMatchingButton = currentUserUID == eventAdmin && arrayEqual(membersPicked, groupMembersList)
+    // const showMatchingButton = currentUserUID == eventAdmin && arrayEqual(membersPicked, groupMembersList)
+    const showMatchingButton = arrayEqual(membersPicked, groupMembersList)
+    console.log('sdsdsfffff ', membersPicked, groupMembersList)
 
     const surveySwipe = eventCategory == 'activity' ? activitySwipeRoute : eventCategory == 'food' ? foodSwipeRoute : movieSwipeRoute
 
-    const handleSubmit = () => {
-        // getMatch({ groupID, eventID })
-        // router push here
-        // collection groupTopMatch should show
-    }
-
     return (
-        <Card sx={{ maxWidth: 600 }} elevation={3}>
-            <CardMedia
+        <Card sx={{ minWidth: 600 }} elevation={3}>
+            {/* <CardMedia
                 component="img"
                 height="140"
                 image={imageURL}        // this will be the result of the matching algorithm
                 alt={altText}
-            />
+            /> */}
             <CardHeader
                 title={eventName}
                 subheader={groupName}
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body1" color="text.secondary">
                     {"Category: " + eventCategory}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                {/* <Typography variant="body2" color="text.secondary">
                     {"Where: " + eventLocation}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
+                </Typography> */}
+                <Typography variant="body1" color="text.secondary">
                     {"When: " + eventDate}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body1" color="text.secondary">
                     {"Time: " + eventTime}
                 </Typography>
             </CardContent>
@@ -78,7 +74,7 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
                 : null
                 }
                 {showMatchingButton == true ?
-                    <MatchedAPDialog eventName={eventName} eventID={eventID} eventCategory={eventCategory}/> 
+                    <MatchedAPDialog eventName={eventName} eventID={eventID} groupID={groupID}/> 
                 : null
                 }
             </CardActions>

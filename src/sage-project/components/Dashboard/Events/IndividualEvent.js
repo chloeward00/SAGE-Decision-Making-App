@@ -10,7 +10,10 @@ import MatchedAPDialog from './MatchedActivityPlace';
 
 const useStyles = makeStyles((theme) => ({
     page: {
-        padding: '50px'
+        padding: '50px',
+        display: "flex", 
+        alignItems: "center",
+        justifyContent: "center"
     }
 }))
 
@@ -89,10 +92,6 @@ const IndividualEvent = ({ groupID, eventID, eventDetails, eventName }) => {
     return (
         <Container className={classes.page}>
             <IndividualEventCard event={individualEvent} membersPicked={membersPicked} groupID={groupID} currentUserUID={currentUserUID} groupMembersList={groupMembers}/>
-            {/* DO THE LOGIC FROM THE THING */}
-            <Button> SEE MATCHED EVENT </Button>
-            {/* <MatchedAPDialog eventName={eventName} eventID={eventID} eventCategory={eventCategory}/>  */}
-
         </Container>
     );
 }

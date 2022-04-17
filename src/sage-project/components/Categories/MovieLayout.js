@@ -36,10 +36,10 @@ const MovieLayout = () => {
             name: "Popular",
             alias: "popular"
         },
-        {
-            name: "Latest",
-            alias: "latest"
-        },
+        // {
+        //     name: "Latest",
+        //     alias: "latest"
+        // },
         {
             name: "Top Rated",
             alias: "top_rated"

@@ -15,12 +15,12 @@ export default function EventsCard({ events, groupID }) {
     return (
         <Card sx={{ maxWidth: 340 }} elevation={3}>
         
-            <CardMedia
+            {/* <CardMedia
                 component="img"
                 height="140"
                 image={imageURL}
                 alt={altText}
-            />
+            /> */}
             <CardHeader
                 title={eventName}
                 subheader={eventCategory}

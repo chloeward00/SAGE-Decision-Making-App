@@ -55,16 +55,24 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function MatchedAPDialog({ eventName, eventID, eventCategory }) {
+export default function MatchedAPDialog({ eventID, groupID }) {
     
     const [open, setOpen] = React.useState(false);
-    const [matchedEvent, setMatchedEvent] = useState({})
+    const [name, setName] = useState('')
+    const [location, setLocation] = useState('')
+    const [rating, setRating] = useState('')
+    const [reviewCount, setReviewCount] = useState('')
+    const [imageURL, setImageURL] = useState('')
+    const [category, setCategory] = useState('')
 
-    function capitalizeFirstLetter(string) {
-        return string[0].toUpperCase() + string.slice(1);
-    }
+    // function capitalizeFirstLetter(string) {
+    //     return string[0].toUpperCase() + string.slice(1);
+    // }
 
-    const categoryUP = capitalizeFirstLetter(eventCategory)
+    // const handleCat = () => {
+    //     const categoryUP = capitalizeFirstLetter(category)
+    //     return categoryUP
+    // }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -85,11 +93,32 @@ export default function MatchedAPDialog({ eventName, eventID, eventCategory }) {
             .doc(eventID)
             .onSnapshot((querySnapshot) => {
                 if(isMounted){
-                    setMatchedEvent(querySnapshot.data())
+                    setName(querySnapshot.data().solution.name)
+                    setLocation(querySnapshot.data().solution.location)
+                    setRating(querySnapshot.data().solution.rating)
+                    setReviewCount(querySnapshot.data().solution.reviewCount)
+                    setImageURL(querySnapshot.data().solution.imgUrl)
                 }
             });
         }
 
+        async function fetchCategory() {
+
+            await fire.firestore()
+            .collection("groupsCategory")
+            .doc(groupID)
+            .collection('events')
+            .doc(eventID)
+            .onSnapshot((querySnapshot) => {
+                if(isMounted){
+                    setCategory(querySnapshot.data().eventCategory)
+                }
+            });
+        }
+
+
+
+        fetchCategory()
         fetchMatchedData()
         
         return () => {
@@ -98,7 +127,7 @@ export default function MatchedAPDialog({ eventName, eventID, eventCategory }) {
 
     }, []);
 
-    console.log('checking map heree  ', matchedEvent)
+    console.log(category)
 
   return (
     <div>
@@ -111,7 +140,7 @@ export default function MatchedAPDialog({ eventName, eventID, eventCategory }) {
             open={open}
         >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-            {categoryUP}
+            {category.toUpperCase()}
         </BootstrapDialogTitle>
         <DialogContent>
         <Box display="flex" justifyContent="center" alignItems="center">
@@ -122,12 +151,12 @@ export default function MatchedAPDialog({ eventName, eventID, eventCategory }) {
                     width: 250,
                 }}
                 alt=""
-                src={matchedEvent.solution.imgUrl}
+                src={imageURL}
             />
         </Box>
             
             <Typography variant="h5" align='center' sx={{ paddingTop: 2}} gutterBottom>
-                    {matchedEvent.solution.name}
+                    {name}
             </Typography>
 
             {/* location */}
@@ -136,7 +165,7 @@ export default function MatchedAPDialog({ eventName, eventID, eventCategory }) {
                         {"Location:"}
                 </Typography>
                 <Typography variant="subtitle1">
-                        {matchedEvent.solution.location}
+                        {location}
                 </Typography>
             </Stack>
 
@@ -145,7 +174,7 @@ export default function MatchedAPDialog({ eventName, eventID, eventCategory }) {
                         {"Review Count:"}
                 </Typography>
                 <Typography variant="subtitle1">
-                        {matchedEvent.solution.reviewCount}
+                        {reviewCount}
                 </Typography>
             </Stack>
 
@@ -154,7 +183,7 @@ export default function MatchedAPDialog({ eventName, eventID, eventCategory }) {
                         {"Rating:"}
                 </Typography>
                 <Typography variant="subtitle1">
-                        {/* {matchedEvent.solution.rating} */}
+                        {rating}
                 </Typography>
             </Stack>
 
