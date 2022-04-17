@@ -107,7 +107,6 @@ const EventPage = () => {
         
         if(!mounted){
             fetchMatches();
-            topLikedData();
             getLikedInfo();
             // getUserInfo();
             }
@@ -118,23 +117,9 @@ const EventPage = () => {
             
             }, [])
 
-    const topLikedData = async () => {
-        
-      
-        await fire.firestore()
-        .collection("eventLikes")
-        .doc(eventID)
-        .onSnapshot((querySnapshot) => {
-            const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === highestLikeName)
-
-          
-            })
             
         //setTopLikeDataInformation(likedData)
       
-
-     
-        }
 
          
     const getLikedInfo = async () => {
@@ -171,11 +156,15 @@ const EventPage = () => {
     fire.firestore()
     .collection("eventLikes")
     .doc(eventID).onSnapshot((docSnapshot) => {
+
+        if (docSnapshot.exists) {
+            // process data
+          
       const nameCounts = docSnapshot.data().ActivityLikes.reduce((acc, cur) => {
         acc[cur.name] = (acc[cur.name] || 0) + 1;
         return acc;
       }, {});
-
+    
 
       // counting how many time each activity appears in the list and adding it to a hook
       setCount(nameCounts);
@@ -201,7 +190,7 @@ const EventPage = () => {
         .onSnapshot((querySnapshot) => {
         const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === maxVari)
         setTopLikeDataInformation(likedData)
-        console.log(likedData , "yahyah")
+     
         fire.firestore().collection("groupTopMatch")
         .doc(eventID)
         .set({
@@ -217,10 +206,8 @@ const EventPage = () => {
             maxVal: maxVari
         })
 
-       console.log(likeCount,"ruprup")
-       const names = Object.keys(pickHighest(likeCount, 2))
 
-    
+       const names = Object.keys(pickHighest(likeCount, 5))
 
       // this section is for the top 5, but right now I am just asking for 2 in the pickHighest function
        const topDataList = []
@@ -230,6 +217,8 @@ const EventPage = () => {
          .collection("eventLikes")
          .doc(eventID)
          .onSnapshot((querySnapshot) => {
+
+            
          topDataList.push(querySnapshot.data().ActivityLikes.find(d => d.name === names[i]))
        
          fire.firestore().collection("groupTopFiveMatch")
@@ -238,7 +227,11 @@ const EventPage = () => {
               solution:   topDataList})
             })
       }
-    })
+    }else {
+        console.log("Document does not exists")
+      }
+
+}) 
      
   }
   
