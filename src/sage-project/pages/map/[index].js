@@ -31,14 +31,15 @@ export default function Home() {
     const groupID = urlParams.split('&')[1]
     const groupAdmin = fire.auth().currentUser.uid
 
-    const [eventID, setEventID] = useState('')
+    // const [eventID, setEventID] = useState('')
+    const [location, setLocation] = useState({ lng: 53.38332887514035, lat: -6.255555152893067 });       // DCU LOCATION
 
-    const[location, setLocation] = useState({ lng: 53.38332887514035, lat: -6.255555152893067 });       // DCU LOCATION
+    const [groupList, setGroupList] = useState([])
 
     // const activitySwipeURL = '/categories/activity/' + groupID + '&' + eventID
     // const foodSwipeURL = '/categories/food/' + groupID + '&' + eventID
-
-    const getData = async () => {
+ 
+    const getData = () => {
       
         const db = fire.firestore();
         db.collection("LocationChoice")
@@ -49,21 +50,8 @@ export default function Home() {
         })
     }
 
-    useEffect(() => {
-        let mounted = false
-
-        if(!mounted){
-            getData()
-        }
-        
-        return () => {
-            mounted = true
-        }
-
-    }, [location])
-
-
     const createEvent = () => {
+        
         const docRef = fire.firestore()
         .collection('groupsCategory')
         .doc(groupID)
@@ -92,16 +80,51 @@ export default function Home() {
             console.log(err)
         })
 
+        updateUserEvents(docRef.id)
 
         urlCategory == 'activity' ? router.push('/categories/activity/' + groupID + '&' + docRef.id) : router.push('/categories/food/' + groupID + '&' + docRef.id)
     }
 
-    // const changeRoute = () => {
-    //     const activitySwipeURL = '/categories/activity/' + groupID + '&' + eventID
-    //     const foodSwipeURL = '/categories/food/' + groupID + '&' + eventID
+    const getGroupsList = () => {
+        
+        fire.firestore()
+        .collection('groups')
+        .doc(groupID)
+        .onSnapshot(snapshot => {
+            setGroupList(snapshot.data().groupMembers.map(member => member))
+        })
+    }
 
-    //     urlCategory == 'activity' ? router.push(activitySwipeURL) : router.push(foodSwipeURL)
-    // }
+    const updateUserEvents = (eventID) => {
+
+        for (const member of groupList){
+            fire.firestore()
+            .collection('users')
+            .doc(member)
+            .update({
+                userEvents: fire.firestore.FieldValue.arrayUnion(eventID)
+            })
+            .catch((err) => {
+                alert(err)
+                console.log(err)
+            })
+        }
+    }
+
+    useEffect(() => {
+        let mounted = false
+
+        if(!mounted){
+            getData()
+            getGroupsList()
+        }
+        
+        return () => {
+            mounted = true
+        }
+
+    }, [location])
+
 
     console.log(location)
 

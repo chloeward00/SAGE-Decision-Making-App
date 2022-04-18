@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import Link from '../../Link/Link';
 import MatchedAPDialog from './MatchedActivityPlace';
+import MatchedMovieDialog from './MatchedMovie';
 
 export default function IndividualEventCard({ event, groupID, membersPicked, currentUserUID, groupMembersList }) {
     
@@ -36,7 +37,12 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
     // checks if the current user is an admin and all members in the group have done the survey
     // const showMatchingButton = currentUserUID == eventAdmin && arrayEqual(membersPicked, groupMembersList)
     const showMatchingButton = arrayEqual(membersPicked, groupMembersList)
-    console.log('sdsdsfffff ', membersPicked, groupMembersList)
+
+    const movieDialog = eventCategory == 'movie'
+
+    console.log('show movie dailogg  ', movieDialog)
+
+    // console.log('sdsdsfffff ', membersPicked, groupMembersList)
 
     const surveySwipe = eventCategory == 'activity' ? activitySwipeRoute : eventCategory == 'food' ? foodSwipeRoute : movieSwipeRoute
 
@@ -73,9 +79,14 @@ export default function IndividualEventCard({ event, groupID, membersPicked, cur
                     </Link>
                 : null
                 }
-                {showMatchingButton == true ?
+                {/* {showMatchingButton == true ?
                     <MatchedAPDialog eventName={eventName} eventID={eventID} groupID={groupID}/> 
                 : null
+                } */}
+                {showMatchingButton == true ? 
+                    movieDialog == true ? <MatchedMovieDialog eventName={eventName} eventID={eventID} groupID={groupID}/> 
+                    : <MatchedAPDialog eventName={eventName} eventID={eventID} groupID={groupID}/> 
+                    : null
                 }
             </CardActions>
         </Card>

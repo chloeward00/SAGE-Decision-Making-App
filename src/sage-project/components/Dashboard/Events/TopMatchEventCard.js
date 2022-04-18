@@ -8,38 +8,42 @@ import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
 import Link from '../../Link/Link';
 
-export default function EventsCard({ events, groupID }) {
+export default function TopMatchedEventCard({ events }) {
     
-    const { eventName, eventTime, eventDate, eventLocation, eventCategory, eventID, imageURL, groupName, altText } = events;
+    const { imgUrl, name, } = events.solution;
+    const { eventID, groupID } = events;
 
+    // console.log('checking hereee  ', events.solution)
+ 
     return (
-        <Card sx={{ maxWidth: 340 }} elevation={3}>
-        
-            {/* <CardMedia
+        <Card sx={{ maxWidth: 340 }} elevation={3}>        
+            <CardMedia
                 component="img"
                 height="140"
-                image={imageURL}
-                alt={altText}
-            /> */}
-            <CardHeader
-                title={eventName}
-                subheader={eventCategory}
+                image={imgUrl}
+                // alt={altText}
             />
-            <CardContent>
-                {/* <Typography variant="body2" color="text.secondary">
+            <CardHeader
+                title={name}
+                // subheader={eventCategory}
+            />
+            {/* <CardContent>
+                <Typography variant="body2" color="text.secondary">
                     {"Where: " + eventLocation}
-                </Typography> */}
+                </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {"When: " + eventDate}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {"Time: " + eventTime}
                 </Typography>
-            </CardContent>
+            </CardContent> */}
             <CardActions>
                 <Link href={`/groups/${groupID}/event/${eventID}`} underline="none">
                     <Button size="small">OPEN</Button>
                 </Link>
+                {/* <Button size="small">OPEN</Button> */}
+
             </CardActions>
         </Card>
     );

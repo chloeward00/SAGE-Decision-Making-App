@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 500,
     },
     userNameContainer: {
-        padding: theme.spacing(3)
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(1)    
     },
     groupStats: {
         borderRadius: 10,
@@ -86,6 +87,11 @@ const useStyles = makeStyles((theme) => ({
         // marginTop: theme.spacing(2),
         marginBottom: theme.spacing(6)
     },
+    userEmail: {
+        // margin: theme.spacing(2)
+        // marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(4)
+    },
     userBioText: {
         color: theme.text.gray
     },
@@ -99,6 +105,8 @@ const useStyles = makeStyles((theme) => ({
 const SideProfile = () => {
 
     const userID = fire.auth().currentUser.uid;
+    const userEmail = fire.auth().currentUser.email;
+
     const [numGroups, setNumGroups] = useState('');
     const [numEvents, setNumEvents] = useState('');
     const [name, setName] = useState('');
@@ -196,6 +204,13 @@ const SideProfile = () => {
             <div className={classes.userNameContainer}>
                 <Typography variant="h5" align="center" className={classes.userName}>
                     {name}
+                </Typography>
+            </div>
+
+            {/* INSERT email HERE */}
+            <div className={classes.userEmail}>
+                <Typography align="center" className={classes.userBioText}>
+                {userEmail}
                 </Typography>
             </div>
 

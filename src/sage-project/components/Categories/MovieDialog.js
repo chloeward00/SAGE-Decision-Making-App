@@ -43,6 +43,7 @@ const MovieDialog = ({ name, alias }) => {
     const [open, setOpen] = useState(false)
     const [selectedType, setSelectedType] = useState('');
     const [chipsSelected, setChipsSelected] = useState([])
+    const [groupList, setGroupList] = useState([])
 
     const handleAddChip = (cat) => {
         if(!chipsSelected.includes(cat)){
@@ -106,12 +107,56 @@ const MovieDialog = ({ name, alias }) => {
             console.log(err)
         })
 
+        updateUserEvents(docRef.id)
         handleSubmit(docRef.id)
 
     }
+    
+    const getGroupsList = () => {
+        
+        fire.firestore()
+        .collection('groups')
+        .doc(groupID)
+        .onSnapshot(snapshot => {
+            setGroupList(snapshot.data().groupMembers.map(member => member))
+        })
+    }
+
+    const updateUserEvents = (eventID) => {
+
+        for (const member of groupList){
+            fire.firestore()
+            .collection('users')
+            .doc(member)
+            .update({
+                userEvents: fire.firestore.FieldValue.arrayUnion(eventID)
+            })
+            .catch((err) => {
+                alert(err)
+                console.log(err)
+            })
+        }
+    }
+
+    useEffect(() => {
+        
+        let mounted = false
+
+        if(!mounted){
+            getGroupsList()
+        }
+        
+        return () => {
+            mounted = true
+        }
+
+    },[])
 
     var allGenresList = require('../../../sage-api/tmbd/allGenresList.json');
     const genresList = allGenresList.genres
+
+    console.log('checking grouplist here  ', groupList)
+    
 
     return (
         <div>
