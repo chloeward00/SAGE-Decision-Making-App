@@ -179,7 +179,7 @@ const EventPage = () => {
         fire.firestore().collection("groupTopMatch")
         .doc(eventID)
         .set({
-              solution:  likedData})      
+              solution:  likedData, groupID: groupID, eventID: eventID})      
             })    
  
        fire.firestore().collection("eventLikes")
@@ -209,7 +209,7 @@ const EventPage = () => {
          fire.firestore().collection("groupTopFiveMatch")
          .doc(eventID)
          .set({
-              solution:   topDataList})
+              solution: topDataList})
             })
       }
     }   else {

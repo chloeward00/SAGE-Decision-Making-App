@@ -55,16 +55,14 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default function MatchedMovieDialog({ eventName, eventID, eventCategory }) {
+export default function MatchedMovieDialog({ eventID, groupID }) {
     
     const [open, setOpen] = React.useState(false);
-    const [matchedEvent, setMatchedEvent] = useState({}) 
-
-    function capitalizeFirstLetter(string) {
-        return string[0].toUpperCase() + string.slice(1);
-    }
-
-    const categoryUP = capitalizeFirstLetter(eventCategory)
+    const [name, setName] = useState('')
+    const [releasedDate, setReleasedDate] = useState('')
+    const [imageURL, setImageURL] = useState('')
+    const [overview, setoverview] = useState('') 
+    const [category, setCategory] = useState('')
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -73,7 +71,6 @@ export default function MatchedMovieDialog({ eventName, eventID, eventCategory }
     const handleClose = () => {
         setOpen(false);
     };
-
 
     useEffect(() => {
         let isMounted = true;
@@ -85,12 +82,29 @@ export default function MatchedMovieDialog({ eventName, eventID, eventCategory }
             .doc(eventID)
             .onSnapshot((querySnapshot) => {
                 if(isMounted){
-                    setMatchedEvent(querySnapshot.data())
-                    // console.log("matcheddd  ", querySnapshot.data())
+                    setName(querySnapshot.data().solution.name)
+                    setImageURL(querySnapshot.data().solution.imgUrl)
+                    setReleasedDate(querySnapshot.data().solution.releaseDate)
+                    setoverview(querySnapshot.data().solution.overView)
                 }
             });
         }
 
+        async function fetchCategory() {
+
+            await fire.firestore()
+            .collection("groupsCategory")
+            .doc(groupID)
+            .collection('events')
+            .doc(eventID)
+            .onSnapshot((querySnapshot) => {
+                if(isMounted){
+                    setCategory(querySnapshot.data().eventCategory)
+                }
+            });
+        }
+
+        fetchCategory()
         fetchMatchedData()
         
         return () => {
@@ -99,74 +113,64 @@ export default function MatchedMovieDialog({ eventName, eventID, eventCategory }
 
     }, []);
 
-    console.log('checking map heree  ', matchedEvent)
+    console.log(category)
 
   return (
-    <div>
-        <Button size="small" onClick={handleClickOpen}>
-            Start Matching
-        </Button>
-            <BootstrapDialog
-            onClose={handleClose}
-            aria-labelledby="customized-dialog-title"
-            open={open}
-        >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-            {categoryUP}
-        </BootstrapDialogTitle>
-        <DialogContent dividers>
-        <Box display="flex" justifyContent="center" alignItems="center">
-            <Box
-                component="img"
-                sx={{
-                    height: 400,
-                    width: 250,
-                }}
-                alt=""
-                src={matchedEvent.solution.imgUrl}
-            />
-        </Box>
-            
-            <Typography variant="h5" align='center' sx={{ paddingTop: 2}} gutterBottom>
-                    {matchedEvent.solution.name}
-            </Typography>
-
-            {/* location */}
-            <Stack spacing={1} direction="row" >
-                <Typography variant="subtitle1" sx={{ fontWeight: 600}}>
-                        {"Location:"}
-                </Typography>
-                <Typography variant="subtitle1">
-                        {matchedEvent.solution.location}
-                </Typography>
-            </Stack>
-
-            <Stack spacing={1} direction="row"  >
-                <Typography variant="subtitle1"  sx={{ fontWeight: 600}}>
-                        {"Rating:"}
-                </Typography>
-                <Typography variant="subtitle1">
-                        {matchedEvent.solution.rating}
-                </Typography>
-            </Stack>
-
-            <Stack spacing={1} direction="row" >
-                <Typography variant="subtitle1"  sx={{ fontWeight: 600}}>
-                        {"Review Count:"}
-                </Typography>
-                <Typography variant="subtitle1">
-                        {matchedEvent.solution.reviewCount}
-                </Typography>
-            </Stack>
-            
-
-        </DialogContent>
-        <DialogActions>
-            <Button autoFocus onClick={handleClose}>
-                Save changes
+        <div>
+            <Button size="small" onClick={handleClickOpen}>
+                See matched event
             </Button>
-        </DialogActions>
-        </BootstrapDialog>
-    </div>
+                <BootstrapDialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+            >
+            <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                {category.toUpperCase()}
+            </BootstrapDialogTitle>
+            <DialogContent>
+            <Box display="flex" justifyContent="center" alignItems="center">
+                <Box
+                    component="img"
+                    sx={{
+                        height: 400,
+                        width: 250,
+                    }}
+                    alt=""
+                    src={imageURL}
+                />
+            </Box>
+                
+                <Typography variant="h5" align='center' sx={{ paddingTop: 2}} gutterBottom>
+                        {name}
+                </Typography>
+
+                {/* location */}
+                <Stack spacing={1} direction="row" >
+                    <Typography variant="subtitle1" sx={{ fontWeight: 600}}>
+                            {"Overview:"}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                            {overview}
+                    </Typography>
+                </Stack>
+
+                <Stack spacing={1} direction="row" >
+                    <Typography variant="subtitle1"  sx={{ fontWeight: 600}}>
+                            {"Released Date:"}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                            {releasedDate}
+                    </Typography>
+                </Stack>
+
+            </DialogContent>
+            <DialogActions>
+                <Button autoFocus onClick={handleClose}>
+                    Close
+                </Button>
+            </DialogActions>
+            </BootstrapDialog>
+        </div>
     );
 }

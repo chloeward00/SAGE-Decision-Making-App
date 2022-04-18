@@ -40,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
     date: {
         borderStyle: "solid",
         borderWidth: 1,
-        borderColor: '#C0C0C0',
-        // borderColor: theme.colours.rose,
+        // borderColor: ,
+        borderColor: theme.colours.lightBlue,
         borderRadius: 15,
         padding: "7px 15px 7px 15px",
         display: 'flex',
@@ -60,12 +60,11 @@ const useStyles = makeStyles((theme) => ({
     },
     dateText: {
         marginLeft: 10,
-        // color: theme.colours.rose
-        color: '#555555'
+        color: theme.colours.lightBlue
     },
     dateIcon: {
         color: '#555555',
-        // color: theme.colours.rose
+        color: theme.colours.lightBlue
     },
     lowerText: {
         color: theme.text.darkGray,

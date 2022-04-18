@@ -65,15 +65,6 @@ export default function MatchedAPDialog({ eventID, groupID }) {
     const [imageURL, setImageURL] = useState('')
     const [category, setCategory] = useState('')
 
-    // function capitalizeFirstLetter(string) {
-    //     return string[0].toUpperCase() + string.slice(1);
-    // }
-
-    // const handleCat = () => {
-    //     const categoryUP = capitalizeFirstLetter(category)
-    //     return categoryUP
-    // }
-
     const handleClickOpen = () => {
         setOpen(true);
     };

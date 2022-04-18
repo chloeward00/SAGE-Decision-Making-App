@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '20px'
     },
     sampleText: {
-        backgroundColor: 'pink',
+        backgroundColor: theme.colours.rose,
         padding: '4px',
         borderRadius: 10,
         marginLeft: '-60px',
