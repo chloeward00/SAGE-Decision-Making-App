@@ -10,6 +10,7 @@ import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
 import { makeStyles } from '@mui/styles';
+import Router from "next/router";
 
 
 const { Footer, Content } = Layout;
@@ -53,6 +54,15 @@ const SwipeOptions = () => {
             // setViewedProfiles(getLocalViewedProfiles());
             const fetchedProfiles = await getYELPData({ categoriesAdmin, longitudeValue, latitudeValue });
             setProfiles([...fetchedProfiles]);
+            if(fetchedProfiles.length == 0){
+                notification.error({
+                    message: "No Data for this activity available!",
+                    duration: 5,
+                    
+                })
+                router.push(`/groups/${groupID}`)
+                
+            }
         })();
     }, []);
 
@@ -103,7 +113,7 @@ const SwipeOptions = () => {
             //const isLoading = !tail.length;
             
             if (endofSurvey) {
-                router.push(`/groups/${groupID}`)
+                Router.push(`/groups/${groupID}`)
                 notification.success({
                     message: "End of survey!",
                     duration: 1,

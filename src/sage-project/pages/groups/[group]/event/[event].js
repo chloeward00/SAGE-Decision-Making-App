@@ -173,6 +173,8 @@ const EventPage = () => {
         .collection("eventLikes")
         .doc(eventID)
         .onSnapshot((querySnapshot) => {
+
+            
         const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === maxVari)
         setTopLikeDataInformation(likedData)
      
@@ -180,8 +182,10 @@ const EventPage = () => {
         .doc(eventID)
         .set({
               solution:  likedData})      
-            })    
- 
+            })   
+            
+            
+        
        fire.firestore().collection("eventLikes")
        .doc(eventID)
        .collection("topPicks")
@@ -215,7 +219,7 @@ const EventPage = () => {
     }   else {
         console.log("Document does not exists")
       }
-
+    
 }) 
      
   }
