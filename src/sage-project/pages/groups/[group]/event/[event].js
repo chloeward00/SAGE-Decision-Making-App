@@ -173,6 +173,8 @@ const EventPage = () => {
         .collection("eventLikes")
         .doc(eventID)
         .onSnapshot((querySnapshot) => {
+
+            
         const likedData = querySnapshot.data().ActivityLikes.find(d => d.name === maxVari)
         setTopLikeDataInformation(likedData)
      
@@ -215,7 +217,7 @@ const EventPage = () => {
     }   else {
         console.log("Document does not exists")
       }
-
+    
 }) 
      
   }

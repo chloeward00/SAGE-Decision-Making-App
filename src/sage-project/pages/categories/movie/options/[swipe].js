@@ -1,6 +1,6 @@
 import "antd/dist/antd.css";
 import { useEffect, useState } from "react";
-import { notification, Spin, Layout } from "antd";
+import { notification, Spin, Layout, Alert } from "antd";
 import { getProfilesData } from "../../../../components/SwipeMovie/network/index";
 import SideBar from "../../../../components/SwipeMovie/Cards/Sidebar";
 import { debounce, getLocalViewedProfiles, setLocalViewedProfiles } from "../../../../components/SwipeMovie/utilities";
@@ -13,7 +13,6 @@ import 'firebase/auth'
 import { useRouter } from "next/router";
 import { getMovieData } from "../../../../hooks/tmbd-api/useGenreSearch";
 import { Row, Button, Modal, Space, Typography } from "antd";
-import Router from "next/router";
 import { makeStyles } from '@mui/styles';
 
 
@@ -52,9 +51,16 @@ const SwipeMovie = () => {
         (async function getData() {
             // setViewedProfiles(getLocalViewedProfiles());
             const fetchedProfiles = await getMovieData({movieType, genres});
-            // if(fetchedProfiles.length == 0){
-            //     console.log('THERE ARE NO RESULTSSSS FOR THIS TYPE OF GENREEEE')
-            // }
+             if(fetchedProfiles.length == 0){
+                notification.error({
+                    message: "No Data for this genre available!",
+                    duration: 5,
+                    
+                })
+
+                router.push(`/groups/${groupID}`)
+                
+            }
             setProfiles([...fetchedProfiles]);
         })();
     }, []);
@@ -115,9 +121,10 @@ const SwipeMovie = () => {
                 router.push(`/groups/${groupID}`)
                 notification.success({
                     message: "End of survey!",
-                    duration: 1,
+                    duration: 10,
                     // put a button here that will show up when the condition above is met
                 });
+                
                 (async function getData() {
                    // need a blank one in here
                     setProfiles([]);
@@ -130,23 +137,39 @@ const SwipeMovie = () => {
     }, 300);
 
     return (
-        <div className={classes.root}>
-            {/* <SideBar
-             viewSelected={viewSelected}
-             selectView={setViewSelected}
-             viewedProfiles={viewedProfiles}
-             /> */}
-            <Content
-                style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                }}
-            >
-                <Spin spinning={!profiles.length}>
-                <ProfileCards profiles={profiles} handleSwipe={debouncedSwipe} />
-                </Spin>
-            </Content>
+
+        <div>
+
+         {profiles.length == 0 ? 
+             <Alert
+             message="Warning Text"
+             type="warning"
+             action={
+               <Space>
+                <Button size="small" type="ghost">
+                 Done
+                </Button>
+               </Space>
+             }
+             closable
+            /> : 
+           <div className={classes.root}>
+        
+           <Content
+               style={{
+               display: "flex",
+               justifyContent: "center",
+               alignItems: "center",
+               }}
+           >
+               <Spin spinning={!profiles.length}>
+               <ProfileCards profiles={profiles} handleSwipe={debouncedSwipe} />
+               </Spin>
+           </Content>
+       </div>
+         }
+
+         
         </div>
     );
 }

@@ -53,6 +53,16 @@ const SwipeOptions = () => {
         (async function getData() {
             // setViewedProfiles(getLocalViewedProfiles());
             const fetchedProfiles = await getYELPData({ categoriesAdmin, latitudeValue, longitudeValue});
+            if(fetchedProfiles.length == 0){
+                notification.error({
+                    message: "No Data for this category available!",
+                    duration: 5,
+                    
+                })
+
+                router.push(`/groups/${groupID}`)
+                
+            }
             setProfiles([...fetchedProfiles]);
         })();
     }, []);

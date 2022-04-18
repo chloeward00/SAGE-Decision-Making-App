@@ -83,6 +83,8 @@ export default function MatchedAPDialog({ eventID, groupID }) {
             .collection("groupTopMatch")
             .doc(eventID)
             .onSnapshot((querySnapshot) => {
+                if (querySnapshot.exists) {
+                
                 if(isMounted){
                     setName(querySnapshot.data().solution.name)
                     setLocation(querySnapshot.data().solution.location)
@@ -90,6 +92,10 @@ export default function MatchedAPDialog({ eventID, groupID }) {
                     setReviewCount(querySnapshot.data().solution.reviewCount)
                     setImageURL(querySnapshot.data().solution.imgUrl)
                 }
+
+            } else {
+          console.log("Document does not exists")
+          }
             });
         }
 
@@ -101,9 +107,14 @@ export default function MatchedAPDialog({ eventID, groupID }) {
             .collection('events')
             .doc(eventID)
             .onSnapshot((querySnapshot) => {
-                if(isMounted){
-                    setCategory(querySnapshot.data().eventCategory)
-                }
+
+                if (querySnapshot.exists) {
+                    if(isMounted){
+                        setCategory(querySnapshot.data().eventCategory)
+                    }
+                  } else {
+                    console.log("Document does not exists")
+                  }
             });
         }
 
