@@ -12,6 +12,7 @@ const gradient4 = "#B06AB3"; // rgba(176 , 106, 179, 1)
 const useStyles = makeStyles((theme) => ({
     card: {
         maxWidth: '100%',
+        minHeight: '100%',
         backgroundColor: '#86A5D1'
     },
     media: {

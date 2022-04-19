@@ -4,7 +4,7 @@ const url = 'https://images.unsplash.com/photo-1461151304267-38535e780c79?ixlib=
 
 const title = 'MOVIES';
 
-const caption = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris molestie sollicitudin auctor. Praesent faucibus venenatis dictum.'
+const caption = 'Choose from our many available genres to watch a movie with your friends such as Romance, Comedy, Action, and many more!'
 
 const alt = 'movie setting';
 

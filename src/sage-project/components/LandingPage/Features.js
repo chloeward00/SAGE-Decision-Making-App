@@ -24,7 +24,7 @@ const FeatureCard = () => {
     return (  
         <Container maxWidth="lg" className={classes.featureContainer}>
             <Typography variant="h4" align="center" className={classes.featureTitle}>
-                {"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+                {"Wide range of Movies, Activities, and Restaurants to choose from"}
             </Typography>
             <Grid container spacing={8}>
                 {/* Movies */}

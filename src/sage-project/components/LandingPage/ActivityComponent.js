@@ -4,7 +4,7 @@ const url = 'https://images.unsplash.com/photo-1573811363987-13f5bb00dec1?ixlib=
 
 const title = 'ACTIVITIES';
 
-const caption = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris molestie sollicitudin auctor. Praesent faucibus venenatis dictum.'
+const caption = `Can't decide what activity to do with your friends? SAGE has a wide range of activities to choose from such as sports, museums, or any indoor or outdoor activities!`
 
 const alt = 'rock climbing';
 

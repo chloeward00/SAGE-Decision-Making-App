@@ -2,7 +2,7 @@ import { makeStyles } from '@mui/styles';
 import { Typography, Button, Container, Box } from '@mui/material';
 
 const imageURL = 'https://images.unsplash.com/photo-1554034483-04fda0d3507b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-const caption = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris molestie sollicitudin auctor. Praesent faucibus venenatis dictum.'
+const caption = 'A social decision making app that makes decision making with your friends faster and more enjoyable!'
 
 // vice city
 const gradient1 = "#3494E6";
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     title: {
         color: '#fff',
         fontWeight: 450,
-        fontSize: '112px',
+        fontSize: '120px',
         [theme.breakpoints.down('sm')]: {
             fontSize: '76px',
         }

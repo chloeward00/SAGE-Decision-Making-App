@@ -4,7 +4,7 @@ const url = 'https://images.unsplash.com/photo-1541544537156-7627a7a4aa1c?ixlib=
 
 const title = 'RESTAURANTS';
 
-const caption = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris molestie sollicitudin auctor. Praesent faucibus venenatis dictum.'
+const caption = 'Need to find a place to eat with friends or by yourself? SAGE has a wide range of restaurants and cafes to choose from to fit your dietary needs.'
 
 const alt = 'burger fries';
 
