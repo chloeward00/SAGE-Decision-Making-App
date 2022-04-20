@@ -2,15 +2,25 @@ import fire from 'firebase/app'
 import 'firebase/auth'
 import createUserDocument from './functions';
 
-const config = {
-    apiKey: "AIzaSyCwaFXi8bFlFlupg4YSy5nmiZSIrhakcdI",
-    authDomain: "sage-decision-making.firebaseapp.com",
-    projectId: "sage-decision-making",
-    storageBucket: "sage-decision-making.appspot.com",
-    messagingSenderId: "100306809687",
-    appId: "1:100306809687:web:84db2951d6590ce5f14412",
-    measurementId: "G-JC0PR1NJ98"
-}
+// const config = {
+//     apiKey: "AIzaSyCwaFXi8bFlFlupg4YSy5nmiZSIrhakcdI",
+//     authDomain: "sage-decision-making.firebaseapp.com",
+//     projectId: "sage-decision-making",
+//     storageBucket: "sage-decision-making.appspot.com",
+//     messagingSenderId: "100306809687",
+//     appId: "1:100306809687:web:84db2951d6590ce5f14412",
+//     measurementId: "G-JC0PR1NJ98"
+// }
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCx0iOI6aOtZ9O66mY7D4ueHgWv9kmirCU",
+    authDomain: "sage-decision-making-app.firebaseapp.com",
+    projectId: "sage-decision-making-app",
+    storageBucket: "sage-decision-making-app.appspot.com",
+    messagingSenderId: "1002751213097",
+    appId: "1:1002751213097:web:4bb357eb40d588dc6da638",
+    measurementId: "G-RV335ZG9LN"
+};
 
 class Firebase {
 
