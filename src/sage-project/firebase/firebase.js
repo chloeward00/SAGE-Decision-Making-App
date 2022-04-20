@@ -12,7 +12,7 @@ import createUserDocument from './functions';
 //     measurementId: "G-JC0PR1NJ98"
 // }
 
-const firebaseConfig = {
+const config = {
     apiKey: "AIzaSyCx0iOI6aOtZ9O66mY7D4ueHgWv9kmirCU",
     authDomain: "sage-decision-making-app.firebaseapp.com",
     projectId: "sage-decision-making-app",
