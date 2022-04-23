@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import IndividualEvent from "../../../../components/Dashboard/Events/IndividualEvent";
 import EventsBanner from "../../../../components/Dashboard/Events/EventsBanner";
 import Comments from "../../../../components/Dashboard/Comments/Comments";
+import 'firebase/analytics';
 
 const EventPage = () => {
 
@@ -29,6 +30,17 @@ const EventPage = () => {
     const [highestLikeName, setHighestLikeName] = useState();
     const [topLikedDataInformation, setTopLikeDataInformation] = useState();
     
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('UserVisitedEventPage')
+      }
+
+     fire.analytics().setCurrentScreen('EventPage');
+     fire.analytics().logEvent('UserEvent_event', {
+            
+                
+         id: fire.auth().currentUser.uid
+       });
+
 
     const pickHighest = (obj, num = 1) => {
         const requiredObj = {};

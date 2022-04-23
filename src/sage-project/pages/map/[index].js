@@ -6,6 +6,7 @@ import fire from 'firebase/app'
 import { makeStyles, useTheme } from '@mui/styles';
 import { Button, Stack, Typography } from "@mui/material";
 import { useRouter } from 'next/router'
+import 'firebase/analytics';
 
 const MapLeafletDynamic = dynamic(() => import("../../components/Map/MapLeaflet.js"),{
     ssr: false,
@@ -39,6 +40,24 @@ export default function Home() {
     // const activitySwipeURL = '/categories/activity/' + groupID + '&' + eventID
     // const foodSwipeURL = '/categories/food/' + groupID + '&' + eventID
  
+    useEffect(() => {
+        fire.analytics().logEvent('SignUpPage')
+     })
+
+
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('UserVisitedMapPage')
+      }
+
+     fire.analytics().setCurrentScreen('MapPage');
+     fire.analytics().logEvent('UserCreatingEvent')
+     fire.analytics().logEvent('AdminPickingActivityLocation', {
+            
+                
+         id: fire.auth().currentUser.uid
+       });
+
+
     const getData = () => {
       
         const db = fire.firestore();

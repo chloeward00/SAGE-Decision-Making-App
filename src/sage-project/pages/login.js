@@ -6,6 +6,8 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import LeftGrid from '../components/Authentication/LeftGrid';
+import 'firebase/analytics'
+import fire from 'firebase/app'
 
 
 const caption = "Welcome back! To keep connected with us please login with your personal info. ";
@@ -72,6 +74,19 @@ const Login = () => {
 
     // const [errorMessage, setErrorMessage] = useState('')
 
+    useEffect(() => {
+        fire.analytics().logEvent('UserGroupPage')
+     })
+
+
+    fire.analytics().setCurrentScreen('UserLogin');
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('UserVisitedLoginPage')
+      }
+
+      fire.analytics().setCurrentScreen('LoginPage');
+     fire.analytics().logEvent('UserLoginEvent')
+   
     useEffect(() => {
         if (firebase.isLoggedIN()) {
             Router.push("/home");

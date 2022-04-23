@@ -6,7 +6,7 @@ import 'firebase/auth'
 import { useRouter } from "next/router";
 import { makeStyles, useTheme } from '@mui/styles';
 import { Paper, TextField, Typography, Grid, Button, Container, List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Box, InputAdornment } from '@mui/material';
-
+import 'firebase/analytics';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,6 +84,13 @@ const Comments = () => {
         .collection("comments")
         .doc()
         
+        fire.analytics().logEvent('UserPostedAComment', {
+            
+                
+            id: fire.auth().currentUser.uid
+          });
+
+          
         docRef.set({
             text: comment,
             userName: name,
