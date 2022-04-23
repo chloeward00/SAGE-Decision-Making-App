@@ -10,7 +10,7 @@ import 'firebase/firestore';
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from '@mui/styles';
 import PageLayout from "../../../components/Layout/PageLayout";
-
+import 'firebase/analytics';
 
 const buttonTitle = "See members";
 
@@ -41,6 +41,24 @@ const Group = () => {
     const groupID = router.query.group
 
     const [groupName, setGroupName] = useState('');
+
+
+    useEffect(() => {
+        fire.analytics().logEvent('UserGroupPage')
+     })
+
+
+    fire.analytics().setCurrentScreen('UserGroupPage');
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('UserVisitedGroupPage')
+      }
+     fire.analytics().setCurrentScreen('UserGroupPage');
+     fire.analytics().logEvent('UserGroupEvent')
+     fire.analytics().logEvent('UserVisitGroup_event', {
+            
+                
+         id: fire.auth().currentUser.uid
+       });
 
     useEffect(() => {
 

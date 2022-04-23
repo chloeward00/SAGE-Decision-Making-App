@@ -3,10 +3,12 @@ import { Paper, TextField, Typography, Grid, Button} from '@mui/material';
 import Link from '../components/Link/Link';
 import { message } from 'antd';
 import firebase from "./../firebase/firebase";
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import Router from "next/router";
 import LeftGrid from '../components/Authentication/LeftGrid';
 import { useForm } from 'react-hook-form';
+import fire from 'firebase/app'
+import 'firebase/analytics';
 
 
 const caption = "No worries! We will help you reset and create a new password!";
@@ -77,6 +79,18 @@ const ResetPassword = () => {
         emailaddress: ''
     })
   
+
+    useEffect(() => {
+        fire.analytics().logEvent('ResetPass')
+     })
+
+
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('UserVisitedResetPasswordPage')
+      }
+     fire.analytics().setCurrentScreen('ResetPasswordPage');
+     fire.analytics().logEvent('UserResetPassword')
+
     async function doChange(values) {
         // message.loading({ key: "Reset Password", content: "Changing password" });
         alert("a link has been sent to your email")

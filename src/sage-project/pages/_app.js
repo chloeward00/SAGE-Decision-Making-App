@@ -10,6 +10,7 @@ import "../styles/style.scss";
 import "../styles/component.module.css";
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
+import { analytics }from "../firebase/utils";
 import { Spin } from "antd";
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
@@ -29,6 +30,7 @@ export default function MyApp(props) {
           
           await firebase.isInitialized();
           setFirebaseInitialized(true);
+          analytics();
          
         }
         fetchData();

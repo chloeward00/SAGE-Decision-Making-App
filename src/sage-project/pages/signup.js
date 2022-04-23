@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import LeftGrid from '../components/Authentication/LeftGrid';
 import { useRouter } from 'next/router'
+import fire from 'firebase/app'
+import 'firebase/analytics';
 
 const caption = "Enter your personal details and start planning with us!";
 const createAccount = "Create account";
@@ -75,6 +77,17 @@ const SignUp = () => {
         }
     });
     
+    useEffect(() => {
+        fire.analytics().logEvent('SignUpPage')
+     })
+
+
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('UserVisitedSignUpPage')
+      }
+    fire.analytics().setCurrentScreen('SignUpPage');
+    fire.analytics().logEvent('UserSignedUp')
+
     async function doSignup(values) {
         try {
             await firebase.register(values);

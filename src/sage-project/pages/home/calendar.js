@@ -10,6 +10,9 @@ import styled from "@emotion/styled";
 import PageLayout from "../../components/Layout/PageLayout";
 import { makeStyles, useTheme } from '@mui/styles';
 import { Container } from "@mui/material";
+//import { analytics }from "../firebase/utils";
+import 'firebase/analytics';
+
 
 export const allEvents = [];
 
@@ -23,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Calendar = () => {
 
+    
+
     const classes = useStyles()
 
     const calendarRef = useRef(null);
@@ -32,6 +37,17 @@ const Calendar = () => {
         allEvents.splice(index, 1);
         setData([...allEvents]);
     };
+
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('CalendarEvent')
+      }
+
+     fire.analytics().setCurrentScreen('CalendarPage');
+     fire.analytics().logEvent('CalendarAdd_event', {
+            
+                
+         id: fire.auth().currentUser.uid
+       });
 
     const handleDateClick = async (DateClickArg) => {
 

@@ -8,6 +8,7 @@ import { message } from 'antd';
 import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
+import 'firebase/analytics';
 
 const useStyles = makeStyles( theme => ({
     textField: {
@@ -66,6 +67,24 @@ const ChangeEmail = () => {
 
     const userID = router.query.email
     console.log('user email hereee   ' + userID)
+
+
+    useEffect(() => {
+        fire.analytics().logEvent('SignUpPage')
+     })
+
+
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('UserVisitedChangeEmailPage')
+      }
+
+    fire.analytics().setCurrentScreen('ChangeEmailPage');
+    fire.analytics().logEvent('UserChangeEmail')
+
+
+     fire.analytics().logEvent('UserChangeEmail_event',{      
+         id: userID
+       });
 
     const updateUserEmail = (newemail) => {
 

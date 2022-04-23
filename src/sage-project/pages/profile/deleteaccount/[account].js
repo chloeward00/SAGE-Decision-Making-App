@@ -6,6 +6,8 @@ import fire from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
 import Stack from '@mui/material/Stack';
+import 'firebase/analytics';
+import { useEffect} from 'react';
 
 const useStyles = makeStyles( theme => ({
     textField: {
@@ -73,6 +75,21 @@ const DeleteAccount = () => {
         await firebase.deleteAccount()
         router.push("/")
     }
+
+    useEffect(() => {
+        fire.analytics().logEvent('DeleteAccount')
+     })
+
+     fire.analytics().setCurrentScreen('DeleteAccountPage'); 
+    if (typeof window !== "undefined") {
+        fire.analytics().logEvent('UserVisitedDeletedAccountPage')
+      }
+     fire.analytics().logEvent('UserDeletedAccountPage')
+ 
+     fire.analytics().logEvent('UserDeletedAccount_event', {       
+                
+         id: fire.auth().currentUser.uid
+       });
 
     const deleteUserDoc = () => {
 
