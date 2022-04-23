@@ -18,14 +18,20 @@ lint:
 
 build:
     stage: build
+        before_script:
+        - echo "installing modules and dependencies..."
+        - cd src/sage-project
+        - npm ci
     script:
       - echo "building...."
-      - cd src/sage-project
       - npm run build
 
 integration:
     stage: integration
+    before_script:
+      - echo "installing modules and dependencies..."
+      - cd src/sage-project
+      - npm ci
     script:
       - echo "running tests"
-      - cd src/sage-project
       - npm run test
