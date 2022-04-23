@@ -9,19 +9,19 @@ stages:
 lint:
     stage: lint
     before_script:
-        - echo "installing modules and dependencies..."
-        - cd src/sage-project
-        - npm ci
+      - echo "installing modules and dependencies..."
+      - cd src/sage-project
+      - npm ci
     script:
-        - echo "running lint tests"
-        - npm run lint
+      - echo "running lint tests"
+      - npm run lint
 
 build:
     stage: build
-        before_script:
-        - echo "installing modules and dependencies..."
-        - cd src/sage-project
-        - npm ci
+    before_script:
+      - echo "installing modules and dependencies..."
+      - cd src/sage-project
+      - npm ci
     script:
       - echo "building...."
       - npm run build
