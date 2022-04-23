@@ -18,11 +18,9 @@ lint_tests:
 
 build:
     stage: build
-    before_script:
-        - echo "checking project directory"
-        - cd src/sage-project
     script:
       - echo "building...."
+      - cd src/sage-project
       - npm run build
 
 integration_tests:
@@ -31,4 +29,6 @@ integration_tests:
         - echo "checking project directory"
         - cd src/sage-project
     script:
+      - echo "running tests"
+      - cd src/sage-project
       - npm run test
