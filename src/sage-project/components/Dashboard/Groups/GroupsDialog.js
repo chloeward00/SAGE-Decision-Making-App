@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { TextField } from '@mui/material';
+import { TextField, Snackbar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useState, useEffect } from 'react';
 import 'firebase/firestore';
@@ -17,7 +17,7 @@ import fire from 'firebase/app'
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
-
+import SuccessSnackbar from '../../SnackBar/SnackBar';
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -59,18 +59,14 @@ BootstrapDialogTitle.propTypes = {
 const CreateGroupDialog = ({ buttonTitle }) => {
     
     const classes = useStyles();
+    const theme = useTheme();
     
     const [open, setOpen] = useState(false);
-    const theme = useTheme();
+    const [openSnackBar, setOpenSnackBar] = useState(false);
+    const [groupError, setGroupError] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     // these are the fields that group document has
     const [groupName, setGroupName] = useState('');
@@ -79,6 +75,36 @@ const CreateGroupDialog = ({ buttonTitle }) => {
     const [groupMembers, setGroupMembers] = useState([fire.auth().currentUser.uid]); // CHANGE THIS TO UID
     // this userGroups is a field under users collection -> this gets updated once a user creates a group.
     const [userGroups, setUserGroups] = useState([]);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setGroupName('')
+    };
+
+    const handleSnackBar = () => {
+        if (groupName == '') {
+            setErrorMessage('Enter a group name')
+            setGroupError(true)
+        } else {
+            createGroup()
+            setErrorMessage('')
+            setGroupName('')
+            setGroupError(false)
+            setOpenSnackBar(true)
+        }
+    }
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackBar(false);
+        setOpen(false);
+    };
 
     // this creates a new document in the groups collection. 
     // this represents each group created in the database.
@@ -120,7 +146,10 @@ const CreateGroupDialog = ({ buttonTitle }) => {
         }
 
         updateUserGroup();
-      }, [userGroups]);
+    }, [userGroups]);
+    
+
+    console.log('sjahsjs ', groupName)
 
     return (
         <div>
@@ -151,6 +180,9 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                     label="Group Name"
                     fullWidth
                     variant="standard"
+                    required
+                    error={groupError}
+                    helperText={errorMessage}
                     className={classes.textField}
                     onChange={(e) => setGroupName(e.target.value)}
                 />
@@ -170,12 +202,13 @@ const CreateGroupDialog = ({ buttonTitle }) => {
                 <Button autoFocus onClick={handleClose}>
                     {"Cancel"}
                 </Button>
-                <Button autoFocus onClick={ () => {
-                    createGroup()
-                    handleClose()
+                <Button autoFocus onClick={() => {
+                    // createGroup()
+                    handleSnackBar()
                 }}>
                     {"Save"}
                 </Button>
+                <SuccessSnackbar message={"Group has been saved!"} openSnack={openSnackBar} onClose={handleCloseSnackbar} />
             </DialogActions>
             </Dialog>
         </div>

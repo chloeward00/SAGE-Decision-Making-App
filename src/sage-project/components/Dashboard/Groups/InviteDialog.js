@@ -13,11 +13,13 @@ import { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import 'firebase/auth'
 import fire from 'firebase/app'
-import { useForm } from 'react-hook-form';
+import SuccessSnackbar from '../../SnackBar/SnackBar';
+import { useRouter } from 'next/router'
 
 
 const InviteDialog = ({ groupName }) => {
 
+    const router = useRouter()
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -34,8 +36,50 @@ const InviteDialog = ({ groupName }) => {
     const [groupDocRef, setGroupDocRef] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [members, setMembers] = useState('');
+    const [openSnackBar, setOpenSnackBar] = useState(false);
+    const [setter, setSetter] = useState('')
+    
     const [emailError, setEmailError] = useState('')
-  
+    const [noEmailError, setNoEmailError] = useState(false)
+    
+    const [userNotFoundError, setUserNotFoundError] = useState('')
+    const [noUser, setNoUser] = useState(false)
+
+    const handleSnackBar = () => {
+
+        if (userEmail == '') {
+            setSetter('Please enter an email address')
+            setEmailError('Please enter an email address')
+            setNoEmailError(true)
+
+        } else if (noUser == true) {
+            console.log('there is NO USER', userEmail)
+
+            setSetter('This email does not exist in the database.')            
+            setUserNotFoundError('This email does not exist in the database.')            
+            setNoEmailError(false)
+            setEmailError('')
+
+        } else if (noUser == false) {
+            console.log('there is a user', userEmail)
+            updateGroupMembers()
+            updateUserGroup()
+            setSetter('')
+            setUserNotFoundError('')            
+            setNoEmailError(false)
+            setEmailError('')
+            setOpenSnackBar(true)   
+        }
+    }
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackBar(false);
+        setOpen(false);
+    };
+    
     // this should update the group collection -> group's members update
     const updateGroupMembers = () => {
 
@@ -69,16 +113,15 @@ const InviteDialog = ({ groupName }) => {
         async function getGroupDocRef() {
 
             await fire.firestore().collection('groups').where("groupName", "==", groupName)
-            .get()
-            .then((querySnapshot) => {
+            // .get()
+            .onSnapshot((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     // console.log(doc.id, " => ", doc.data());
                     setGroupDocRef(doc.id)
                 });
-            })
-            .catch((error) => {
+            }, error => {
                 console.log("Error getting documents: ", error);
-            });
+            })  
         }
 
         getGroupDocRef();
@@ -89,103 +132,43 @@ const InviteDialog = ({ groupName }) => {
     async function getUserDocRef() {
         
         await fire.firestore().collection('users').where("userEmail", "==", userEmail)
-        .get()
-        .then((querySnapshot) => {
+        .onSnapshot((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 setMembers(doc.id)
             });
-        })
-        .catch((error) => {
+        }, error => {
             console.log("Error getting documents: ", error);
-        });
+        })  
     }
 
         getUserDocRef();
     }, [userEmail]);
 
+    const allUsers = () => {
 
-    // const checkUserExistence = () => {
-    //     fire.firestore()
-    //     .collection('users').where("userEmail", "==", userEmail)
-    //     .get()
-    //     .then((querySnapshot) => {
-    //         querySnapshot.forEach((doc) => {
-    //             setEmailError(doc.id)
-    //             console.log('added to the databse  ' + doc.id)
-    //         });
-    //     })
-    //     .catch((error) => {
-    //         console.log("Error getting documents: ", error);
-    //     });    
+        fire.firestore()
+        .collection('users')
+        .where("userEmail", "==", userEmail)
+        .onSnapshot((querySnapshot) => {
+            if(querySnapshot.docs.length == 0){
+                // no user
+                setNoUser(true)
+            } else {
+                setNoUser(false)
+            }
+        }, error => {
+            console.log("Error getting documents: ", error);
+        })
 
-    //     console.log("anunaaaa ")
-    // }
+    }
 
+    useEffect(() => {
+        allUsers()
+    }, [userEmail]);
+
+    // console.log("cheking no usre hting here",noUser)
+    
     return (
-    //     <div>
-    //         <Button variant="outlined" onClick={handleClickOpen} startIcon={<AddCircleIcon />}>
-    //             {"Add a member"}
-    //         </Button>
-    //         <Dialog
-    //             fullScreen={fullScreen}
-    //             open={open}
-    //             onClose={handleClose}
-    //             aria-labelledby="responsive-dialog-title"
-    //         >
-    //         <DialogTitle id="responsive-dialog-title">
-    //             {"Add a member"}
-    //         </DialogTitle>
-    //         <form onSubmit={handleSubmit(checkUserExistence)}>
-    //         {/* <form noValidate autoComplete='off' onSubmit={handleAddMember}> */}
-    //         <DialogContent>
-    //             <DialogContentText>
-    //                 {"Add a member to your group by adding their email address below."}
-    //             </DialogContentText>
-    //             <TextField
-    //                 autofocus
-    //                 margin="dense"
-    //                 id="email" 
-    //                 label="Email" 
-    //                 variant="standard"
-    //                 fullWidth
-    //                 required
-    //                 {...register("email", {
-    //                     required: "Please enter a valid email address",
-    //                     pattern: {
-    //                         value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-    //                         message: 'Invalid email address'
-    //                     }})}
-    //                 error={!!errors?.email}
-    //                 helperText={errors?.email ? errors.email.message : null}
-    //             />            
-    //             {/* <TextField
-    //                 autoFocus
-    //                 margin="dense"
-    //                 id="group-name"
-    //                 label="Email"
-    //                 type="email"
-    //                 fullWidth
-    //                 variant="standard"
-    //                 onChange={(e) => setUserEmail(e.target.value)}
-    //                 // className={classes.textField}
-    //             /> */}
-    //         </DialogContent>
-    //         <DialogActions>
-    //             <Button autoFocus onClick={handleClose}>
-    //                 {"Cancel"}
-    //             </Button>
-    //             {/* <Button autoFocus onClick={() => {
-    //                 updateGroupMembers()
-    //                 updateUserGroup()
-    //                 handleClose()
-    //             }}>                     */}
-    //             <Button autoFocus type='submit'>       
-    //             {"Add"}
-    //             </Button>
-    //         </DialogActions>
-    //         </form>
-    //         </Dialog>
-    // </div>
         <div>
             <Button variant="outlined" onClick={handleClickOpen} startIcon={<AddCircleIcon />}>
                 {"Add a member"}
@@ -211,6 +194,9 @@ const InviteDialog = ({ groupName }) => {
                     type="email"
                     fullWidth
                     variant="standard"
+                    required
+                    error={setter == 'This email does not exist in the database.' ? noUser : noEmailError}
+                    helperText={emailError == '' ? userNotFoundError : emailError}
                     onChange={(e) => setUserEmail(e.target.value)}
                     // className={classes.textField}
                 />
@@ -220,13 +206,14 @@ const InviteDialog = ({ groupName }) => {
                     {"Cancel"}
                 </Button>
                 <Button autoFocus onClick={() => {
-                    updateGroupMembers()
-                    updateUserGroup()
-                    handleClose()
+                    // updateGroupMembers()
+                    // updateUserGroup()
+                    handleSnackBar()
                 }}>                    
                 {/* <Button autoFocus type='submit'>        */}
                 {"Add"}
                 </Button>
+                <SuccessSnackbar message={"Member has been added to the group!"} openSnack={openSnackBar} onClose={handleCloseSnackbar}/>
             </DialogActions>
             </Dialog>
     </div>

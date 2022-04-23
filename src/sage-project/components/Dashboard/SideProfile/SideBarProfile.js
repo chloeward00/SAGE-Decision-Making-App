@@ -117,15 +117,13 @@ const SideProfile = () => {
 
             //  calling firebase like this does not lag when updated
             await fire.firestore().collection('users').doc(userID)
-            .get()
-            .then((querySnapshot) => {
+            .onSnapshot((querySnapshot) => {
                 setName(querySnapshot.data().userName)
                 setBio(querySnapshot.data().userBio)
                 // console.log("hereeee " + querySnapshot.data().userBio)
-            })  
-            .catch((error) => {
+            }, error => {
                 console.log("Error getting documents: ", error);
-            });
+            })  
         }
         fetchData()
     });
@@ -135,32 +133,34 @@ const SideProfile = () => {
 
             var docRef = await fire.firestore().collection('users').doc(userID)
             
-            docRef.get().then((doc) => {
+            docRef
+            .onSnapshot((doc) => {
                 if (doc.exists) {
                     // console.log("Document data:", doc.data().userGroups.length);
                     setNumGroups(doc.data().userGroups.length)
                 } else {
                     console.log("No such document!");
                 }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
+            }, error => {
+                console.log("Error getting documents: ", error);
+            })  
         }
 
         async function getNumberEvents() {
 
             var docRef = await fire.firestore().collection('users').doc(userID)
             
-            docRef.get().then((doc) => {
+            docRef
+            .onSnapshot((doc) => {
                 if (doc.exists) {
                     // console.log("Document data:", doc.data().userEvents.length);
                     setNumEvents(doc.data().userEvents.length)
                 } else {
                     console.log("No such document!");
                 }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
+            }, error => {
+                console.log("Error getting documents: ", error);
+            })  
 
         }
 
