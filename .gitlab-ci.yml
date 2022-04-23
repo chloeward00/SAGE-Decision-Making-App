@@ -2,7 +2,7 @@
 # add scripts on unit testing + backend testing
 
 stages:
-    - build
+    # - build
     - lint
     - integration
 
@@ -16,15 +16,15 @@ lint:
       - echo "running lint tests"
       - npm run lint
 
-build:
-    stage: build
-    before_script:
-      - echo "installing modules and dependencies..."
-      - cd src/sage-project
-      - npm ci
-    script:
-      - echo "building...."
-      - npm run build
+# build:
+#     stage: build
+#     before_script:
+#       - echo "installing modules and dependencies..."
+#       - cd src/sage-project
+#       - npm ci
+#     script:
+#       - echo "building...."
+#       - npm run build
 
 integration:
     stage: integration
