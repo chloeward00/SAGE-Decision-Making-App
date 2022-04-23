@@ -23,7 +23,7 @@ const FeatureCard = () => {
     const classes = useStyles();
     return (  
         <Container maxWidth="lg" className={classes.featureContainer}>
-            <Typography variant="h4" align="center" className={classes.featureTitle}>
+            <Typography id="sageCategoryTexts" variant="h4" align="center" className={classes.featureTitle}>
                 {"Wide range of Movies, Activities, and Restaurants to choose from"}
             </Typography>
             <Grid container spacing={8}>

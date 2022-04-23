@@ -14,7 +14,6 @@ test("viewing sign up page and filling in fields", async () => {
         const page = await browser.newPage()
     
         await page.goto(baseURL)
-        
         await page.click('#loginEmail')
         await page.type('#loginEmail', userName)
         

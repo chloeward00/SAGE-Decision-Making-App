@@ -74,7 +74,7 @@ const Header = () => {
     return (
         <Box className={classes.background}>
             <Container className={classes.container}>
-                <Typography className={classes.title}>
+                <Typography id="sageWord" className={classes.title}>
                     SAGE
                 </Typography>
                 <Typography align="center" className={classes.caption}>

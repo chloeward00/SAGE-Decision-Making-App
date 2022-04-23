@@ -175,7 +175,7 @@ const SideProfile = () => {
     const getUserFirstLetterName = name.charAt(0).toLocaleUpperCase()
 
     return (
-        <Container className={classes.root}>
+        <Container id="dashboard-sideprofile" className={classes.root}>
             <div className={classes.profileText}>
                 <Typography variant="h5">
                     {"Profile"}

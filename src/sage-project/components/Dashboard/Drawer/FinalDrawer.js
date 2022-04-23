@@ -240,7 +240,7 @@ function ResponsiveDrawer(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <div>
+        <div id="dashboard-drawer">
             {/* <CssBaseline /> */}
             <AppBar
             position="fixed"

@@ -108,7 +108,7 @@ const Calendar = () => {
 
 
     return (
-        <>
+        <div id="calendar-page">
             {/* <PageLayout>
                 <Container>
                     <FullCalendar
@@ -124,22 +124,22 @@ const Calendar = () => {
                 </Container>
             </PageLayout> */}
             <PageLayout>
-            <Container sx={{ padding: '5%'}}>
-            <StyleWrapper2>
-                    <FullCalendar
-                        innerRef={calendarRef}
-                        editable={true}
-                        nowIndicator={true}
-                        plugins={[daygridPlugin,interactionPlugin]}
-                        dateClick={handleDateClick}
-                        selectable
-                        // when adding events with firebase
-                        events={date}
-                    />
-                </StyleWrapper2>
-            </Container>
+                <Container sx={{ padding: '5%'}}>
+                <StyleWrapper2>
+                        <FullCalendar
+                            innerRef={calendarRef}
+                            editable={true}
+                            nowIndicator={true}
+                            plugins={[daygridPlugin,interactionPlugin]}
+                            dateClick={handleDateClick}
+                            selectable
+                            // when adding events with firebase
+                            events={date}
+                        />
+                    </StyleWrapper2>
+                </Container>
             </PageLayout>
-        </>
+        </div>
     );
 };
 

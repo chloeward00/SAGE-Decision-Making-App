@@ -104,7 +104,7 @@ const Banner = () => {
     });
 
     return (
-        <Container className={classes.root}>
+        <Container id="dashboard-banner" className={classes.root}>
             <div className={classes.banner}>
                 <div className={classes.welcomeText}>
                     <Typography variant="h5">

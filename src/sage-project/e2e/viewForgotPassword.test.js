@@ -4,17 +4,15 @@ const baseURL = 'http://localhost:3000/resetpassword'
 const email = 'testuser@gmail.com'
 
 test("viewing forgot password page", async () => {
-    
+     
     puppeteer.launch({
         headless: false, 
         slowMo: 120
     }).then(async browser => {
         
-        const page = await browser.newPage()
+        const page = await browser.newPage() 
     
         await page.goto(baseURL)
-
-        expect(baseURL).toBeEqual()
     
         await page.click('#email')
         await page.type('#email', email)

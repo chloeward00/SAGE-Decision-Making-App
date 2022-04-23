@@ -143,7 +143,8 @@ const SignUp = () => {
                                 helperText={errors?.password ? errors.password.message : null}
                             />
                             <Grid container item className={classes.button}>
-                                <Button 
+                                <Button
+                                    id="signUpSubmit" 
                                     type='submit'
                                     variant='contained'
                                     className={classes.buttonStyle}

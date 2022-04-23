@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer'
 
-const baseURL = 'http://localhost:3000/'
+const baseURL = 'http://localhost:3000/home'
 
 test("viewing landing page", async () => {
     
@@ -13,12 +13,10 @@ test("viewing landing page", async () => {
     
         await page.goto(baseURL)
 
-        await page.click('#goToLoginPage')
+        await page.waitForSelector('#dashboard-drawer', {visible: true})
+        await page.waitForSelector('#dashboard-banner', {visible: true})
+        await page.waitForSelector('#dashboard-sideprofile', {visible: true})
         
-        await page.$eval('#sageWord', element => element.textContent)
-        await page.$eval('#sageCategoryTexts', element => element.textContent)
-        
-        await page.$eval('#loginPage', (input) => input)
 
         await page.close();
     })
