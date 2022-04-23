@@ -4,7 +4,7 @@
 stages:
     # - build
     - lint
-    - integration
+    # - integration
 
 lint:
     stage: lint
@@ -26,12 +26,12 @@ lint:
 #       - echo "building...."
 #       - npm run build
 
-integration:
-    stage: integration
-    before_script:
-      - echo "installing modules and dependencies..."
-      - cd src/sage-project
-      - npm ci
-    script:
-      - echo "running tests"
-      - npm run test
+# integration:
+#     stage: integration
+#     before_script:
+#       - echo "installing modules and dependencies..."
+#       - cd src/sage-project
+#       - npm ci
+#     script:
+#       - echo "running tests"
+#       - npm run test
