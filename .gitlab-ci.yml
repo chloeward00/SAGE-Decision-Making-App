@@ -3,11 +3,11 @@
 
 stages:
     - build
-    - lint_tests
-    - integration_tests
+    - lint
+    - integration
 
-lint_tests:
-    stage: lint_test
+lint:
+    stage: lint
     before_script:
         - echo "installing modules and dependencies..."
         - cd src/sage-project
@@ -23,8 +23,8 @@ build:
       - cd src/sage-project
       - npm run build
 
-integration_tests:
-    stage: integration_tests
+integration:
+    stage: integration
     script:
       - echo "running tests"
       - cd src/sage-project
