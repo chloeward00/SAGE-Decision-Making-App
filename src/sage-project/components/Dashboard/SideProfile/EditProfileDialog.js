@@ -38,6 +38,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
+import SuccessSnackbar from '../../SnackBar/SnackBar';
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -108,11 +109,12 @@ const EditProfileDialog = ({ userName, userBio }) => {
 
     const [name, setName] = useState(userName);
     const [bio, setBio] = useState(userBio);
+    const [openSnackBar, setOpenSnackBar] = useState(false);
 
     let currentUserUID = fire.auth().currentUser.uid
 
     const handlePress = async () => {
-                
+        
         const db = fire.firestore();
         db.collection("users")
         .doc(currentUserUID)
@@ -120,8 +122,17 @@ const EditProfileDialog = ({ userName, userBio }) => {
             userName: name,
             userBio: bio
         })
-        router.push("/home")
+        setOpenSnackBar(true)
+        // setOpen(false);
     }
+
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackBar(false);
+        setOpen(false);
+    };
 
     const getUserInfo = async () => {
         
@@ -193,12 +204,12 @@ const EditProfileDialog = ({ userName, userBio }) => {
                     </Box>
                 </Container>
                     <DialogActions>
-                    <Button className={classes.iconColor} autoFocus onClick={() => { 
-                        handleClose()
-                        handlePress()
-                    }}>
-                    {"Submit"} 
-                    </Button>
+                        <Button className={classes.iconColor} autoFocus onClick={() => { 
+                            handlePress()
+                        }}>
+                        {"Submit"} 
+                        </Button>
+                        <SuccessSnackbar message={"Profile has been updated!"} openSnack={openSnackBar} onClose={handleCloseSnackbar}/>
                     </DialogActions>
                 
                 <Divider/>

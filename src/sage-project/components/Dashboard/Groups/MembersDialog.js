@@ -134,17 +134,15 @@ const CustomizedDialogs = ({ buttonTitle, groupName }) => {
         for(let i = 0; i < loopArray.length; i++) {
 
             await fire.firestore().collection('users').where("userUID", "==", loopArray[i])
-            .get()
-            .then((querySnapshot) => {
+            .onSnapshot((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     if(!userNames.includes(doc.data().userName)){
                         setUserNames( arr => [...arr, doc.data().userName])
                     }
                 });
-            })
-            .catch((error) => {
+            }, error => {
                 console.log("Error getting documents: ", error);
-            });
+            })  
         }
     }
 
