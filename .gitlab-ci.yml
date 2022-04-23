@@ -18,7 +18,7 @@ lint_tests:
 
 build:
     stage: build
-        before_script:
+    before_script:
         - echo "checking project directory"
         - cd src/sage-project
     script:
