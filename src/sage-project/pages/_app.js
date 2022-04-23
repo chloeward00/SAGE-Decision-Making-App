@@ -10,6 +10,7 @@ import "../styles/style.scss";
 import "../styles/component.module.css";
 import { useState, useEffect } from "react";
 import firebase from "../firebase/firebase";
+import { firebaseAnalytics } from '../firebase/firebase';
 import { Spin } from "antd";
 import "@fullcalendar/common/main.css";
 import "@fullcalendar/daygrid/main.css";
@@ -26,13 +27,27 @@ export default function MyApp(props) {
 
     useEffect(() => {
         async function fetchData() {
-          
-          await firebase.isInitialized();
-          setFirebaseInitialized(true);
-         
+            await firebase.isInitialized();
+            setFirebaseInitialized(true);
+
+            // const logEvent = (url) => {
+            //     analytics().setCurrentScreen(url);
+            //     analytics().logEvent('screen_view');
+            //   };
+        
+            //   routers.events.on('routeChangeComplete', logEvent);
+            //   //For First Page
+            //   logEvent(window.location.pathname);
+        
+            //   //Remvove Event Listener after un-mount
+            //   return () => {
+            //     routers.events.off('routeChangeComplete', logEvent);
+            //   };
+            // firebaseAnalytics.logEvent("landing page visited")
         }
+        
         fetchData();
-      }, []); // Or [] if effect doesn't need props or state
+    }, []); // Or [] if effect doesn't need props or state
     return (
     <>
         {!firebaseInitialized ? (

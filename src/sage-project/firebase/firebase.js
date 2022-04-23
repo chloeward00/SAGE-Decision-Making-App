@@ -1,6 +1,8 @@
 import fire from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/analytics';
 import createUserDocument from './functions';
+import * as firebase from 'firebase'
 
 // const config = {
 //     apiKey: "AIzaSyCwaFXi8bFlFlupg4YSy5nmiZSIrhakcdI",
@@ -149,5 +151,14 @@ class Firebase {
         }
     }
 }
+
+// export const firebaseAnalytics = () => {
+//     if (typeof window !== "undefined") {
+//         return fire.analytics()
+//     }
+// }
+
+
+// export const firebaseAnalytics = fire.analytics()
 
 export default new Firebase()

@@ -81,7 +81,7 @@ const Header = () => {
                     {caption}
                 </Typography>
                 <Box className={classes.buttonContainer}>
-                    <Button variant="contained" href="/login" className={classes.buttonStyle}>
+                    <Button id="goToLoginPage" variant="contained" href="/login" className={classes.buttonStyle}>
                         Get Started
                     </Button>
                 </Box>

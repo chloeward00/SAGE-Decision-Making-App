@@ -6,13 +6,15 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import LeftGrid from '../components/Authentication/LeftGrid';
-
-
+import { firebaseAnalytics } from '../firebase/firebase';
+import 'firebase/analytics'
 const caption = "Welcome back! To keep connected with us please login with your personal info. ";
 const login = "Log in";
 const forgotPass = "Forgot your password?";
 const dontHaveAccount = "Don't have an account yet?";
 const signUp = "Sign up";
+import { useRouter } from 'next/router';
+
 
 const useStyles = makeStyles( theme => ({
     textField: {
@@ -71,12 +73,31 @@ const useStyles = makeStyles( theme => ({
 const Login = () => {
 
     // const [errorMessage, setErrorMessage] = useState('')
+    const routers = useRouter();
 
     useEffect(() => {
         if (firebase.isLoggedIN()) {
             Router.push("/home");
         }
     }, []);
+
+    // useEffect(() => {
+    //     // firebaseAnalytics.logEvent("login page ")
+    //     const logEvent = (url) => {
+    //     firebaseAnalytics.setCurrentScreen(url);
+    //     firebaseAnalytics.logEvent('screen_view');
+    //   };
+
+    //   routers.events.on('routeChangeComplete', logEvent);
+    //   //For First Page
+    //   logEvent(window.location.pathname);
+
+    //   //Remvove Event Listener after un-mount
+    //   return () => {
+    //     routers.events.off('routeChangeComplete', logEvent);
+    //   };
+    // // firebaseAnalytics.logEvent("landing page visited")
+    // }, []);
 
     // Login
     async function doLogin(values) {
@@ -102,7 +123,7 @@ const Login = () => {
     const classes = useStyles()
 
     return ( 
-        <div>
+        <div id="loginPage">
             <Grid container style={{ backgroundColor: '#A9B5DD', minHeight: "100vh" }}>
                 <Grid item xs={12} sm={12} md={6} className={classes.leftGrid}>
                     <LeftGrid caption={caption}/>
@@ -110,13 +131,14 @@ const Login = () => {
                 <Grid item xs={12} sm={12} md={6} className={classes.rightGrid}>
                     <Paper elevation={10} className={classes.formStyle}>
                         <Grid>
-                            <Typography variant="h4" gutterBottom className={classes.login}>
+                            <Typography id="textLogIn" variant="h4" gutterBottom className={classes.login}>
                                 {login}
                             </Typography>
                         </Grid>
                         <form onSubmit={handleSubmit(doLogin)}>
                             <TextField
-                                id="email" 
+                                id="loginEmail"
+                                // data-testid="loginEmail"
                                 label="Email" 
                                 variant="outlined"
                                 fullWidth
@@ -151,7 +173,8 @@ const Login = () => {
                                 </Link>
                             </Typography>
                             <Grid container item className={classes.button}>
-                                <Button 
+                                <Button
+                                    id="loginSubmit" 
                                     type="submit" 
                                     variant="contained" 
                                     className={classes.buttonStyle}

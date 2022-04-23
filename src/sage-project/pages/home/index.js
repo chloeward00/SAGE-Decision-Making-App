@@ -5,7 +5,7 @@ import DashboardLayout from "../../components/Layout/DashboardLayout"
 const HomeDashboard = () => {
 
     return (
-        <div>
+        <div id="dashboard-container">
             <DashboardLayout>
                 <Events/>
             </DashboardLayout>

@@ -131,6 +131,7 @@ const ResetPassword = () => {
                             />
                             <Grid container item className={classes.button}>
                                 <Button
+                                    id="forgotSubmit"
                                     type='submit' 
                                     variant='contained' 
                                     className={classes.buttonStyle}
